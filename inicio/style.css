@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Cinzel Decorative', serif;
+  background: #000;
+  color: #fff;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Camada de escurecimento */
+#fundo-imagem::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: -1;
+}
+
+/* Tela inicial centralizada */
+#tela-inicial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  padding: 20px;
+  z-index: 1;
+  position: relative;
+}
+
+#logo-vampiros {
+  max-width: 400px;
+  width: 80%;
+  margin-bottom: 40px;
+  filter: drop-shadow(0 0 10px crimson);
+}
+
+/* Botão iniciar jogo */
+.botao-inicio {
+  font-size: 20px;
+  padding: 15px 40px;
+  background-color: crimson;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+}
+
+.botao-inicio:hover {
+  background-color: darkred;
+  transform: scale(1.05);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  #logo-vampiros {
+    max-width: 300px;
+    margin-bottom: 30px;
+  }
+
+  .botao-inicio {
+    font-size: 18px;
+    padding: 12px 30px;
+  }
+}
+
+/* Animação de fade-in suave */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Animação no fundo */
+  #fundo-imagem::after {
+    animation: fadeIn 2s ease-in-out forwards;
+  }
+  
+  /* Tela inicial (container) */
+  #tela-inicial {
+    animation: fadeIn 1.5s ease-in-out forwards;
+  }
+  
+  /* Logo do jogo */
+  #logo-vampiros {
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out 0.5s forwards;
+  }
+  
+  /* Botão com delay */
+  .botao-inicio {
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out 1s forwards;
+  }
+  
