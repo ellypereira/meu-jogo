@@ -1,0 +1,71 @@
+body {
+  color: #fff;
+  background: url("entrada da mansão.8bc690dc.jpg") center / cover no-repeat fixed;
+  margin: 0;
+  padding: 0;
+  font-family: Georgia, serif;
+}
+
+.overlay {
+  background-color: #00000080;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.caixa-dialogo {
+  background-color: #141414d9;
+  border-top: 2px solid #dc143c;
+  width: 100%;
+  padding: 30px;
+  font-size: 1.2em;
+  position: absolute;
+  bottom: 0;
+  box-shadow: 0 -2px 10px #000000b3;
+}
+
+.personagem-nome {
+  color: #dc143c;
+  text-shadow: 1px 1px 2px #000;
+  margin-bottom: 10px;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.opcoes {
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  display: flex;
+}
+
+.botao-opcao {
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+  background-color: #111;
+  border: 1px solid #dc143c;
+  border-radius: 5px;
+  padding: 12px 24px;
+  font-size: 1em;
+  transition: background-color .3s, transform .2s;
+}
+
+.botao-opcao:hover {
+  background-color: #dc143c;
+  transform: scale(1.02);
+}
+
+.pensamento {
+  color: #ccc;
+  background-color: #ffffff0d;
+  border-left: 3px solid #dc143c;
+  border-radius: 4px;
+  margin-top: 10px;
+  padding: 8px;
+  font-size: .95em;
+  font-style: italic;
+}
+/*# sourceMappingURL=jogo.3a01df49.css.map */
