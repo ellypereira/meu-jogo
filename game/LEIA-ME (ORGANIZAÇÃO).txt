@@ -1,0 +1,17 @@
+Meu-Jogo/
+├── index.html                ← Tela inicial/menu
+├── style.css                 ← Estilo geral
+├── script.js                 ← JS geral (opcional)
+├── assets/                   ← Imagens, áudios, ícones, etc.
+│   ├── img/
+│   │   ├── capa.png
+│   │   └── personagens/
+│   └── audio/
+│       └── bgm.mp3
+├── game/                     ← Tudo relacionado ao jogo em si
+│   ├── inicio/               ← Introdução / início do jogo
+│   │   └── index.html
+│   ├── episodio1.html
+│   ├── episodio2.html
+│   └── ...
+└── favicon.ico
