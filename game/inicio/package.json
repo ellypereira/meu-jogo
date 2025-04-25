@@ -1,0 +1,12 @@
+{
+  "name": "blood-and-silence",
+  "version": "1.0.0",
+  "description": "Visual novel de mistério e fantasia",
+  "scripts": {
+    "start": "parcel jogo.html",
+    "build": "parcel build jogo.html"
+  },
+  "devDependencies": {
+    "parcel": "^2.14.4"
+  }
+}

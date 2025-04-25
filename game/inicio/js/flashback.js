@@ -4,9 +4,9 @@ export function iniciarFlashbackVisual() {
 
     // Lista de imagens borradas (coloque seus arquivos aqui)
     const imagens = [
-        "assets/img/flash1.png",
-        "assets/img/flash2.png",
-        "assets/img/flash3.png"
+        "/assets/img/flash1.png",
+        "/assets/img/flash2.png",
+        "/assets/img/flash3.png"
     ];
 
     let index = 0;
