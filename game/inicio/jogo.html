@@ -21,19 +21,25 @@
     <div class="overlay"></div>
 
     <div id="personagem" style="position:absolute; bottom:100px; left:50%; transform:translateX(-50%); display:none;">
-        <img src="sprite-damien.png" alt="Personagem Damien" style="height: 400px; opacity: 0.9;">
+        <img src="/assets/sprites/Adrian(1).png" alt="Personagem Adrian" style="height: 400px; opacity: 0.9;">
     </div>
-    
+
+
 
     <div class="caixa-dialogo" id="dialogo">
         <div class="personagem-nome" id="nome">???</div>
         <div class="texto" id="texto">Você sente uma presença observando você na escuridão...</div>
-
+    
+        <div class="pensamento" id="pensamento" style="display: none;">
+            <em id="texto-pensamento">...</em>
+        </div>
+    
         <div class="opcoes" id="opcoes">
             <button class="botao-opcao" onclick="escolha(1)">Permanecer imóvel</button>
             <button class="botao-opcao" onclick="escolha(2)">Chamar por alguém</button>
             <button class="botao-opcao" onclick="escolha(3)">Correr para longe</button>
         </div>
     </div>
+    
 </body>
 </html>
