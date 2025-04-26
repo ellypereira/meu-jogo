@@ -10,29 +10,24 @@
 
 <body>
 
-    <!-- Música sombria -->
-    <audio id="bg-music" loop>
-        <source src="assets/audio/bgm.mp3.mp3"audio/mp3">
-        Seu navegador não suporta áudio HTML5.
-     </audio>
-     
+    <!-- Personagem Adrian -->
+    <img id="personagem" src="assets/sprites/Adrian(1).png" alt="Adrian" style="display: none; position: absolute; bottom: 100px; left: 50%; transform: translateX(-50%); height: 400px; opacity: 0.9;">
+
+    <!-- Áudio do Flashback -->
+    <audio id="audio-flashback" src="assets/audio/flashback.mp3"></audio>
+
+    <!-- Overlay (opcional, estilize via CSS) -->
     <div class="overlay"></div>
 
-    <div id="personagem" style="position:absolute; bottom:100px; left:50%; transform:translateX(-50%); display:none;">
-        <img src="assets/img/flash1.png" alt="Personagem Adrian" style="height: 400px; opacity: 0.9;">
-    </div>
-
-
-
-
+    <!-- Caixa de Diálogo -->
     <div class="caixa-dialogo" id="dialogo">
         <div class="personagem-nome" id="nome">???</div>
         <div class="texto" id="texto">Você sente uma presença observando você na escuridão...</div>
-    
+        
         <div class="pensamento" id="pensamento" style="display: none;">
             <em id="texto-pensamento">...</em>
         </div>
-    
+        
         <div class="opcoes" id="opcoes">
             <button class="botao-opcao" onclick="escolha(1)">Permanecer imóvel</button>
             <button class="botao-opcao" onclick="escolha(2)">Chamar por alguém</button>
@@ -40,24 +35,23 @@
         </div>
     </div>
 
+    <!-- Indicador de Afinidade -->
     <div id="afinidade" style="display: none; position: fixed; top: 10px; right: 10px; background-color: rgba(0,0,0,0.6); color: white; padding: 10px; border-radius: 5px; font-family: serif;">
         Afinidade com Adrian: <span id="pontosAdrian">0</span>
     </div>
 
-    
-    <!-- FLASHBACK VISUAL -->
-<div id="flashback-visual" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: black; z-index: 9999;">
-    <img id="imagem-flashback" src="assets/img/flash1.png" alt="Memória ancestral" style="width: 100%; height: 100%; object-fit: cover; filter: blur(3px) brightness(0.7); transition: opacity 1s ease-in-out;">
-</div>
-    
-<!-- Scripts -->
-<script src="js/afinidade.js"></script>
-<script src="js/cenas.js"></script>
-<script src="js/escolhas.js"></script>
-<script src="js/flashback.js"></script>
-<script src="js/main.js"></script>
-<script src="js/script.js"></script>
-<script src="js/toque.js"></script>
+    <!-- Flashback Visual -->
+    <div id="flashback-visual" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: black; z-index: 9999;">
+        <img id="imagem-flashback" src="assets/img/flash1.png" alt="Memória ancestral" style="width: 100%; height: 100%; object-fit: cover; filter: blur(3px) brightness(0.7); transition: opacity 1s ease-in-out;">
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/afinidade.js"></script>
+    <script src="js/cenas.js"></script>
+    <script src="js/flashback.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/toque.js"></script>
 
 </body>
 </html>

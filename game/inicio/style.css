@@ -72,3 +72,31 @@ body {
     border-left: 3px solid crimson;
     border-radius: 4px;
 }
+
+
+/* Flashback visual */
+#flashback-visual {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle, rgba(0,0,0,0.9), black);
+    z-index: 9999;
+    animation: fadeInFlashback 1s ease-in-out forwards;
+}
+
+#flashback-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(3px) brightness(0.7);
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+@keyframes fadeInFlashback {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
