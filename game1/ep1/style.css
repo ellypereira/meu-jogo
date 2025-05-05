@@ -1,0 +1,128 @@
+:root {
+    --bg-color: black;
+    --text-color: white;
+    --font-family: 'Georgia', serif;
+    --thought-font-family: 'Fraunces', serif; /* Fonte para pensamentos (se usar) */
+    --thought-color: #ccc;
+    --thought-style: italic;
+    --game-bg: rgba(0, 0, 0, 0.75);
+    --border-radius: 15px;
+    --box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    --button-bg: #333;
+    --button-hover-bg: #555;
+    --button-text-color: white;
+    --choice-button-bg: #555; /* Cor diferente para botões de escolha */
+    --choice-button-hover-bg: #777;
+    --sprite-max-height: 300px;
+    --sprite-border-radius: 10px;
+    --transition-duration: 0.5s;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    padding: 20px;
+    background-image: url('https://cdn.pixabay.com/photo/2020/02/14/17/54/castle-4849023_1280.jpg'); /* Imagem de fundo */
+    background-size: cover;
+    background-position: center;
+    transition: background var(--transition-duration) ease;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Adiciona um overlay para a imagem de fundo, tornando o texto mais legível */
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Overlay preto semi-transparente */
+    z-index: -1; /* Garante que o overlay fique atrás do conteúdo do jogo */
+}
+
+
+#game {
+    max-width: 800px;
+    width: 95%;
+    margin: auto;
+    background: var(--game-bg);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    position: relative; /* Necessário para o z-index */
+    z-index: 1; /* Garante que o conteúdo do jogo fique acima do overlay */
+}
+
+#sprite {
+    display: block;
+    margin: 20px auto;
+    max-height: var(--sprite-max-height);
+    border-radius: var(--sprite-border-radius);
+    opacity: 0;
+    transition: opacity var(--transition-duration) ease;
+    max-width: 100%;
+    height: auto;
+}
+
+#text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    text-align: left;
+    margin-bottom: 20px; /* Espaço abaixo do texto */
+}
+
+.thought {
+    font-family: var(--thought-font-family);
+    color: var(--thought-color);
+    font-style: var(--thought-style);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#continue-btn, .choice-btn {
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    border: none;
+    padding: 10px 20px;
+    margin: 10px; /* Margem entre botões */
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 10px;
+    transition: background-color var(--transition-duration) ease;
+    display: inline-block; /* Permite que os botões fiquem lado a lado se houver espaço */
+}
+
+#continue-btn:hover, .choice-btn:hover {
+    background-color: var(--button-hover-bg);
+}
+
+.choice-btn {
+    background-color: var(--choice-button-bg); /* Estilo diferente para botões de escolha */
+}
+
+.choice-btn:hover {
+     background-color: var(--choice-button-hover-bg);
+}
+
+
+#choices-container {
+    margin-top: 20px;
+}
+
+.flash {
+    animation: flashEffect 0.5s linear 3;
+}
+
+@keyframes flashEffect {
+    0% { background-color: white; }
+    50% { background-color: black; }
+    100% { background-color: white; }
+}
