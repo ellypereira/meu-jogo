@@ -124,12 +124,13 @@ function triggerFlashEffect(lineText) {
     flashSound.play().catch(e => console.error("Erro ao reproduzir som:", e));
 
     hideSprite(); // Esconde o sprite durante o flash
+    continueBtn.style.display = 'none'; // Esconde o botão continuar durante o flash
 
     // Remove a classe flash após a animação e continua o script
     setTimeout(() => {
         document.body.classList.remove('flash');
         gameState.currentIndex++; // Incrementa o índice após o flash
-        displayNextLine(); // Continua para a próxima linha do script original
+        continueBtn.style.display = 'inline-block';
     }, 1500); // Duração da animação (0.5s * 3)
 }
 
