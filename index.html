@@ -15,6 +15,10 @@
         <source src="bgm.mp3.mp3" type="audio/mpeg">
         Seu navegador não suporta áudio HTML5.
      </audio>
+      <!-- Botão de som -->
+    <button id="sound-toggle">
+        <img id="sound-icon" src="sound-on.png" alt="Som Ligado">
+    </button>
 
     <div id="tela-inicial">
         <div id="fundo-imagem"></div>
@@ -23,34 +27,60 @@
     </div>
 
     <script>
-    window.addEventListener("load", () => {
         const audio = document.getElementById("bg-music");
-        audio.volume = 0; // começa mudo
-
-        const fadeInDuration = 5000; // 5 segundos
-        const stepTime = 200;        // a cada 200ms
-        const maxVolume = 0.5;       // volume alvo
-
-        let currentVolume = 0;
-        let volumeStep = (maxVolume / (fadeInDuration / stepTime));
-
-        audio.play().then(() => {
-            let fadeAudio = setInterval(() => {
-                if (currentVolume < maxVolume) {
-                    currentVolume = Math.min(currentVolume + volumeStep, maxVolume);
-                    audio.volume = currentVolume;
-                } else {
-                    clearInterval(fadeAudio);
-                }
-            }, stepTime);
-        }).catch(err => {
-            console.warn("Autoplay bloqueado, pode exigir interação do usuário:", err);
-        });
-    });
-
-        function iniciarJogo() {
-            window.location.href = "game1/index.html"; // Redireciona para o jogo
-        }
-    </script>
+         const soundBtn = document.getElementById("sound-toggle");
+         const soundIcon = document.getElementById("sound-icon");
+     
+         // Começa mudo e faz fade in
+         window.addEventListener("load", () => {
+             audio.volume = 0;
+             const fadeInDuration = 5000;
+             const stepTime = 200;
+             const maxVolume = 0.5;
+             let currentVolume = 0;
+             const volumeStep = maxVolume / (fadeInDuration / stepTime);
+     
+             // Tenta dar play, mas lida com possíveis bloqueios de autoplay
+             audio.play().then(() => {
+                 let fadeAudio = setInterval(() => {
+                     if (currentVolume < maxVolume) {
+                         currentVolume = Math.min(currentVolume + volumeStep, maxVolume);
+                         audio.volume = currentVolume;
+                     } else {
+                         clearInterval(fadeAudio);
+                     }
+                 }, stepTime);
+             }).catch(err => {
+                 console.warn("Autoplay bloqueado:", err);
+                 // Se o autoplay for bloqueado, você pode querer mostrar um botão de play
+                 // ou instruir o usuário a interagir com a página.
+                 // Por enquanto, apenas registra o aviso.
+             });
+         });
+     
+         // Lógica do botão de som
+         // Começamos com a música tocando, então o estado inicial é "ligado"
+         let isPlaying = true; // Alterado para refletir se a música está tocando
+     
+         soundBtn.addEventListener("click", () => {
+             if (isPlaying) {
+                 // Se a música está tocando, pausamos e mudamos para o ícone de mudo
+                 audio.pause();
+                 soundIcon.src = "sound-off.png"; // Certifique-se de ter esta imagem
+                 soundIcon.alt = "Som Desligado";
+             } else {
+                 // Se a música está pausada, tocamos e mudamos para o ícone de som
+                 audio.play();
+                 soundIcon.src = "sound-on.png"; 
+                 soundIcon.alt = "Som Ligado";
+             }
+             // Inverte o estado de reprodução
+             isPlaying = !isPlaying;
+         });
+     
+         function iniciarJogo() {
+             window.location.href = "game1/index.html";
+         }
+     </script>
 </body>
 </html>
