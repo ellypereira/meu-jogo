@@ -27,6 +27,11 @@ function mostrarMensagemNome() {
         const nome = inputNome.value || "Jogador";  // Usa "Jogador" se nada for inserido
         document.getElementById("nome").innerText = nome;
 
+        //ADICIONEI ISSO PARA SALVAR O NOME
+        localStorage.setItem('playerName', nome);
+        console.log(`Nome do joagdor "${nome}" salvo no localStorage.`);
+
+        
         // Remove os elementos da tela
         dialogo.removeChild(nomeMensagem);
         dialogo.removeChild(inputNome);
