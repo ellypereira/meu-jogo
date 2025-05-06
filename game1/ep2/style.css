@@ -21,9 +21,9 @@
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-family: var(--font-family);
+    font-family: 'Fraunces', serif, 'Franklin Gothic Medium';
     padding: 20px;
-    background-image: url('https://cdn.pixabay.com/photo/2020/02/14/17/54/castle-4849023_1280.jpg'); /* Imagem de fundo */
+    background-image: url('porao.jpg'); /* Imagem de fundo */
     background-size: cover;
     background-position: center;
     transition: background var(--transition-duration) ease;

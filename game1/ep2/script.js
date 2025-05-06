@@ -12,7 +12,7 @@ const gameState = {
     currentIndex: 0,
     // Alterado o formato do script para [texto, imagem/marcador]
     script: [
-        ["Tela preta..."],
+        ["Escuridão..."],
         ["Goteiras ecoam. Um som ritmado... batimentos? Ou passos?"],
         ["Você respira fundo. Há cheiro de ferro e mofo no ar."],
         ["FLASH: uma rosa negra. Sangue. Um beijo interrompido por gritos."],
@@ -174,7 +174,7 @@ function handleChoice(affinity) {
     setTimeout(() => {
         textElement.innerText += "\n\nA cela estremece. Um sino soa ao longe. Algo está vindo.";
         setTimeout(() => {
-            textElement.innerText += `\n\nFim do Episódio 1 – Afinidade escolhida: ${affinity}`;
+            textElement.innerText += `\n\nFim do Episódio 2 – Afinidade escolhida: ${affinity}`;
             // Adicionar lógica para ir para o próximo episódio
             // window.location.href = 'episodio2.html';
         }, 3000); // Atraso antes da mensagem final

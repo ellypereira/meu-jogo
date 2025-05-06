@@ -103,12 +103,12 @@ function mostrarMensagemNome() {
             ]
         }, 
 
-        //ADICIONANDO O BOTÃO PARA FINAL (JOGANDO PARA O EP 1)
+        //ADICIONANDO O BOTÃO PARA FINAL (JOGANDO PARA O EP 2)
 
         {
             texto: "Sua mente vaga no vazio... Até que uma nova realidade começa a se formar diante de vocÊ.",
             opcoes: [
-                {texto: "Iniciar Episódio 1", proximo: "ep1"}
+                {texto: "Iniciar Episódio 2", proximo: "ep2"}
             ]
         }
 
@@ -131,9 +131,9 @@ function mostrarMensagemNome() {
             botao.innerText = opcao.texto;
             botao.onclick = () => {
                 // Verifica se a opção tem um 'proximo' que é uma string (neste caso, "ep1")
-                if (typeof opcao.proximo === 'string' && opcao.proximo === 'ep1') {
+                if (typeof opcao.proximo === 'string' && opcao.proximo === 'ep2') {
                     // Redireciona para a nova página
-                    window.location.href = "http://127.0.0.1:5500/game1/ep1/ep1.html"; // Substitua "sua_nova_pagina.html" pelo nome do arquivo da sua nova página
+                    window.location.href = "http://127.0.0.1:5500/game1/ep2/ep2.html"; // Substitua "sua_nova_pagina.html" pelo nome do arquivo da sua nova página
                 } else {
                     dialogoAtual = opcao.proximo; // Atualiza para o próximo diálogo
                     // Chama escurecer tela para o diálogo de tocar a maçaneta
