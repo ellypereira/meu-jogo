@@ -7,6 +7,8 @@ body {
     background-size: cover;
     font-family: Georgia, serif;
     color: #fff;
+    overflow-x: hidden;  /* Adicionado para garantir que o body não tenha scrollbars indesejadas
+    se o conteúdo for menor que a tela */
 }
 
 .caixa-dialogo {
@@ -14,12 +16,18 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;  /* Garante que ocupe toda a largura */
+    /* Adicionado box-sizing para incluir padding e border na largura total */
+    box-sizing: border-box;
     padding: 30px;
     background-color: rgba(20, 20, 20, 0.85);
     font-size: 1.2em;
     border-top: 2px solid crimson;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.7);
     z-index: 100; /* Garante que fique acima de outros elementos */
+     /* Adicionado max-height e overflow-y para evitar que a caixa de diálogo fique muito grande
+       em telas menores e permitir scroll se necessário */
+    max-height: 50vh; /* Limita a altura máxima a 50% da altura da viewport */
+    overflow-y: auto; /* Adiciona scroll vertical se o conteúdo exceder a max-height */
 }
 
 .opcoes {
@@ -27,6 +35,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
 }
 
 .botao-opcao {
@@ -39,9 +48,11 @@ body {
     transition: background-color 0.3s, transform 0.2s;
     font-size: 1em;
     text-align: left;
+    width: 100%;
+    box-sizing: border-box;
 }
 /*AO CLICAR O BOTÃO FAZ UMA ANIMAÇÃO, FICANDO NA COR CRIMSON*/
-/* AO CLICAR O BOTÃO FAZ UMA ANIMAÇÃO, FICANDO NA COR CRIMSON */
+
 .botao-opcao:hover, .botao-opcao:focus {
     background-color: crimson;
     transform: scale(1.02);
@@ -58,34 +69,93 @@ body {
     padding: 8px;
     border-left: 3px solid crimson;
     border-radius: 4px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 
 #nome-mensagem {
     font-size: 1.5em;
     color: #fff; /* Cor do texto pode ser ajustada */
+    /* Adicionado para garantir que o nome não transborde */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 input {
     padding: 10px;
     margin-top: 10px;
     font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 button {
     margin-top: 1px;
     padding: 4px;
     font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
 }
 
+/* Media Query para telas menores */
 @media (max-width: 600px) {
     .caixa-dialogo {
-        padding: 15px;  /* Menos padding em telas menores */
-        font-size: 1em; /* Tamanho da fonte reduzido */
+        padding: 15px;
+        font-size: 1em;
+        /* Ajuste da altura máxima para telas menores, se necessário */
+        max-height: 60vh; /* Pode aumentar um pouco a altura máxima em telas menores */
     }
 
     .botao-opcao {
-        padding: 4px 12px; /* Ajustando o padding dos botões */
-        font-size: 0.9em; /* Tamanho da fonte reduzido */
+        padding: 4px 12px;
+        font-size: 0.9em;
+    }
+
+    /* Ajustes para outros elementos em telas menores, se necessário */
+    #nome-mensagem {
+        font-size: 1.2em; /* Reduz o tamanho da fonte do nome */
+    }
+
+    .pensamento {
+        font-size: 0.85em; /* Reduz o tamanho da fonte do pensamento */
+    }
+
+    input {
+        padding: 8px; /* Reduz o padding do input */
+    }
+
+    button {
+        padding: 3px; /* Reduz o padding do botão */
+    }
+}
+
+/* Media Query para telas muito pequenas (ex: smartphones em portrait) */
+@media (max-width: 400px) {
+    .caixa-dialogo {
+        padding: 10px;
+        font-size: 0.9em;
+        max-height: 70vh; /* Pode aumentar ainda mais a altura máxima */
+    }
+
+    .botao-opcao {
+        padding: 3px 8px;
+        font-size: 0.8em;
+    }
+
+    #nome-mensagem {
+        font-size: 1em;
+    }
+
+    .pensamento {
+        font-size: 0.75em;
+    }
+
+    input {
+        padding: 6px;
+    }
+
+    button {
+        padding: 2px;
     }
 }
