@@ -311,7 +311,7 @@ function displayEndChapterButton() {
 function goToNextChapter() {
     console.log("Botão 'Fim do Ep 2' clicado. Redirecionando...");
     // Substitua 'URL_DO_PROXIMO_SITE' pela URL real
-    window.location.href = 'URL_DO_PROXIMO_SITE';
+    window.location.href = 'http://127.0.0.1:5500/game1/ep3/ep3.html';
 }
 
 // --- Inicialização ---
