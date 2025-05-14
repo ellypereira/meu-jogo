@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood And Silence</title>
+    <style>
+        /*fundo vampiro*/
+        body{
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: black;
+            background-size: cover;
+            background-position: center;
+            font-family: 'Franklin Gothic Medium', sans-serif;}
+
+            /* Container para a imagem */
+        #game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+         /* Imagem central */
+        #game-image {
+            width: 500px; /* tamanho da imagem, ajuste conforme necessário */
+            height: auto;
+            border: 2px solid #370d0d;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(60, 53, 53, 0.5);}
+
+            
+        /* Botões */
+        button {
+            padding: 12px 24px;
+            margin: 10px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #8b0000; /* tom vampiresco */
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+         button:hover {
+            background-color: #a00000;
+        }
+
+        /* Botão de mute */
+        #mute-button {
+            background-color: transparent;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Contêiner da img-->
+     <div id="game-container">
+        <img id="game-image" src="assets/capa.png" alt="capa vampiresca">
+     </div>
+
+    <!-- Botão para iniciar o game-->
+     <button id="start-button">Iniciar Jogo</button>
+
+    <!-- Botão para mutar/desmutar -->
+     <button id="mute-button">🔊</button>
+
+     <!--Música do fundo-->
+     <audio id="background-music" src="assets/bgm.mp3.mp3" loop autoplay></audio>
+
+     <script>
+        const startButton = document.getElementById('start-button');
+        const muteButton = document.getElementById('mute-button');
+        const backgroundMusic = document.getElementById('background-music');
+
+          // Redireciona ao clicar em "Iniciar Jogo"
+        startButton.addEventListener('click', () => {
+            // Substitua 'jogo.html' pela sua página de jogo
+            window.location.href = 'ep1.html';
+        });
+
+        // Controla o mute/desmute
+        let isMuted = false;
+
+        muteButton.addEventListener('click', () => {
+            isMuted = !isMuted;
+            backgroundMusic.muted = isMuted;
+            // Alterna o ícone do botão
+            muteButton.textContent = isMuted ? '🔇' : '🔊';
+        });
+
+        // Opcional: pausa ou retoma a música com o clique na própria música
+        // backgroundMusic.addEventListener('click', () => {
+        //     if (backgroundMusic.paused) {
+        //         backgroundMusic.play();
+        //     } else {
+        //         backgroundMusic.pause();
+        //     }
+        // });
+     </script>
+
+</body>
+</html>
