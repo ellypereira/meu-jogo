@@ -2,12 +2,19 @@ const storyText = document.getElementById('story-text');
 const textBox = document.getElementById('text-box');
 const choices = document.getElementById('choices');
 const fadeScreen = document.getElementById('fade-screen');
+const bgMusic = document.getElementById('bg-music');
 
 let stage = 0;
+let musicStarted = false;
 
 textBox.addEventListener('click', nextScene);
 
 function nextScene() {
+     if (!musicStarted) {
+        bgMusic.play();
+        musicStarted = true;
+    }
+
     switch (stage) {
         case 0:
             storyText.textContent = "Você acorda no meio de uma floresta escura... Não lembra de nada.";
@@ -54,4 +61,14 @@ function nextScene() {
 
 function triggerFadeOut() {
     fadeScreen.style.opacity = 1;
+
+     // Após o fade, mostra o botão
+    setTimeout(() => {
+        const nextBtn = document.getElementById('next-episode-btn');
+        nextBtn.style.display = 'block';
+
+        nextBtn.addEventListener('click', () => {
+            window.location.href = 'ep2.html';
+        });
+    }, 2500); // espera 2.5 segundos para aparecer
 }

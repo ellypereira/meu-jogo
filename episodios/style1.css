@@ -1,7 +1,8 @@
 body {
     margin: 0;
     font-family: 'Georgia', serif;
-    background: linear-gradient(#1c1c1c, #000);
+    background: url(/assets/floresta.jpg);
+    background-size: cover;
     color: white;
     display: flex;
     justify-content: center;
@@ -64,4 +65,25 @@ body {
     transition: opacity 2s;
     pointer-events: none;
     z-index: 10;
+}
+
+#next-episode-btn {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: darkred;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    z-index: 20;
+    transition: background 0.3s;
+}
+
+#next-episode-btn:hover {
+    background: crimson;
 }
