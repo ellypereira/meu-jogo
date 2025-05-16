@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Georgia', serif;
-    background: url(/floresta.jpg);
+    background: url(/episodios/floresta.jpg);
     background-size: cover;
     color: white;
     display: flex;
