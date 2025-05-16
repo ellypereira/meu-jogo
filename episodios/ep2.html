@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Episódio 2</title>
-    <style>
-        body{
-            background-color: pink;}
-    </style>
+    <link rel="stylesheet" href="style2.css">
+    <link rel="shortcut icon" href="/assets/favicongame.png" type="image/x-icon">
 </head>
 <body>
-   <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-       <h1>O ep 2 está em produção...</h1>
-       <img src="/f6719fd6-tenor.gif" alt="GIF" />
-   </div>
+    <div id="game-container">
+        <div id="character"></div>
+        <div id="text-box">
+            <p id="story-text">...</p>
+        </div>
+        <div id="choices"></div>
+    </div>
+
+     <audio id="bg-music" autoplay loop>
+        <source src="/assets/gothic.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+    </audio>
+
+<script src="script2.js"></script>
 </body>
 </html>

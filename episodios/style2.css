@@ -1,0 +1,92 @@
+body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background: url(/assets/quarto.png);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#game-container {
+    width: 800px;
+    height: 600px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 3px solid crimson;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+#character {
+    height: 300px;
+    background: url('/assets/elias-lucien.jpg') no-repeat center;
+    background-size: contain;
+}
+
+#text-box {
+    background: rgba(30, 0, 0, 0.7);
+    padding: 15px;
+    margin-top: 10px;
+    border: 1px solid #990000;
+    min-height: 100px;
+    cursor: pointer;
+}
+
+#choices {
+    margin-top: 15px;
+}
+
+.choice-button {
+    display: block;
+    background: crimson;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 5px 0;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.choice-button:hover {
+    background: darkred;
+}
+
+#fade-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0;
+    transition: opacity 2s;
+    pointer-events: none;
+    z-index: 10;
+}
+
+#next-episode-btn {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: darkred;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    z-index: 20;
+    transition: background 0.3s;
+}
+
+#next-episode-btn:hover {
+    background: crimson;
+}
