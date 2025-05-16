@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Georgia', serif;
-    background: url(./assets/floresta.jpg);
+    background: url(/floresta.png);
     background-size: cover;
     color: white;
     display: flex;
@@ -22,7 +22,7 @@ body {
 
 #character {
     height: 300px;
-    background: url('assets/...') no-repeat center;
+    background: url('assets/...') no-repeat center; /*BOTA UMA IMG DPS AQUI (N ESQUERRR)*/
     background-size: contain;
 }
 
