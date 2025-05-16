@@ -30,7 +30,7 @@
 
          /* Imagem central */
         #game-image {
-            width: 500px; /* tamanho da imagem, ajuste conforme necessário */
+            width: 500px; /* tamanho da imagem */
             height: auto;
             border: 2px solid #370d0d;
             border-radius: 10px;
@@ -76,16 +76,14 @@
      <button id="mute-button">🔊</button>
 
      <!--Música do fundo-->
-     <audio id="background-music" src="assets/bgm.mp3.mp3" loop autoplay></audio>
+     <audio id="background-music" src="bgm.mp3.mp3" loop autoplay></audio>
 
      <script>
         const startButton = document.getElementById('start-button');
         const muteButton = document.getElementById('mute-button');
         const backgroundMusic = document.getElementById('background-music');
 
-          // Redireciona ao clicar em "Iniciar Jogo"
         startButton.addEventListener('click', () => {
-            // Substitua 'jogo.html' pela sua página de jogo
             window.location.href = 'episodios/ep1.html';
         });
 
@@ -95,18 +93,8 @@
         muteButton.addEventListener('click', () => {
             isMuted = !isMuted;
             backgroundMusic.muted = isMuted;
-            // Alterna o ícone do botão
             muteButton.textContent = isMuted ? '🔇' : '🔊';
         });
-
-        // Opcional: pausa ou retoma a música com o clique na própria música
-        // backgroundMusic.addEventListener('click', () => {
-        //     if (backgroundMusic.paused) {
-        //         backgroundMusic.play();
-        //     } else {
-        //         backgroundMusic.pause();
-        //     }
-        // });
      </script>
 
 </body>
