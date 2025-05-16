@@ -1,81 +1,57 @@
- // Elementos principais
-  const btnIniciar = document.getElementById('btn-iniciar');
-  const telaInicial = document.getElementById('tela-inicial');
+const storyText = document.getElementById('story-text');
+const textBox = document.getElementById('text-box');
+const choices = document.getElementById('choices');
+const fadeScreen = document.getElementById('fade-screen');
 
-  const telaNome = document.getElementById('tela-nome');
-  const btnConfirmarNome = document.getElementById('btn-confirmar-nome');
-  const nomeInput = document.getElementById('nome-input');
+let stage = 0;
 
-  const episodio = document.getElementById('episodio');
-  const fraseGrande = document.getElementById('frase-grande');
-  const dialogoDiv = document.getElementById('dialogo');
-  const autorDiv = document.getElementById('autor');
-  const botaoContinuar = document.getElementById('botao-continuar');
-  const opcoesDiv = document.getElementById('opcoes');
+textBox.addEventListener('click', nextScene);
 
-  let nomeJogador = '';
-  let dialogoIndex = 0;
-  let dialogos = [];
-
-  // Quando clicar em Iniciar
-  btnIniciar.onclick = () => {
-    telaInicial.style.display = 'none';
-    telaNome.style.display = 'flex';
-  };
-
-  // Confirmar nome
-  document.getElementById('btn-confirmar-nome').onclick = () => {
-    const nome = nomeInput.value.trim();
-    if (nome !== '') {
-      nomeJogador = nome;
-      telaNome.style.display = 'none';
-      iniciarEpisodio();
-    } else {
-      alert('Por favor, insira seu nome.');
+function nextScene() {
+    switch (stage) {
+        case 0:
+            storyText.textContent = "Você acorda no meio de uma floresta escura... Não lembra de nada.";
+            stage++;
+            break;
+        case 1:
+            storyText.textContent = "O som de corvos ecoa. Você está tremendo, perdida, sem saber seu próprio nome.";
+            stage++;
+            break;
+        case 2:
+            storyText.textContent = "De repente, duas silhuetas surgem entre as árvores.";
+            stage++;
+            break;
+        case 3:
+            storyText.textContent = "Um deles tem olhos de fogo e um sorriso arrogante. O outro parece calmo, quase angelical.";
+            stage++;
+            break;
+        case 4:
+            storyText.textContent = `"Hum... humana perdida?" — diz o rebelde, com a voz rouca.`;
+            stage++;
+            break;
+        case 5:
+            storyText.textContent = `"Ela está assustada. Devemos ajudá-la", diz o de olhos claros, quase sussurrando.`;
+            stage++;
+            break;
+        case 6:
+            storyText.textContent = "Você sente o coração acelerar. Eles são lindos... perigosamente lindos.";
+            stage++;
+            break;
+        case 7:
+            storyText.textContent = "O medo domina seu corpo. Você vira e corre.";
+            stage++;
+            break;
+        case 8:
+            storyText.textContent = "*PUM!* Você tropeça, cai... e tudo escurece.";
+            triggerFadeOut();
+            stage++;
+            break;
+        default:
+            // Fim da cena
+            break;
     }
-  };
+}
 
-  // Função para iniciar o episódio
-  function iniciarEpisodio() {
-    fraseGrande.style.display = 'block';
-    setTimeout(() => {
-      fraseGrande.style.display = 'none';
-      iniciarCena();
-    }, 3000);
-  }
-
-  // Função para iniciar a cena
-  function iniciarCena() {
-    episodio.style.display = 'flex';
-
-    // Sequência inicial do narrador
-    dialogos = [
-      {
-        texto: "Você corre... Mas não sabe de quê. A neblina é espessa como um véu, e o som das suas próprias pegadas ecoa como se a floresta estivesse vazia. Você sente... algo. Como se estivesse sendo observada.",
-        autor: "NARRADOR"
-      }
-    ];
-    dialogoIndex = 0;
-    exibirProximoDialogo();
-
-    // Evento do botão "Continuar"
-    botaoContinuar.onclick = () => {
-      exibirProximoDialogo();
-    };
-  }
-
-  // Função principal para exibir diálogos
-  function exibirProximoDialogo() {
-    if (dialogoIndex < dialogos.length) {
-      const d = dialogos[dialogoIndex];
-      dialogo.innerHTML = `<p style="${d.pensamento ? 'font-style:italic;' : ''}">${d.texto}</p>`;
-      autor.innerHTML = `<em>${d.autor}</em>`;
-      dialogoIndex++;
-    } else {
-      // Quando acabar o diálogo
-      dialogo.innerHTML = `<p>Continua...</p>`;
-      autor.innerHTML = '';
-    }
-  }
-
-  
+function triggerFadeOut() {
+    fadeScreen.style.opacity = 1;
+}
