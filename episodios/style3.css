@@ -1,0 +1,167 @@
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background: url(/assets/quarto.png) no-repeat center center fixed;
+    background-size: cover;
+    color: #f0f0f0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* CONTAINER PRINCIPAL */
+#game-container {
+    width: 90%;
+    max-width: 800px;
+    height: 600px;
+    background-color: rgba(0, 0, 0, 0.85);
+    border: 3px solid crimson;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 0 20px #990000;
+    border-radius: 10px;
+}
+
+/* ÁREA DO PERSONAGEM */
+#character {
+    height: 300px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+/* CAIXA DE TEXTO */
+/* TEXTO E CAIXA DE CLIQUE */
+#text-box {
+    background: rgba(30, 0, 0, 0.7);
+    padding: 15px;
+    margin-top: 15px;
+    border: 1px solid #990000;
+    border-radius: 6px;
+    min-height: 120px;
+    cursor: pointer;
+    line-height: 1.6;
+    transition: background 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#text-box:hover {
+    background: rgba(60, 0, 0, 0.8);
+}
+
+#story-text {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.click-instruction {
+    text-align: right;
+    font-size: 14px;
+    opacity: 0.6;
+    margin-top: 10px;
+}
+
+/* TEXTO DA HISTÓRIA */
+#story-text {
+    margin-top: 15px;
+    font-size: 18px;
+    line-height: 1.6;
+    min-height: 80px;
+    padding: 10px;
+}
+
+
+#text-box:hover {
+    background: rgba(60, 0, 0, 0.8);
+}
+
+/* ÁREA DE ESCOLHAS */
+#choices {
+    margin-top: 15px;
+}
+
+/* BOTÕES DE ESCOLHA */
+.choice-button {
+    display: block;
+    width: 100%;
+    background: crimson;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 8px 0;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.choice-button:hover {
+    background: darkred;
+    transform: scale(1.02);
+}
+
+/* TELA DE TRANSIÇÃO */
+#fade-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0;
+    transition: opacity 2s;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* BOTÃO DE PRÓXIMO EPISÓDIO */
+#next-episode-btn {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: darkred;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    z-index: 20;
+    transition: background 0.3s, transform 0.2s;
+}
+
+#next-episode-btn:hover {
+    background: crimson;
+    transform: scale(1.05);
+}
+
+#image-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+  display: none;
+}
+
+#image-container img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+}

@@ -1,4 +1,3 @@
-
 const storyText = document.getElementById('story-text');
 const textBox = document.getElementById('text-box');
 const choices = document.getElementById('choices');
@@ -21,23 +20,23 @@ function nextScene() {
 
     switch (stage) {
         case 0:
-            storyText.textContent = "Uma dor de cabeça intensa... você acorda em uma cama luxuosa.";
+            storyText.textContent = "(Uma dor de cabeça intensa... você acorda em uma cama luxuosa.)";
             stage++;
             break;
         case 1:
-            storyText.textContent = "O quarto é escuro, decorado com velas, cortinas pesadas... e um aroma adocicado no ar.";
+            storyText.textContent = "(O quarto é escuro, decorado com velas, cortinas pesadas... e um aroma adocicado no ar.)";
             stage++;
             break;
         case 2:
-            storyText.textContent = "Você tenta se levantar, mas se sente fraca. Então, ouve passos.";
+            storyText.textContent = "(Você tenta se levantar, mas se sente fraca. Então, ouve passos.)";
             stage++;
             break;
         case 3:
-            storyText.textContent = "O vampiro de olhos angelicais entra lentamente. 'Você desmaiou... mas está segura agora.'";
+            storyText.textContent = "(O vampiro de olhos angelicais entra lentamente.) 'Você desmaiou... mas está segura agora.'";
             stage++;
             break;
         case 4:
-            storyText.textContent = "Logo em seguida, o rebelde entra, encostado na parede. 'Eu disse que ela não aguentaria. Frágil... mas intrigante.'";
+            storyText.textContent = "(Logo em seguida, o rebelde entra, encostado na parede.) 'Eu disse que ela não aguentaria. Frágil... mas intrigante.'";
             stage++;
             break;
         case 5:
@@ -77,6 +76,7 @@ function showFinalChoices() {
         choices.innerHTML = `
             <button class="choice-button" onclick="chooseFinal(1)">Olhar para Lucien com curiosidade</button>
             <button class="choice-button" onclick="chooseFinal(2)">Confiar mais em Elias</button>
+            <button class="choice-button" onclick="chooseFinal(3)">Evitar ambos e focar em entender o que está acontecendo</button>
         `;
     }, 1000);
 }
@@ -89,7 +89,11 @@ function chooseFinal(option) {
     } else if (option === 2) {
         storyText.textContent = "Elias se aproxima calmamente. 'Você tem um coração gentil. Isso é raro aqui.'";
         eliasAffinity += 2;
+    } else if (option === 3) {
+        storyText.textContent = "Você recua instintivamente. Algo está errado... mas não é só sobre eles.";
+        // Afinidade não muda — segue rota neutra
     }
+
     stage = 7;
 }
 
@@ -103,15 +107,24 @@ function defineRoute() {
             storyText.textContent = "Você ainda não tem certeza... mas sabe que os dois escondem segredos profundos.";
         }
 
-        // começar o Episódio 3
+        // Armazenar afinidades no localStorage
+        localStorage.setItem('lucienAffinity', lucienAffinity);
+        localStorage.setItem('eliasAffinity', eliasAffinity);
+
+        // Adiciona suspense ao final do texto
+        setTimeout(() => {
+            storyText.textContent += " Mas algo está prestes a acontecer... algo que nenhum dos dois espera.";
+        }, 1500);
+
+        // Botão para próximo episódio
         setTimeout(() => {
             choices.innerHTML = `
-                <button class="choice-button" onclick="goToNext()">Iniciar Episódio 3</button>
+                <button class="choice-button" onclick="goToNext()">Episódio 3</button>
             `;
-        }, 3000);
+        }, 4500);
     }, 1500);
 }
 
 function goToNext() {
-    window.location.href = 'ep3.html'; // Crie depois
+    window.location.href = 'ep3.html';
 }

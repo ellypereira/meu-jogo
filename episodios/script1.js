@@ -17,19 +17,19 @@ function nextScene() {
 
     switch (stage) {
         case 0:
-            storyText.textContent = "Você acorda no meio de uma floresta escura... Não lembra de nada.";
+            storyText.textContent = "(Você sai para caminhar em uma noite, e acaba se perdendo em uma floresta escura... 'desesperada', acaba adentrando ainda mais na floresta.)";
             stage++;
             break;
         case 1:
-            storyText.textContent = "O som de corvos ecoa. Você está tremendo, perdida, sem saber seu próprio nome.";
+            storyText.textContent = "(O som de corvos ecoa. Você está tremendo, perdida, sem saber para onde ir.)";
             stage++;
             break;
         case 2:
-            storyText.textContent = "De repente, duas silhuetas surgem entre as árvores.";
+            storyText.textContent = "(De repente, duas silhuetas surgem entre as árvores.)";
             stage++;
             break;
         case 3:
-            storyText.textContent = "Um deles tem olhos de fogo e um sorriso arrogante. O outro parece calmo, quase angelical.";
+            storyText.textContent = "(Um deles tem olhos de fogo e um sorriso arrogante. O outro parece calmo, quase angelical.)";
             stage++;
             break;
         case 4:
@@ -41,11 +41,11 @@ function nextScene() {
             stage++;
             break;
         case 6:
-            storyText.textContent = "Você sente o coração acelerar. Eles são lindos... perigosamente lindos.";
+            storyText.textContent = "(Você sente o coração acelerar. Eles são lindos... perigosamente lindos.)";
             stage++;
             break;
         case 7:
-            storyText.textContent = "O medo domina seu corpo. Você vira e corre.";
+            storyText.textContent = "(O medo domina seu corpo. Você vira e corre.)";
             stage++;
             break;
         case 8:
