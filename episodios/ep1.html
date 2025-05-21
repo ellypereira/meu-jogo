@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title> Episódio 1</title>
-    <link rel="stylesheet" href="style1.css">
-    <link rel="shortcut icon" href="/assets/favicongame.png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <title>Episódio 1 - Blood And Silence</title>
+  <link rel="stylesheet" href="style1.css">
+  <link rel="shortcut icon" href="/assets/favicongame.png" type="image/x-icon">
 </head>
 <body>
+  <div id="name-screen">
+    <h2>Digite seu nome:</h2>
+    <input id="name-input" type="text" placeholder="Seu nome" />
+    <button id="startBtn">Começar</button>
+  </div>
 
-    <audio id="bg-music" autoplay loop>
-    <source src="/assets/gothic.mp3" type="audio/mpeg">
-    Seu navegador não suporta áudio.</audio>
+  <div id="game-container">
+    <div id="text-box">
+  <div id="story-text">Clique para continuar</div>
+</div>
+    <img id="silhouette" src="/assets/floresta1.png" alt="Silhueta" />
+    <div id="fade-screen"></div>
+    <button id="next-episode-btn">Próximo Episódio</button>
+  </div>
 
-    <div id="game-container">
-        <div id="character"></div>
-        <div id="text-box">
-            <p id="story-text">Clique para começar a história...</p>
-        </div>
-        <div id="choices"></div>
-        <div id="fade-screen"></div>
-        <button id="next-episode-btn" style="display: none;">Fim do Ep. 1 — Iniciar o Ep. 2</button>
-    </div>
-    <script src="script1.js"></script>
+  <audio id="bg-music" src="/assets/gothic.mp3" autoplay loop></audio>
+
+  <script src="script1.js"></script>
 </body>
 </html>
