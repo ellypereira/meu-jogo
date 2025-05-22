@@ -10,12 +10,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 #game-container {
-    width: 800px;
-    height: 600px;
+    width: 90%;
+    max-width: 800px;
+    height: 90vh;
+    max-height: 600px;
     background-color: rgba(0, 0, 0, 0.8);
     border: 3px solid crimson;
     padding: 20px;
@@ -24,19 +26,42 @@ body {
 }
 
 #character {
-    height: 300px;
-    background: url('/meu-jogo/assets/elias-lucien.jpg') no-repeat center;
+    position: relative;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 50%;
+    width: 100%;
+    background: url('/meu-jogo/assets/elias-lucien.jpg') no-repeat center bottom;
     background-size: contain;
+    z-index: 1;
 }
 
 #text-box {
-    background: rgba(30, 0, 0, 0.7);
+    margin-top: auto;
+    width: 95%;
+    max-width: 100%;
+    background: rgba(20, 0, 0, 0.75);
     padding: 15px;
-    margin-top: 10px;
-    border: 1px solid #990000;
+    border: 2px solid #990000;
+    border-radius: 10px;
     min-height: 100px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #e8dede;
+    font-family: 'Georgia', serif;
+    text-shadow: 0 0 5px #300000;
+    box-shadow: 4px 1px 15px rgba(255, 0, 0, 0.5);
     cursor: pointer;
+    z-index: 5;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    position: relative; /* <-- importante */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
+
 
 #choices {
     margin-top: 15px;
@@ -70,23 +95,47 @@ body {
     z-index: 10;
 }
 
-#next-episode-btn {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: darkred;
-    color: white;
-    border: none;
-    padding: 15px 25px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 8px;
-    z-index: 20;
-    transition: background 0.3s;
+
+
+
+@media screen and (max-width: 600px) {
+    body {
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+
+    #game-container {
+        width: 95%;
+        height: auto;
+        max-height: none;
+        padding: 15px;
+    }
+
+    #character {
+        height: 200px;
+        top: 10px;
+    }
+
+    #text-box {
+        position: relative;
+        bottom: unset;
+        left: unset;
+        transform: none;
+        width: 100%;
+        font-size: 0.95rem;
+        padding: 15px;
+        margin-top: 10px;
+    }
+
+    .choice-button {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    
+    #fade-screen{
+        width: 100%;
+        height: 100%;
+    }
 }
 
-#next-episode-btn:hover {
-    background: crimson;
-}
