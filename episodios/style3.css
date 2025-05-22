@@ -32,7 +32,7 @@ body {
 
 /* ÁREA DO PERSONAGEM */
 #character {
-    height: 300px;
+    height: 260px;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
