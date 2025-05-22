@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Georgia', serif;
-    background: url(/assets/floresta-anime.png);
+    background: url(/meu-jogo/assets/floresta-anime.png);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -29,7 +29,7 @@ body {
     transform: translateX(-50%);
     height: 300px;
     width: 100%;
-    background: url('/assets/elias-lucien.jpg') no-repeat center bottom;
+    background: url('/meu-jogo/assets/elias-lucien.jpg') no-repeat center bottom;
     background-size: contain;
     z-index: 1;
 }

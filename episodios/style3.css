@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Georgia', serif;
-    background: url(/assets/quarto.png) no-repeat center center fixed;
+    background: url(/meu-jogo/assets/quarto.png) no-repeat center center fixed;
     background-size: cover;
     color: #f0f0f0;
     height: 100vh;
