@@ -33,13 +33,13 @@ function nextScene() {
   switch (stage) {
     case 0:
       playMusic();
-      storyText.textContent = "A luz das velas vacila... Você está sozinha. Ou ao menos acha que está.";
+      storyText.textContent = "(Um dia se passou. Elias e Lucien foram atenciosos — gentis, até. Você foi bem tratada, alimentada, deixada em paz quando pediu silêncio. Nenhum sinal de ameaças, gritos ou pressões. Mas a quietude… ela pesa.)";
       break;
     case 1:
-      storyText.textContent = "Em cima da mesa, um colar antigo, pulsando com uma energia escura.";
+      storyText.textContent = "(As perguntas não param Quem você é, de verdade? O que o colar fez com você? Por que sua mãe — logo ela — lhe deu aquilo antes de morrer?) Ao se levantar, você sente o colar contra a pele — quente. Mas não é o calor do corpo; ele queima de verdade, como se tivesse sido forjado em brasa viva. Instintivamente, você o arranca e o deposita sobre a mesa próxima. O objeto pulsa, como se tivesse um coração próprio.";
       break;
     case 2:
-      storyText.textContent = "Ao tocá-lo, uma dor aguda atinge sua mente. Sua visão escurece. Você ouve... vozes.";
+      storyText.textContent = "Ao tocá-lo, uma dor aguda atravessa sua mente como um raio. Você ofega, cambaleia — a visão escurece nas bordas, e o quarto ao seu redor parece se dissolver. Então, surgem as vozes. Sussurros arrastados, falando em uma língua que você não reconhece, mas que entende em um nível profundo, elas não vêm de fora… estão dentro de você. Dentro do colar. Dentro da escuridão que agora cresce, faminta, em sua consciência";
       break;
     case 3:
       waiting = true;
@@ -54,9 +54,9 @@ function nextScene() {
       break;
     case 5:
       waiting = true;
-      storyText.textContent = "Ela grita. Você grita. Mas ninguém ouve.";
+      storyText.textContent = "Ela grita. Você grita. Mas ninguém ouve. O som morre antes mesmo de escapar de sua garganta, como se o ar ao redor se recusasse a carregá-lo. O silêncio é absoluto, opressor — mais pesado que a escuridão.";
       setTimeout(() => {
-        storyText.textContent += " 'Você pertence à escuridão... sempre pertenceu.'";
+        storyText.textContent += " 'Você pertence à escuridão... sempre pertenceu.' (A voz não é sussurrada — é decretada. Uma sentença antiga, proclamada com a certeza de quem já venceu.)";
         hideImage();
         waiting = false;
         stage++;
@@ -90,7 +90,7 @@ function showWhispers(callback) {
 
 // Escolhas após visão
 function showPostVisionChoices() {
-  storyText.textContent = "Você acorda ofegante. O colar ainda está na sua mão, e você sente que algo em você mudou.";
+  storyText.textContent = "Você acorda ofegante. O quarto permanece mergulhado em sombras, as velas tremem como se temessem lembrar. O colar ainda está na sua mão — quente, pulsante. Algo mudou, não só ao seu redor... Mas dentro de você.";
   choices.innerHTML = `
     <button class="choice-button" onclick="chooseReaction(1)">Jogar o colar longe, em pânico</button>
     <button class="choice-button" onclick="chooseReaction(2)">Segurar o colar com força, determinada</button>
@@ -110,7 +110,7 @@ function continueAfterChoice() {
   switch (stage) {
     case 7:
       if (lucienAffinity > eliasAffinity) {
-        storyText.textContent = "Lucien surge à porta, observando você em silêncio, como se soubesse de tudo.";
+        storyText.textContent = "Lucien surge à porta, observando você em silêncio, como se soubesse de tudo. Seus olhos, sombrios e penetrantes, não mostram surpresa. Apenas… entendimento.";
         showImage('lucien.png');
         stage = 8;
       } else if (eliasAffinity > lucienAffinity) {
@@ -124,13 +124,13 @@ function continueAfterChoice() {
       break;
 
     case 8:
-      storyText.textContent = "'Você tocou, não foi? O colar... não era pra estar aqui.' A expressão dele é de fúria contida.";
+      storyText.textContent = "'Você tocou, não foi?' (A voz de Lucien é baixa, mas cheia de peso, como se cada palavra fosse um aviso) 'O colar... não era pra acontecer isso'. A expressão dele é de fúria contida.";
       hideImage();
       stage++;
       break;
 
     case 9:
-      storyText.textContent = "'Esse colar pertencia a alguém muito importante... alguém que te conhecia.' Lucien parece confuso... e com medo.";
+      storyText.textContent = "'Sua mãe não lhe contou as histórias por trás dele, né? Eu... eu não esperava que fosse acontecer assim' (Lucien parece confuso... e com medo.)";
       showLucienDialogue();
       stage = 14;
       break;
@@ -232,7 +232,7 @@ function neutralReaction(option) {
 
 // Cena final no terraço
 function showTerraceScene() {
-  storyText.textContent = "Horas depois, você alcança o terraço do castelo. O vento gélido toca sua pele como um sussurro familiar — frio, mas estranhamente acolhedor.";
+  storyText.textContent = "...Horas depois, você alcança o terraço do castelo. O vento gélido toca sua pele como um sussurro familiar — frio, mas estranhamente acolhedor.";
   showImage('terraço.png');
   setTimeout(() => hideImage(), 3000);
 }
