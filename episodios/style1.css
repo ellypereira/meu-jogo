@@ -1,4 +1,4 @@
-body {
+body, html {
     margin: 0;
     font-family: 'Georgia', serif;
     background: url(/meu-jogo/assets/floresta-anime.png);
@@ -10,10 +10,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
 }
 
+
+
 #game-container {
+    display: none;
     width: 90%;
     max-width: 800px;
     height: 90vh;
@@ -132,3 +138,140 @@ body {
   transition: opacity 1s;
 }
 
+/*TELA INICIAL DO NOME DOS JOGADORES*/
+#name-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to bottom, rgba(10,0,0,0.9), rgba(30,0,0,0.85)), url(/assets/floresta.jpg) no-repeat center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#name-box {
+    width: 90%;
+    max-width: 400px;
+    background-color: rgba(0, 0, 0, 8.85);
+    border: 2px solid crimson;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(200, 0, 0, 0.7);
+}
+
+.gothiic-title {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 2.5rem;
+    color: crimson;
+    text-shadow: 0 0 10px black;
+    margin-bottom: 10px;
+}
+
+.gothiic-subtitle {
+    font-size: 1.2rem;
+    color: #ccc;
+    margin-bottom: 30px;
+    font-style: italic;
+    text-shadow:  0 0 5px #400000;
+}
+
+#name-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid crimson;
+    border-radius: 5px;
+    background-color: #1a0000;
+    color: #fff;
+    margin-bottom: 20px;
+    box-shadow: inset 0 0 10px #550000;
+    text-align: center;
+}
+
+#name-input{
+    color: white;
+    font-style: italic;
+}
+
+#startBtn {
+    padding: 12px 25px;
+    font-size: 1rem;
+    background-color: crimson;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 0 10px crimson;
+}
+
+#startBtn:hover{
+    background-color: darkred;
+    box-shadow: 0 0 30px crimson;
+}
+
+/* Responsivo para tablets (até 1024px) */
+@media (max-width: 1024px) {
+    #name-box {
+        padding: 30px;
+    }
+
+    .gothic-title {
+        font-size: 2rem;
+    }
+
+    .gothic-subtitle {
+        font-size: 1rem;
+    }
+
+    #startBtn {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+}
+
+/* Responsivo para celulares (até 600px) */
+@media (max-width: 600px) {
+    #name-screen {
+        align-items: flex-start;
+        padding-top: 15vh;
+    }
+
+    #name-box {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .gothic-title {
+        font-size: 1.5rem;
+    }
+
+    .gothic-subtitle {
+        font-size: 0.9rem;
+    }
+
+    #name-input {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    #startBtn {
+        width: 100%;
+        font-size: 1rem;
+    }
+}
+
+/* Game container responsivo */
+#game-container {
+    width: 95%;
+    height: auto;
+    max-width: 800px;
+    max-height: none;
+    padding: 15px;
+}
