@@ -64,14 +64,6 @@ body {
     background: rgba(60, 0, 0, 0.8);
 }
 
-/* TEXTO DA HISTÓRIA */
-#story-text {
-  font-size: 1rem;
-  line-height: 1.6;
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
 .click-instruction {
     text-align: right;
     font-size: 14px;
@@ -81,16 +73,14 @@ body {
 
 /* TEXTO DA HISTÓRIA */
 #story-text {
-    margin-top: 15px;
-    font-size: 18px;
-    line-height: 1.6;
-    min-height: 80px;
-    padding: 10px;
-}
-
-
-#text-box:hover {
-    background: rgba(60, 0, 0, 0.8);
+   margin-top: 15px;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  line-height: 1.6;
+  min-height: 80px;
+  padding: 10px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  transition: opacity 1s ease;
 }
 
 /* ÁREA DE ESCOLHAS */
@@ -181,4 +171,42 @@ body {
 #story-text.fade-in {
   opacity: 1;
   transition: opacity 1s ease;
+}
+
+#story-text {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  line-height: 1.6;
+}
+.choice-button {
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+#next-episode-btn {
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+}
+
+@media (max-width: 600px) {
+  #game-container {
+    padding: 10px;
+    height: auto;
+    max-height: none;
+  }
+
+  #text-box {
+    padding: 10px;
+    min-height: 120px;
+  }
+
+  .choice-button {
+    padding: 10px;
+  }
+
+  #next-episode-btn {
+    bottom: 15px;
+    padding: 10px 20px;
+  }
+
+  #image-container img {
+    max-width: 100%;
+    max-height: 80vh;
+  }
 }
