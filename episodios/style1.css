@@ -270,7 +270,6 @@ body, html {
 /* Game container responsivo */
 #game-container {
     width: 95%;
-    height: auto;
     max-width: 800px;
     max-height: none;
     padding: 260px;
