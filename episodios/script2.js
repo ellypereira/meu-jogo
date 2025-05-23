@@ -32,11 +32,11 @@ function nextScene() {
             stage++;
             break;
         case 3:
-            storyText.textContent = "(O vampiro de olhos angelicais entra lentamente.) 'Você desmaiou... mas está segura agora.'";
+            storyText.textContent = "(O vampiro de olhos angelicais entra lentamente.) __Você desmaiou... mas está segura agora.";
             stage++;
             break;
         case 4:
-            storyText.textContent = "(Logo em seguida, o rebelde entra, encostado na parede.) 'Eu disse que ela não aguentaria. Frágil... mas intrigante.'";
+            storyText.textContent = "(Logo em seguida, o rebelde entra, encostado na parede.) __Eu disse que ela não aguentaria. Frágil... mas intrigante.";
             stage++;
             break;
         case 5:
@@ -61,10 +61,10 @@ function showFirstChoices() {
 function chooseFirst(option) {
     choices.innerHTML = '';
     if (option === 1) {
-        storyText.textContent = "Lucien sorri com sarcasmo. 'Nada... ainda.' Elias olha para ele, desaprovando.";
+        storyText.textContent = "(Lucien sorri com sarcasmo.) 'Nada... ainda.' (Elias olha para ele, desaprovando.)";
         lucienAffinity += 1;
     } else if (option === 2) {
-        storyText.textContent = "Elias sorri levemente. 'Você está segura. Tentamos não assustá-la.'";
+        storyText.textContent = "(Elias sorri levemente.) __Você está segura. Tentamos não assustá-la.";
         eliasAffinity += 1;
     }
     stage = 6;
@@ -84,10 +84,10 @@ function showFinalChoices() {
 function chooseFinal(option) {
     choices.innerHTML = '';
     if (option === 1) {
-        storyText.textContent = "Lucien levanta uma sobrancelha. 'Gosto de você.'";
+        storyText.textContent = "(Lucien levanta uma sobrancelha.) 'Gosto de você.'";
         lucienAffinity += 2;
     } else if (option === 2) {
-        storyText.textContent = "Elias se aproxima calmamente. 'Você tem um coração gentil. Isso é raro aqui.'";
+        storyText.textContent = "(Elias se aproxima calmamente.) 'Você tem um coração gentil. Isso é raro aqui.'";
         eliasAffinity += 2;
     } else if (option === 3) {
         storyText.textContent = "Você recua instintivamente. Algo está errado... mas não é só sobre eles.";
@@ -114,7 +114,7 @@ function defineRoute() {
         // Adiciona suspense ao final do texto
         setTimeout(() => {
             storyText.textContent += " Mas algo está prestes a acontecer... algo que nenhum dos dois espera.";
-        }, 1500);
+        }, 1000);
 
         // Botão para próximo episódio
         setTimeout(() => {

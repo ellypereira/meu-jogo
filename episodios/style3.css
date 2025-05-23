@@ -10,7 +10,7 @@ body {
     background: url(/meu-jogo/assets/quarto.png) no-repeat center center fixed;
     background-size: cover;
     color: #f0f0f0;
-    height: 100vh;
+   min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,51 +19,57 @@ body {
 
 /* CONTAINER PRINCIPAL */
 #game-container {
-    width: 90%;
-    max-width: 800px;
-    height: 600px;
-    background-color: rgba(0, 0, 0, 0.85);
-    border: 3px solid crimson;
-    padding: 20px;
-    position: relative;
-    box-shadow: 0 0 20px #990000;
-    border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 800px;
+  height: 90vh;
+  max-height: 650px;
+  background-color: rgba(0, 0, 0, 0.85);
+  border: 3px solid crimson;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 0 20px #990000;
 }
 
 /* ÁREA DO PERSONAGEM */
 #character {
-    height: 260px;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 1s;
+  flex: 1 0 auto;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1s;
 }
 
 /* CAIXA DE TEXTO */
 /* TEXTO E CAIXA DE CLIQUE */
 #text-box {
-    background: rgba(30, 0, 0, 0.7);
-    padding: 15px;
-    margin-top: 15px;
-    border: 1px solid #990000;
-    border-radius: 6px;
-    min-height: 120px;
-    cursor: pointer;
-    line-height: 1.6;
-    transition: background 0.3s;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  background: rgba(30, 0, 0, 0.7);
+  padding: 15px;
+  border: 1px solid #990000;
+  border-radius: 6px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
 #text-box:hover {
     background: rgba(60, 0, 0, 0.8);
 }
 
+/* TEXTO DA HISTÓRIA */
 #story-text {
-    font-size: 18px;
-    line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .click-instruction {
@@ -89,22 +95,23 @@ body {
 
 /* ÁREA DE ESCOLHAS */
 #choices {
-    margin-top: 15px;
+   display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 /* BOTÕES DE ESCOLHA */
 .choice-button {
-    display: block;
-    width: 100%;
-    background: crimson;
-    color: white;
-    border: none;
-    padding: 10px;
-    margin: 8px 0;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-    border-radius: 5px;
+  width: 100%;
+  background: crimson;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
     transition: background 0.3s, transform 0.2s;
 }
 
@@ -164,4 +171,14 @@ body {
   max-height: 90vh;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+}
+
+#story-text.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+#story-text.fade-in {
+  opacity: 1;
+  transition: opacity 1s ease;
 }
