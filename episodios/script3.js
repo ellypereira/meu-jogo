@@ -45,12 +45,10 @@ function nextScene() {
 
     case 1:
       storyText.textContent = "(Contaram sobre rituais antigos, não de magia comum, mas vínculos de sangue e alma. Minha mãe se ofereceu como âncora entre os dois mundos, selando algo... ou alguém. O colar era a chave — ou o grilhão.)";
-      // scrollToBottom();
       break;
 
     case 2:
       storyText.textContent = "Não foi fácil aceitar que os vampiros me vigiam desde que nasci, não por acaso nem compaixão, mas porque acreditam que herdei o papel da minha mãe — ou algo ainda mais perigoso. Hoje, Elias me deu um colar, talvez o mesmo de antes, restaurado, para minha proteção. Ao tocá-lo, ouvi vozes antigas, sussurros que atravessaram minha pele e chegaram ao meu sangue. Eles me chamavam...";
-      // scrollToBottom();
       break;
 
     case 3:
@@ -64,20 +62,16 @@ function nextScene() {
     case 4:
       storyText.textContent = "As imagens invadem sua cabeça. Você vê uma garota... você mesma... cercada por sombras.";
       showImage('garota-sombras.png');
-      // scrollToBottom();
       break;
 
     case 5:
       waiting = true;
       storyText.textContent = "(Ela grita, você grita. Mas ninguém ouve... O som morre antes mesmo de escapar de sua garganta. O ar nega o som; o silêncio pesa mais que a escuridão.)";
-      // scrollToBottom();
-
       setTimeout(() => {
         storyText.textContent += "— Você sempre pertenceu à escuridão. (A voz não sussurra — ela decreta. Uma sentença antiga, dita por quem já venceu.)";
         hideImage();
         waiting = false;
         stage++;
-        // scrollToBottom();
       }, 1500);
       return; // aguarda timeout
 
@@ -100,7 +94,6 @@ function showWhispers(callback) {
 
   const interval = setInterval(() => {
     storyText.textContent = whispers[index++];
-    // scrollToBottom();
     if (index >= whispers.length) {
       clearInterval(interval);
       setTimeout(callback, 1000);
@@ -112,7 +105,7 @@ function showWhispers(callback) {
 function showPostVisionChoices() {
   isChoosing = true;  // começa o modo escolha, bloqueia avanço pelo texto
   storyText.textContent = "(Você desperta com um sobressalto. Não dormia, mas emergiu de um sonho sombrio. O quarto permanece envolto em sombras; as velas tremem, lembrando o que viu. O colar está quente e pulsante na sua mão. Algo mudou — não só ao seu redor, mas dentro de você.)";
-  // scrollToBottom();
+
   choices.innerHTML = `
     <button class="choice-button" onclick="chooseReaction(1)">Jogar o colar longe, em pânico</button>
     <button class="choice-button" onclick="chooseReaction(2)">Segurar o colar com força, determinada</button>
@@ -126,7 +119,7 @@ function chooseReaction(option) {
   storyText.textContent = option === 1
     ? "Você o lança para longe. Seu coração bate descompassado. Está assustada, mas viva."
     : "Você fecha os dedos sobre ele. Se há algo obscuro em seu passado, você vai enfrentá-lo.";
-  // scrollToBottom();
+
   stage = 7;
 }
 
@@ -137,16 +130,13 @@ function continueAfterChoice() {
       if (lucienAffinity > eliasAffinity) {
         storyText.textContent = "Lucien aparece à porta, arqueando uma sobrancelha, como se a cena diante dele fosse uma piada velha. Os olhos escuros brilham com escárnio — ele já sabia.";
         showImage('lucien.png');
-        // scrollToBottom();
         stage = 8;
       } else if (eliasAffinity > lucienAffinity) {
         storyText.textContent = "(Elias se aproxima, preocupado.) 'Você... viu alguma coisa, não foi?'";
         showImage('elias.jpg');
-        // scrollToBottom();
         stage = 10;
       } else {
         storyText.textContent = "Você ouve passos se aproximando... mas não sabe quem vem.";
-        // scrollToBottom();
         stage = 12;
       }
       break;
@@ -154,44 +144,42 @@ function continueAfterChoice() {
     case 8:
       storyText.textContent = "'Você tocou, não foi?' — a voz de Lucien é baixa, carregada como um presságio. 'O colar... Isso nunca deveria ter acontecido.' A fúria arde em seus olhos, contida, mas prestes a transbordar.";
       hideImage();
-      // scrollToBottom();
       stage++;
       break;
 
     case 9:
       storyText.textContent = "'Foi Elias, não foi?' — Lucien murmura, os olhos fixos no colar. 'Ele nunca deveria ter te dado isso, e o colar não deveria ter reagido a você.' Um silêncio pesado cai. Nos olhos dele, um temor antigo.";
       showLucienDialogue();
-      // scrollToBottom();
       stage = 14;
       break;
 
     case 10:
       showEliasDialogue();
-      // scrollToBottom();
       setTimeout(hideImage, 3000);
       stage = 15;
       break;
 
     case 12:
       storyText.textContent = "Uma voz estranha ecoa atrás de você. 'Você despertou algo... e agora, não há como voltar.'";
-      // scrollToBottom();
       stage++;
       break;
 
     case 13:
       showNeutralPath();
-      // scrollToBottom();
       stage = 16;
       break;
 
     // Caminho neutro (stages 16 a 18)
+    case 14:
+      // Corrigido: avança do diálogo "Você não entende o que está em jogo" para o próximo estágio
+      stage = 16;
+      break;
+
     case 16:
       stage = 17;
       break;
 
     case 17:
-      storyText.textContent = "Um eco distante responde ao seu grito...";
-      // scrollToBottom();
       stage++;
       break;
 
@@ -208,25 +196,21 @@ function continueAfterChoice() {
 
     case 20:
       storyText.textContent = "(Fragmentos... Vozes...)";
-      // scrollToBottom();
       stage++;
       break;
 
     case 21:
       storyText.textContent = "(Por que Elias e Lucien conhecem partes de você que nem você entende?)";
-      // scrollToBottom();
       stage++;
       break;
 
     case 22:
       storyText.textContent = "(O colar... Tudo aponta para um passado esquecido.)";
-      // scrollToBottom();
       stage++;
       break;
 
     case 23:
       storyText.textContent = "Você inspira lentamente, deixando o silêncio da noite envolver seus pensamentos. As respostas virão... no tempo certo.";
-      // scrollToBottom();
       showEndEpisodeButton();
       stage++;
       break;
@@ -247,23 +231,21 @@ function lucienReaction(option) {
   isChoosing = false; // desbloqueia após escolher
   choices.innerHTML = '';
   storyText.textContent = option === 1
-    ? "Lucien se aproxima. '(Lucien revira os olhos e sai do quarto).'"
-    : "Lucien mantém distância, os olhos carregados de julgamento e dor. 'Você ainda não entende o que está em jogo.'";
-  // scrollToBottom();
+    ? "(Lucien revira os olhos e sai do quarto)"
+    : "'Você ainda não entende o que está em jogo.'";
+
   stage = 14;
 }
 
+// Funções auxiliares
+
 function showEliasDialogue() {
   storyText.textContent = "Elias segura sua mão. 'Nunca quis te assustar, mas essa responsabilidade pode ser mais pesada do que imaginamos.'";
-  // scrollToBottom();
 }
 
 function showNeutralPath() {
   storyText.textContent = "Você sente um vazio, uma indiferença que cresce. O mundo parece continuar sem você.";
-  // scrollToBottom();
 }
-
-// Mostrar e esconder imagens
 
 function showImage(src) {
   character.src = src;
@@ -274,15 +256,10 @@ function hideImage() {
   character.style.display = 'none';
 }
 
-// Cena do terraço
-
 function showTerraceScene() {
   storyText.textContent = "...Horas depois. Você está no terraço, a noite se estende ao seu redor, estrelas distantes e o vento frio trazendo promessas e mistérios.";
-  // scrollToBottom();
   hideImage();
 }
-
-// Botão para finalizar episódio
 
 function showEndEpisodeButton() {
   choices.innerHTML = `
