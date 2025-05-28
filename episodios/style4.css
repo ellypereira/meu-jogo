@@ -1,0 +1,199 @@
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background: url(../assets/salão.png) no-repeat center center fixed;
+    background-size: cover;
+    color: #fbfbfb;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* CONTAINER PRINCIPAL */
+#game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 800px;
+    height: 90vh;
+    max-height: 650px;
+    background-color: rgba(15, 0, 0, 0.92);
+    border: 3px solid #8b0000;
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 0 30px #550000, inset 0 0 10px rgba(255, 0, 0, 0.2);
+}
+
+/* CAIXA DE TEXTO */
+#text-box {
+    margin-top: auto;
+    width: 95%;
+    background: rgba(30, 0, 0, 0.85);
+    padding: 15px;
+    border: 2px solid #800000;
+    border-radius: 10px;
+    min-height: 100px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #e8dede;
+    font-family: 'Georgia', serif;
+    text-shadow: 0 0 5px #2a0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    cursor: pointer;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#text-box:hover {
+    background: rgba(45, 0, 0, 0.9);
+}
+
+/* TEXTO DA HISTÓRIA */
+#story-text {
+    height: auto;
+    max-height: 100%;
+    flex: 1;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    word-break: break-word;
+    padding-right: 10px;
+    color: #f5e6e6;
+}
+
+/* ÁREA DE ESCOLHAS */
+#choices {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* BOTÕES DE ESCOLHA */
+.choice-button {
+    width: 100%;
+    background: linear-gradient(to right, #8b0000, #4b0000);
+    color: #fff;
+    border: none;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.6);
+}
+
+.choice-button:hover {
+    background: linear-gradient(to right, #a30000, #660000);
+    transform: scale(1.03);
+}
+
+#image-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80%;
+    max-height: 70%;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+    pointer-events: none;
+}
+
+#image-container img{
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 0 25px rgba(255, 0, 0,0.6);
+}
+
+#image-container.show{
+    opacity: 1;
+}
+
+#image-container.hide {
+    opacity: 0;
+}
+
+@keyframes pulse-glow {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    }
+    50% {
+        transform: scale(1.03);
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    }
+}
+
+/* Aplica o efeito na imagem do colar */
+#image-container img.pulsing {
+    animation: pulse-glow 2s infinite ease-in-out;
+}
+
+#jake-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 2s ease;
+    z-index: 5;
+    pointer-events: none;
+}
+
+#jake-image img {
+    max-width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+    animation: pulse-glow 2.5s infinite;
+}
+
+@keyframes pulse-glow {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    }
+    50% {
+        transform: scale(1.03);
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    }
+}
+#klaus-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 3s ease;
+    z-index: 5;
+    pointer-events: none;
+}
+
+#klaus-image img {
+    max-width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(100, 0, 0, 0.6);
+    filter: grayscale(30%);
+}
