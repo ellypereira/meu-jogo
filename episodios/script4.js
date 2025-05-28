@@ -23,7 +23,7 @@ function nextScene() {
             stage++;
             break;
         case 3:
-            storyText.textContent = "(Ele me olha por cima dos fones, com um sorriso.) __Você deve ser a garota do colar. Eu sou Jake. Gosto de jogos... e segredos.)";
+            storyText.textContent = "(Ele me olha por cima dos fones, com um sorriso.) __Você deve ser a garota do colar — murmura com voz rouca, quase encantatória. —Eu sou Jake...";
             showJakeImage();
             stage++;
             break;
@@ -33,7 +33,7 @@ function nextScene() {
             stage++;
             break;
         case 5:
-            storyText.textContent = "(Jake suspira, sem parar o jogo.) __Ignore o Klaus. Ele prefere o silêncio ao caos... e às pessoas.)";
+            storyText.textContent = "(Jake suspira, sem parar o jogo.) __Ignore o Klaus. Ele prefere o silêncio ao caos... e às pessoas.";
             stage++;
             break;
         case 6:
@@ -50,6 +50,11 @@ function nextScene() {
 
 function showJakeImage() {
     const image = document.getElementById('jake-image');
+    image.style.left = '50%';
+    image.style.top = '50%';
+    image.style.right = '';
+    image.style.bottom = '';
+    image.style.transform = 'translate(-50%, -50%)';
     image.style.opacity = 1;
 
     setTimeout(() => {
@@ -59,6 +64,11 @@ function showJakeImage() {
 
 function showKlausImage() {
     const image = document.getElementById('klaus-image');
+    image.style.left = '50%';
+    image.style.top = '50%';
+    image.style.right = '';
+    image.style.bottom = '';
+    image.style.transform = 'translate(-50%, -50%)';
     image.style.opacity = 1;
 
     setTimeout(() => {
@@ -78,10 +88,10 @@ function showFirstChoicesEp4() {
 function chooseEp4First(option) {
     choices.innerHTML = '';
     if (option === 1) {
-        storyText.textContent = "(Jake ri.) __Gosto de gente curiosa. Mas cuidado... às vezes, o jogo morde de volta.";
+        storyText.textContent = "(Jake solta uma risada sombria, que reverbera nas trevas ao redor.) — Gosto de gente curiosa — diz, os olhos brilhando como presas à meia-luz. — Mas cuidado... às vezes, o jogo morde de volta..";
         jakeAffinity += 1;
     } else if (option === 2) {
-        storyText.textContent = "(Klaus finalmente fala, voz baixa.) __Silêncio também é uma forma de confiança.";
+        storyText.textContent = "(Klaus finalmente rompe o silêncio, a voz baixa e cortante como um sussurro de noite eterna.) — Silêncio também é uma forma de confiança — murmura, envolto em sombras impenetráveis.";
         klausAffinity += 1;
     }
     stage = 7;
@@ -89,7 +99,7 @@ function chooseEp4First(option) {
 
 function showSecondChoicesEp4() {
     setTimeout(() => {
-        storyText.textContent = "Há algo nos dois... Um guarda segredos com palavras, o outro, com silêncios.";
+        storyText.textContent = "Há algo sombrio neles... Um guarda segredos nas palavras afiadas, o outro, nos silêncios profundos";
         choices.innerHTML = `
             <button class="choice-button" onclick="chooseEp4Second(1)">Mostrar interesse pelo mundo de Jake</button>
             <button class="choice-button" onclick="chooseEp4Second(2)">Tentar entender o silêncio de Klaus</button>
@@ -101,13 +111,13 @@ function showSecondChoicesEp4() {
 function chooseEp4Second(option) {
     choices.innerHTML = '';
     if (option === 1) {
-        storyText.textContent = "(Jake fecha o notebook. __Você joga? Podemos fazer uma partida... ou conversar sobre a sua 'missão ancestral'.)";
+        storyText.textContent = "(Jake fecha o notebook com um estalo seco, olhos faiscando na penumbra..) __Você joga? Podemos fazer uma partida... ou conversar sobre a sua 'missão ancestral'.";
         jakeAffinity += 2;
     } else if (option === 2) {
-        storyText.textContent = "(Klaus se aproxima. __Você sente, não sente? Algo se move entre mundos. E você está no centro.)";
+        storyText.textContent = "(Klaus avança lentamente, a sombra dele se estendendo como um presságio..) __Você sente, não sente? Algo se move entre mundos. E você está no centro.";
         klausAffinity += 2;
     } else if (option === 3) {
-        storyText.textContent = "Você se retira. Tudo é demais. Talvez, no silêncio, encontre respostas que palavras não revelam.";
+        storyText.textContent = "(Você se retira, envolta pela escuridão crescente, onde o peso do silêncio pesa mais que mil vozes. Talvez, nesse vazio sem som, encontre as respostas que as palavras jamais ousaram revelar.)";
         // afinidade neutra
     }
     stage = 8;
@@ -116,11 +126,11 @@ function chooseEp4Second(option) {
 function defineRouteEp4() {
     setTimeout(() => {
         if (jakeAffinity > klausAffinity) {
-            storyText.textContent = "Jake sorri ao vê-la de volta. __Você é do tipo que escolhe seus próprios comandos. Gosto disso.";
+            storyText.textContent = "(Jake sorri, com os olhos ardendo com uma promessa sombria e proibida.)— Você é do tipo que escolhe seus próprios comandos — sussurra, a voz carregada de desejo oculto. — Gosto disso... especialmente quando sabe exatamente até onde quer levar o jogo... e o que quer perder no caminho.";
         } else if (klausAffinity > jakeAffinity) {
-            storyText.textContent = "Klaus permanece em silêncio, mas um leve aceno revela algo raro: respeito. Ou alarme.";
+            storyText.textContent = "(Klaus permanece em silêncio, mas um leve aceno revela algo raro: respeito. Ou alarme.)";
         } else {
-            storyText.textContent = "Os dois observam você. Talvez nenhum deles seja o que aparenta. Ou talvez... sejam exatamente isso.";
+            storyText.textContent = "(Os dois observam você. Talvez nenhum deles seja o que aparenta. Ou talvez... sejam exatamente isso.)";
         }
 
         // Salvar afinidade

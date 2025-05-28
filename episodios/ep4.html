@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Episódio 4 - Conexões e Silêncios </title>
-  <link rel="stylesheet" href="style4.css">
-  <link rel="shortcut icon" href="../assets/favicongame.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <title>Episódio 4 - Sombras da Mansão</title>
+    <link rel="stylesheet" href="style4.css">
+    <link rel="shortcut icon" href="/assets/favicongame.png" type="image/x-icon">
 </head>
 <body>
-  <div id="game-container">
-    <div id="image-container">
-      <div id="jake-image" class="image-fade">
-        <img src="/meu-jogo/assets/jake.jpg" alt="Jake">
-      </div>
+    <div id="game-container">
+        <!-- Caixa de texto e narrativa -->
+        <div id="text-box">
+            <div id="story-text">(Carregando)</div>
+        </div>
 
-      <div id="klaus-image" class="image-fade">
-  <img src="../assets/klaus.jpg" alt="Klaus">
-</div>
+        <!-- Área de escolhas -->
+        <div id="choices"></div>
+
+        <!-- Áudio ambiente -->
+        <audio id="bg-music" src="/assets/bgm.mp3.mp3" preload="auto" loop></audio>
+
+        <!-- Imagens de personagens -->
+        <img id="jake-image" class="character-image" src="/assets/jake.jpg" alt="Jake">
+        <img id="klaus-image" class="character-image" src="/assets/klaus.jpg" alt="Klaus">
     </div>
 
-    <div id="text-box">
-      <div id="story-text">(Carregando)</div>
-    </div>
-
-    <div id="choices"></div>
-    <audio id="bg-music" src="/assets/gothic.mp3"></audio>
-  </div>
-
-  <script src="script4.js"></script>
+    <!-- Script principal -->
+    <script src="script4.js"></script>
 </body>
 </html>
