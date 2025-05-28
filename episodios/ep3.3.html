@@ -1,4 +1,20 @@
- const storyText = document.getElementById('story-text');
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Episódio 3</title>
+    <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="story-text">(Carregando...)</div>
+        <div id="text-box">(Clique para continuar)</div>
+        <div id="choices"></div>
+        <audio id="bg-music" src="sombras.mp3" loop></audio>
+    </div>
+
+    <script>
+        const storyText = document.getElementById('story-text');
         const textBox = document.getElementById('text-box');
         const choices = document.getElementById('choices');
         const bgMusic = document.getElementById('bg-music');
@@ -145,3 +161,6 @@
         function nextEpisode() {
             window.location.href = 'ep4.html';
         }
+    </script>
+</body>
+</html>

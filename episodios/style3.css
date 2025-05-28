@@ -7,9 +7,9 @@
 
 body {
     font-family: 'Georgia', serif;
-    background: url(/meu-jogo/assets/quarto.png) no-repeat center center fixed;
+    background: url(/assets/quarto.png) no-repeat center center fixed;
     background-size: cover;
-    color: #f0f0f0;
+    color: #fbfbfb;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -26,12 +26,12 @@ body {
     max-width: 800px;
     height: 90vh;
     max-height: 650px;
-    background-color: rgba(0, 0, 0, 0.85);
-    border: 3px solid crimson;
-    border-radius: 10px;
+    background-color: rgba(15, 0, 0, 0.92);
+    border: 3px solid #8b0000;
+    border-radius: 12px;
     padding: 20px;
     position: relative;
-    box-shadow: 0 0 20px #990000;
+    box-shadow: 0 0 30px #550000, inset 0 0 10px rgba(255, 0, 0, 0.2);
 }
 
 /* ÁREA DO PERSONAGEM */
@@ -48,76 +48,73 @@ body {
 #text-box {
     margin-top: auto;
     width: 95%;
-    max-width: 100%;
-    background: rgba(20, 0, 0, 0.75);
+    background: rgba(30, 0, 0, 0.85);
     padding: 15px;
-    border: 2px solid #990000;
+    border: 2px solid #800000;
     border-radius: 10px;
     min-height: 100px;
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 1.1rem;
+    line-height: 1.7;
     color: #e8dede;
     font-family: 'Georgia', serif;
-    text-shadow: 0 0 5px #300000;
-    box-shadow: 4px 1px 15px rgba(255, 0, 0, 0.5);
+    text-shadow: 0 0 5px #2a0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
     cursor: pointer;
     z-index: 5;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    position: relative; /* <-- importante */
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-
-
 #text-box:hover {
-    background: rgba(60, 0, 0, 0.8);
+    background: rgba(45, 0, 0, 0.9);
 }
 
 .click-instruction {
     text-align: right;
     font-size: 14px;
-    opacity: 0.6;
+    opacity: 0.5;
     margin-top: 10px;
 }
 
 /* TEXTO DA HISTÓRIA */
 #story-text {
-  height: auto;
-  max-height: 100%;
-  flex: 1;
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-  line-height: 1.6;
-  word-break: break-word;
-  padding-right: 10px;
+    height: auto;
+    max-height: 100%;
+    flex: 1;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    word-break: break-word;
+    padding-right: 10px;
+    color: #f5e6e6;
 }
 
 /* ÁREA DE ESCOLHAS */
 #choices {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
+    margin-top: 15px;
 }
 
 /* BOTÕES DE ESCOLHA */
 .choice-button {
     width: 100%;
-    background: crimson;
-    color: white;
+    background: linear-gradient(to right, #8b0000, #4b0000);
+    color: #fff;
     border: none;
-    padding: 10px;
+    padding: 12px;
     font-size: 1rem;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.6);
 }
 
 .choice-button:hover {
-    background: darkred;
-    transform: scale(1.02);
+    background: linear-gradient(to right, #a30000, #660000);
+    transform: scale(1.03);
 }
 
 /* TELA DE TRANSIÇÃO */
@@ -140,7 +137,7 @@ body {
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    background: darkred;
+    background: #4b0000;
     color: white;
     border: none;
     padding: 15px 25px;
@@ -149,11 +146,12 @@ body {
     cursor: pointer;
     border-radius: 8px;
     z-index: 20;
+    box-shadow: 0 0 15px crimson;
     transition: background 0.3s, transform 0.2s;
 }
 
 #next-episode-btn:hover {
-    background: crimson;
+    background: #800000;
     transform: scale(1.05);
 }
 
@@ -171,17 +169,16 @@ body {
     max-width: 90vw;
     max-height: 90vh;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
 }
 
 /* TRANSIÇÕES DE TEXTO */
-#story-text.fade-out {
+.fade-out {
     opacity: 0;
     transition: opacity 1s ease;
 }
 
-#story-text.fade-in {
+.fade-in {
     opacity: 1;
     transition: opacity 1s ease;
 }
-
