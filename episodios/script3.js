@@ -56,6 +56,7 @@
                     break;
                 case 9:
                     storyText.textContent = "(Hoje, Elias me deu um colar. Talvez o mesmo de antes, restaurado.)";
+                    showCollarImage();
                     stage++;
                     break;
                 case 10:
@@ -73,6 +74,24 @@
                     break;
             }
         }
+
+       function showCollarImage() {
+    const imageContainer = document.getElementById('image-container');
+    const collarImage = document.getElementById('collar-image');
+
+    collarImage.classList.add('pulsing');
+    imageContainer.classList.add('show');
+
+    setTimeout(() => {
+        imageContainer.classList.add('hide');
+        collarImage.classList.remove('pulsing');
+    }, 3000);
+
+    setTimeout(() => {
+        imageContainer.classList.remove('show', 'hide');
+    }, 4500);
+}
+
 
         function showIdentityChoice() {
             storyText.textContent = "As vozes diziam meu nome... mas não o de agora. Um nome antigo, esquecido.";
