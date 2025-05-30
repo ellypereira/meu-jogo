@@ -40,5 +40,6 @@ Klaus - Bonitão que esconde um lado obscuro.
 - Contém conteúdo +16 / +18, recomendado para maiores.
 
 - ## 📷 Prévia
+- Link: https://ellypereira.github.io/meu-jogo/
 
 ![screenshot](assets/capa.png)
