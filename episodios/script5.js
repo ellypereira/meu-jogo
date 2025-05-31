@@ -1,7 +1,3 @@
-// ============================================================================
-// EPISÓDIO 5 — ROTEIRO UNIFICADO (Versão mesclada)
-// ============================================================================
-
 // Elementos do DOM
 const storyText   = document.getElementById('story-text');
 const textBox     = document.getElementById('text-box');
@@ -107,7 +103,7 @@ function nextScene() {
             break;
         case 19:
         case 20:
-            storyText.textContent = ""; // Texto vazio temporário (caso deseje inserir algo depois)
+            storyText.textContent = ""; // Texto vazio temporário (caso deseje inserir depois)
             stage++;
             break;
         case 21:
@@ -160,7 +156,7 @@ function showLucienElias() {
 }
 
 // ============================================================================
-// FUNÇÕES DE ESCOLHA (Final do Episódio 5)
+// FUNÇÕES DE ESCOLHA (Final)
 // ============================================================================
 function showFirstChoiceEp5() {
     storyText.textContent = "Você sente uma presença sombria se aproximando da mansão. O que faz?";
