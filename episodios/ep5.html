@@ -1,14 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blood And Silence</title>
+    <title>Episódio 4 - Sombras da Mansão</title>
+    <link rel="stylesheet" href="style5.css">
     <link rel="shortcut icon" href="/meu-jogo/assets/favicongame.png" type="image/x-icon">
 </head>
-<body style="background-color: brown;">
-    <h2 style="color: rgb(45, 10, 78);">CONTINUA...</h2>
-    <img src="/meu-jogo/assets/f6719fd6-tenor.gif" alt="">
+<body>
+    <div id="game-container">
+        <!-- Caixa de texto e narrativa -->
+        <div id="text-box">
+            <div id="story-text">(Carregando)</div>
+        </div>
 
+        <!-- Área de escolhas -->
+        <div id="choices"></div>
+
+        <!-- Áudio ambiente -->
+        <audio id="bg-music" src="/meu-jogo/assets/bgm.mp3.mp3" preload="auto" loop></audio>
+
+        <!-- Imagens de personagens -->
+        <img id="jake-image" class="character-image" src="/assets/jake1.png" alt="Jake">
+        <img id="klaus-image" class="character-image" src="/assets/klaus1.png" alt="Klaus">
+    </div>
+
+    <!-- Script principal -->
+    <script src="script5.js"></script>
 </body>
 </html>
