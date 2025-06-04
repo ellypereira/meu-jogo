@@ -51,7 +51,6 @@
   <audio id="click-sound" src="click.mp3"></audio>
   <audio id="dramatic-sound" src="dramatic.mp3"></audio>
   <audio id="death-sound" src="death.mp3"></audio>
-  <audio id="background-music" src="musica-fundo.mp3" autoplay loop></audio>
 
   <script>
     const storyText = document.getElementById('story-text');
@@ -60,7 +59,6 @@
     const clickSound = document.getElementById('click-sound');
     const dramaticSound = document.getElementById('dramatic-sound');
     const deathSound = document.getElementById('death-sound');
-    const backgroundMusic = document.getElementById('background-music');
 
     let stage = 0;
     let jakeAffinity = parseInt(localStorage.getItem('jakeAffinity')) || 0;
@@ -155,6 +153,21 @@
           { text: "(Mas, em um movimento repentino, Lucien atravessa a Rainha com sua própria alma cristalizada.)" },
           { text: "(A explosão leva vocês dois. Lucien morre ao te salvar. O mundo escurece.)", sound: deathSound, callback: endTragic }
         );
+      }
+
+      triggerNextAfterChoice();
+    }
+
+    function triggerNextAfterChoice() {
+      if (afterChoiceQueue.length > 0) {
+        const next = afterChoiceQueue.shift();
+        storyText.style.opacity = 0;
+        setTimeout(() => {
+          storyText.textContent = next.text;
+          storyText.style.opacity = 1;
+          if (next.sound) next.sound.play();
+          if (afterChoiceQueue.length === 0 && next.callback) next.callback();
+        }, 500);
       }
     }
 
