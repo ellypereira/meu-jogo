@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Episódio 6 - Blood And Silence</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #0c0c0c;
+      color: #f8f8f8;
+      padding: 30px;
+    }
+    #story-text {
+      max-width: 800px;
+      margin: auto;
+      font-size: 1.3em;
+      line-height: 1.7em;
+      margin-bottom: 20px;
+      transition: opacity 0.5s ease-in-out;
+    }
+    #text-box {
+      border: 2px solid #444;
+      padding: 20px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    #choices {
+      margin-top: 20px;
+    }
+    .choice-button {
+      background: #222;
+      color: #fff;
+      border: 1px solid #555;
+      padding: 10px 15px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    .choice-button:hover {
+      background: #444;
+    }
+  </style>
+</head>
+<body>
+  <div id="text-box">
+    <div id="story-text">(A mansão estremece. A noite cai mais cedo. Algo se aproxima...)</div>
+  </div>
+  <div id="choices"></div>
+
+  <audio id="click-sound" src="click.mp3"></audio>
+  <audio id="dramatic-sound" src="dramatic.mp3"></audio>
+  <audio id="death-sound" src="death.mp3"></audio>
+  <audio id="background-music" src="musica-fundo.mp3" autoplay loop></audio>
+
+  <script>
+    const storyText = document.getElementById('story-text');
+    const textBox = document.getElementById('text-box');
+    const choices = document.getElementById('choices');
+    const clickSound = document.getElementById('click-sound');
+    const dramaticSound = document.getElementById('dramatic-sound');
+    const deathSound = document.getElementById('death-sound');
+    const backgroundMusic = document.getElementById('background-music');
+
+    let stage = 0;
+    let jakeAffinity = parseInt(localStorage.getItem('jakeAffinity')) || 0;
+    let klausAffinity = parseInt(localStorage.getItem('klausAffinity')) || 0;
+    let afterChoiceQueue = [];
+    let waitingClick = false;
+
+    textBox.addEventListener('click', () => {
+      clickSound.play();
+      if (waitingClick && afterChoiceQueue.length > 0) {
+        const next = afterChoiceQueue.shift();
+        storyText.style.opacity = 0;
+        setTimeout(() => {
+          storyText.textContent = next.text;
+          storyText.style.opacity = 1;
+          if (next.sound) next.sound.play();
+          if (afterChoiceQueue.length === 0 && next.callback) next.callback();
+        }, 500);
+      } else {
+        nextScene();
+      }
+    });
+
+    function nextScene() {
+      switch(stage) {
+        case 0:
+          storyText.textContent = "(Uma figura surge entre as sombras. Parece com VOCÊ... mas corrompida.)";
+          stage++;
+          break;
+        case 1:
+          storyText.textContent = "(Cabelos negros flutuam em volta da moça. Seus olhos são totalmente pretos. Um sorriso frio nos lábios.)";
+          stage++;
+          break;
+        case 2:
+          storyText.textContent = "— Elias, onde está o colar? Com essa humana inútil?! — ela cospe. — Lucien... quanto tempo. Se ajoelhe diante de mim.";
+          stage++;
+          break;
+        case 3:
+          storyText.textContent = "— Jake, Klaus... tão inúteis como sempre. Vocês não conseguiram protegê-la nem no último ritual.";
+          stage++;
+          break;
+        case 4:
+          storyText.textContent = "— Cala a boca! — Jake ruge, indo para frente, mas Lucien o impede. — Isso não é só uma ilusão, é um fragmento real da Rainha...";
+          stage++;
+          break;
+        case 5:
+          storyText.textContent = "— Saia daqui! — Klaus se impõe. — Ela não é mais sua!";
+          stage++;
+          break;
+        case 6:
+          storyText.textContent = "(As sombras se contorcem. Um ataque é iniciado. A sala vira um campo de guerra astral. Você tenta respirar.)";
+          stage++;
+          break;
+        case 7:
+          showChoices();
+          break;
+        default:
+          break;
+      }
+    }
+
+    function showChoices() {
+      choices.innerHTML = `
+        <button class="choice-button" onclick="choose(1)">Confiar em Klaus e enfrentar a Rainha</button>
+        <button class="choice-button" onclick="choose(2)">Fugir com Jake pela passagem secreta</button>
+        <button class="choice-button" onclick="choose(3)">Ajoelhar-se diante da Rainha</button>
+      `;
+    }
+
+    function choose(option) {
+      choices.innerHTML = '';
+      waitingClick = true;
+      afterChoiceQueue = [];
+
+      if (option === 1) {
+        klausAffinity += 3;
+        afterChoiceQueue.push(
+          { text: "(Você permanece ao lado de Klaus. Ele forma um símbolo no ar e grita encantamentos.)", sound: dramaticSound },
+          { text: "(A Rainha sorri. As sombras a protegem. Klaus é atravessado por lanças negras e cai nos seus braços.)" },
+          { text: "— Proteja... a humanidade... — ele sussurra, morrendo.", sound: deathSound, callback: endTragic }
+        );
+      } else if (option === 2) {
+        jakeAffinity += 3;
+        afterChoiceQueue.push(
+          { text: "(Jake segura sua mão e corre com você. Portas explodem. Lucien e Elias seguram as criaturas.)", sound: dramaticSound },
+          { text: "(Antes de atravessar a passagem, um espinho das sombras atravessa Jake pelas costas. Ele empurra você para fora.)" },
+          { text: "— Continue... viva. Por nós... — ele diz, antes de desabar.", sound: deathSound, callback: endTragic }
+        );
+      } else {
+        afterChoiceQueue.push(
+          { text: "(Você ajoelha. A Rainha ri. — Boa escolha. Vamos reconstruir tudo — diz ela, passando a mão no seu rosto.)" },
+          { text: "(Mas, em um movimento repentino, Lucien atravessa a Rainha com sua própria alma cristalizada.)" },
+          { text: "(A explosão leva vocês dois. Lucien morre ao te salvar. O mundo escurece.)", sound: deathSound, callback: endTragic }
+        );
+      }
+    }
+
+    function endTragic() {
+      localStorage.setItem('klausAffinity', klausAffinity);
+      localStorage.setItem('jakeAffinity', jakeAffinity);
+      afterChoiceQueue.push(
+        { text: "(Silêncio. Lágrimas escorrem. O mundo nunca mais será o mesmo...)" },
+        { text: "(Clique para continuar para o Episódio 7)", callback: showContinueButton }
+      );
+    }
+
+    function showContinueButton() {
+      choices.innerHTML = `
+        <button class="choice-button" onclick="goToNext()">Continuar para o Episódio 7</button>
+      `;
+    }
+
+    function goToNext() {
+      window.location.href = 'ep7.html';
+    }
+  </script>
+</body>
+</html>

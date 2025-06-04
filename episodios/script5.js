@@ -1,162 +1,126 @@
-// Elementos do DOM
-const storyText   = document.getElementById('story-text');
-const textBox     = document.getElementById('text-box');
-const choices     = document.getElementById('choices');
+// ============================================================================
+// ELEMENTOS DO DOM
+// ============================================================================
+const storyText = document.getElementById('story-text');
+const textBox   = document.getElementById('text-box');
+const choices   = document.getElementById('choices');
 
-// Estado inicial
+// ============================================================================
+// VARIÁVEIS DE ESTADO
+// ============================================================================
 let stage = 0;
 let jakeAffinity  = parseInt(localStorage.getItem('jakeAffinity'))  || 0;
 let klausAffinity = parseInt(localStorage.getItem('klausAffinity')) || 0;
 
-// Evento de clique na caixa de texto
+// ============================================================================
+// EVENTO PRINCIPAL
+// ============================================================================
 textBox.addEventListener('click', nextScene);
 
 // ============================================================================
-// PROGRESSÃO DE CENAS
+// FUNÇÃO: PROGRESSÃO DAS CENAS
 // ============================================================================
 function nextScene() {
     switch (stage) {
         // -------------------------------
-        // PARTE 1: Introdução (0 a 7)
+        // PARTE 1: Introdução e Treinamento
         // -------------------------------
         case 0:
-            storyText.textContent = "(Logo ao amanhecer, Klaus me chama para o salão vazio. Ele segura um velho grimório em mãos.)";
+            updateScene("(Logo ao amanhecer, Klaus me chama para o salão vazio. Ele segura um velho grimório em mãos.)");
             showKlausImage();
-            stage++;
             break;
         case 1:
-            storyText.textContent = "(— Preste atenção. Isso é básico, mas essencial — ele diz, sua voz como uma lâmina afiada em brumas.)";
-            stage++;
+            updateScene("— Preste atenção. Isso é básico, mas essencial — ele diz, sua voz como uma lâmina afiada em brumas.)");
             break;
         case 2:
-            storyText.textContent = "(Ele ensina símbolos antigos, proteção com sal negro e a identificação de rastros astrais.)";
-            stage++;
+            updateScene("(Ele ensina símbolos antigos, proteção com sal negro e a identificação de rastros astrais.)");
             break;
         case 3:
-            storyText.textContent = "(— Você está lidando com forças que distorcem a realidade. Não confie nem nos seus olhos — ele completa.)";
-            stage++;
+            updateScene("— Você está lidando com forças que distorcem a realidade. Não confie nem nos seus olhos — ele completa.)");
             break;
         case 4:
-            storyText.textContent = "(Antes que eu possa responder, um estalo ecoa do lado de fora. Algo se move nas árvores.)";
-            stage++;
+            updateScene("(Antes que eu possa responder, um estalo ecoa do lado de fora. Algo se move nas árvores.)");
             break;
         case 5:
-            storyText.textContent = "(Jake entra correndo, interrompendo tudo, com o olhar fixo na janela.) — Klaus, temos um problema.";
+            updateScene("(Jake entra correndo, interrompendo tudo, com o olhar fixo na janela.) — Klaus, temos um problema.");
             showJakeImage();
-            stage++;
             break;
         case 6:
-            storyText.textContent = "— Tem... algo errado. Muito errado. Eu vi movimentos na floresta. Não eram animais. Nem humanos.";
-            stage++;
+            updateScene("— Tem... algo errado. Muito errado. Eu vi movimentos na floresta. Não eram animais. Nem humanos.");
             break;
         case 7:
-            storyText.textContent = "(Ele se aproxima, tirando os fones do pescoço. Pela primeira vez, a máscara debochada sumiu.) — Eles estão vindo.";
-            stage++;
+            updateScene("(Ele se aproxima, tirando os fones do pescoço. Pela primeira vez, a máscara debochada sumiu.) — Eles estão vindo.");
             break;
 
         // -------------------------------
-        // PARTE 2: Treinamento e invasão (8 a 21)
+        // PARTE 2: Ritual e Alerta de Invasão
         // -------------------------------
         case 8:
-            storyText.textContent = "(Klaus fecha o grimório com força.) — Prepare-se.";
-            stage++;
+            updateScene("(Klaus fecha o grimório com força.) — Prepare-se.");
             break;
         case 9:
-            storyText.textContent = "(Klaus permanece diante de mim, a presença dele tão imponente quanto as colunas da mansão.)";
-            stage++;
+            updateScene("(Klaus permanece diante de mim, a presença dele tão imponente quanto as colunas da mansão.)");
             break;
         case 10:
-            storyText.textContent = "— Antes de qualquer passo adiante, você precisa aprender a sobreviver aqui — diz ele, sem emoção.";
-            stage++;
+            updateScene("— Antes de qualquer passo adiante, você precisa aprender a sobreviver aqui — diz ele, sem emoção.");
             break;
         case 11:
-            storyText.textContent = "(Ele estende a mão, revelando uma adaga antiga e um grimório fechado com símbolos estranhos.)";
-            stage++;
+            updateScene("(Ele estende a mão, revelando uma adaga antiga e um grimório fechado com símbolos estranhos.)");
             break;
         case 12:
-            storyText.textContent = "— Autodefesa. Proteção. Leitura de energia. Você não é uma humana comum. Logo, não pode agir como uma.";
-            stage++;
+            updateScene("— Autodefesa. Proteção. Leitura de energia. Você não é uma humana comum. Logo, não pode agir como uma.");
             break;
         case 13:
-            storyText.textContent = "(Passam-se horas em silêncio, interrompido apenas pelas instruções frias de Klaus. Meus dedos ardem. Minha mente pulsa.)";
-            showJakeImage();
-            stage++;
+            updateScene("(Passam-se horas em silêncio, interrompido apenas pelas instruções frias de Klaus. Meus dedos ardem. Minha mente pulsa.)");
             break;
         case 14:
-            storyText.textContent = "(A luz pisca. Um vento gélido invade pelas janelas, mesmo que todas estejam trancadas.)";
-            stage++;
+            updateScene("(A luz pisca. Um vento gélido invade pelas janelas, mesmo que todas estejam trancadas.)");
             break;
         case 15:
-            storyText.textContent = "(Portas se abrem com violência. Lucien aparece primeiro, os olhos em brasas. Logo atrás, Elias, com o olhar duro e aflito.)";
-            stage++;
+            updateScene("(Portas se abrem com violência. Lucien aparece primeiro, os olhos em brasas. Logo atrás, Elias, com o semblante sério.)");
             break;
         case 16:
-            storyText.textContent = "— Já começaram... — murmura Lucien. — Ela precisa ser protegida.";
-            stage++;
+            updateScene("— Já começaram... — murmura Lucien. — Ela precisa ser protegida.");
             break;
         case 17:
-            showLucienElias();
+            updateScene("(Em seguida Elias diz) — Ela veio atrás de você e do colar, tente não acreditar em nada que ela dizer. ")
             break;
         case 18:
-            storyText.textContent = "— Precisamos de um círculo de contenção agora — diz Elias, tirando um punhado de sal negro do casaco.";
-            stage++;
+            updateScene("— Precisamos de um círculo de contenção agora — diz Elias, tirando um punhado de sal negro do casaco.");
             break;
         case 19:
         case 20:
-            storyText.textContent = ""; // Texto vazio temporário (caso deseje inserir depois)
-            stage++;
-            break;
-        case 21:
-            showFirstChoiceEp5(); // Exibe escolhas
+            showFirstChoiceEp5();
             break;
 
-        // -------------------------------
-        // ESCOLHAS: Controladas por funções (22+)
-        // -------------------------------
         default:
-            break; // Aguardando clique em botões
+            break; // Espera por uma escolha
     }
+
+    stage++;
 }
 
 // ============================================================================
 // FUNÇÕES DE IMAGEM
 // ============================================================================
 function showKlausImage() {
-    const img = document.getElementById('klaus-image');
-    img.style.opacity = 1;
-    setTimeout(() => { img.style.opacity = 0; }, 3500);
+    fadeCharacterImage('klaus-image');
 }
 
 function showJakeImage() {
-    const img = document.getElementById('jake-image');
-    img.style.opacity = 1;
-    setTimeout(() => { img.style.opacity = 0; }, 3500);
+    fadeCharacterImage('jake-image');
 }
 
-function showLucienElias() {
-    const container = document.getElementById('game-container');
-
-    const lucienImg = document.createElement('img');
-    lucienImg.src = '/meu-jogo/assets/lucien.jpg';
-    lucienImg.classList.add('character-image');
-    lucienImg.style.opacity = 0;
-    lucienImg.style.zIndex = 4;
-    container.appendChild(lucienImg);
-    setTimeout(() => { lucienImg.style.opacity = 1; }, 100);
-
-    const eliasImg = document.createElement('img');
-    eliasImg.src = '/assets/elias.jpg';
-    eliasImg.classList.add('character-image');
-    eliasImg.style.opacity = 0;
-    eliasImg.style.zIndex = 4;
-    container.appendChild(eliasImg);
-    setTimeout(() => { eliasImg.style.opacity = 1; }, 100);
-
-    stage++;
+function fadeCharacterImage(id) {
+    const img = document.getElementById(id);
+    if (img) {
+        img.style.opacity = 1;
+        setTimeout(() => { img.style.opacity = 0; }, 3000);
+    }
 }
 
 // ============================================================================
-// FUNÇÕES DE ESCOLHA (Final)
+// FUNÇÕES DE ESCOLHA E FINALIZAÇÃO
 // ============================================================================
 function showFirstChoiceEp5() {
     storyText.textContent = "Você sente uma presença sombria se aproximando da mansão. O que faz?";
@@ -172,19 +136,19 @@ function chooseEp5(option) {
 
     switch (option) {
         case 1:
-            storyText.textContent = "(Você ajuda Klaus a traçar runas protetoras no chão. Ele te olha com aprovação silenciosa.)";
+            updateScene("(Você ajuda Klaus a traçar runas protetoras no chão. Ele te olha com aprovação silenciosa.)");
             klausAffinity += 2;
             break;
         case 2:
-            storyText.textContent = "(Você corre atrás de Jake. Ele sorri, meio nervoso. — Finalmente alguém com espírito de aventura.)";
+            updateScene("(Você corre atrás de Jake. Ele sorri, meio nervoso. — Finalmente alguém com espírito de aventura.)");
             jakeAffinity += 2;
             break;
         case 3:
-            storyText.textContent = "(Você se esconde atrás de uma estátua. Lá fora, a escuridão toma forma, mas algo parece perceber sua presença.)";
+            updateScene("(Você se esconde atrás de uma estátua. Lá fora, a escuridão toma forma, mas algo parece perceber sua presença.)");
             break;
     }
 
-    setTimeout(endEp5, 2000);
+    setTimeout(endEp5, 1000);
 }
 
 function endEp5() {
@@ -201,4 +165,11 @@ function endEp5() {
 
 function goToNext() {
     window.location.href = 'ep6.html';
+}
+
+// ============================================================================
+// UTILITÁRIOS
+// ============================================================================
+function updateScene(text) {
+    storyText.textContent = text;
 }
