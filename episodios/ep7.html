@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episódio 7</title>
+    <link rel="stylesheet" href="style7.css">
+    <link rel="shortcut icon" href="/assets/favicongame.png" type="image/x-icon">
+</head>
+<body>
+    <audio id="bg-music" src="/assets/bgm.mp3.mp3" loop></audio>
+
+    <div id="affinity-bar">
+  <div>Jake 🧛‍♂️ <div class="bar"><div id="jake-bar" class="fill"></div></div></div>
+  <div>Lucien 🩸 <div class="bar"><div id="lucien-bar" class="fill"></div></div></div>
+  <div>Elias 🔮 <div class="bar"><div id="elias-bar" class="fill"></div></div></div>
+  <div>Klaus 🗡️ <div class="bar"><div id="klaus-bar" class="fill"></div></div></div>
+</div>
+<div id="menu-buttons">
+  <button onclick="saveGame(stage)">Salvar</button>
+  <button onclick="stage = loadGame(); nextScene()">Carregar</button>
+</div>
+
+
+    <div id="text-box">
+        <div id="story-text">(O céu coberto por nuvens negras. Relâmpagos cortam a escuridão...)</div>
+    </div>
+    <div id="choices"></div>
+    <script src="script7.js"></script>
+</body>
+</html>
