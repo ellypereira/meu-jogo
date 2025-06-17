@@ -10,7 +10,7 @@ const affKlaus = document.getElementById('aff-klaus');
 const bgMusic = document.getElementById('bg-music');
 const thunderSound = document.getElementById('thunder-sound');
 
-let stage = 0;
+let stage = 1;
 let waitingClick = false;
 let musicStarted = false;
 
@@ -28,11 +28,8 @@ textBox.addEventListener('click', () => {
         bgMusic.play();
         musicStarted = true;
     }
-    if (waitingClick) {
-        waitingClick = false;
         nextScene();
-    }
-});
+    });
 
 function updateAffinityBar() {
     affJake.textContent = jakeAffinity;
@@ -75,11 +72,19 @@ function startEpisode() {
     stage = 0;
     storyText.style.opacity = 1;
     storyText.textContent = '(A escuridão envolve a mansão. O destino será decidido.)';
+    setTimeout(() => waitingClick = true, 500);
 }
 
 function nextScene() {
-    if (!waitingClick) return;
+    if (waitingClick === false && stage !== -1) return;
     waitingClick = false;
+
+    if (stage === -1) {
+        stage = 0;
+        storyText.textContent = "(A escuridão envolve a mansão. O destino será decidido)";
+        setTimeout(() => waitingClick = true, 500);
+        return;
+    }
 
     switch(stage) {
         case 0:
@@ -109,9 +114,11 @@ function nextScene() {
             if (localStorage.getItem('choseQueenRoute') === 'true') {
                 storyText.textContent = `(A Rainha das Sombras sorri em seu trono, chamando você para um futuro sombrio e cruel.)`;
                 stage = 100;
+                setTimeout(() => waitingClick = true, 500);
             } else {
                 storyText.textContent = `(Você e os sobreviventes preparam-se para o confronto final contra as forças das trevas.)`;
                 stage++;
+                setTimeout(() => waitingClick = true, 500);
             }
             break;
         case 5:
@@ -169,8 +176,9 @@ function chooseOption(option) {
             setTimeout(() => nextSceneBattle(), 1500);
             break;
         case 'romance':
+            storyText.textContent = "(Você se aproxima de um sobrevivente, sentindo a tensão crescer entre vocês.)";
             stage = 120;
-            nextScene();
+            setTimeout(() => nextSceneBattle(), 1500);
             break;
         case 'joinQueen':
             storyText.textContent = "(Você escolhe o poder sombrio da Rainha e vira sua aliada.)";

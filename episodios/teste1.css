@@ -1,0 +1,279 @@
+/* ==== Configuração geral ==== */
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background: url(/assets/floresta-anime.png);
+  background-size: cover;
+  background-position: center;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ==== Container principal do jogo ==== */
+#game-container {
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(220, 20, 60, 0.8);
+  border-radius: 15px;
+  padding: 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 0 25px rgba(139, 0, 0, 0.8);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+#game-container:hover {
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.9);
+  border-color: rgba(255, 0, 0, 0.8);
+}
+
+/* ==== Silhueta ==== */
+#silhouette {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  z-index: 10;
+  transition: opacity 1s ease-in-out;
+  pointer-events: none;
+  display: none;
+}
+
+/* ==== Personagem ==== */
+#character {
+  position: relative;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 50%;
+  width: 100%;
+  background: url('/assets/elias-lucien.jpg') no-repeat center bottom;
+  background-size: contain;
+  z-index: 1;
+}
+
+/* ==== Caixa de texto ==== */
+#text-box {
+  width: 100%;
+  max-width: 100%;
+  background: rgba(20, 0, 0, 0.65);
+  border: 2px solid rgba(220, 20, 60, 0.8);
+  border-radius: 12px;
+  padding: 18px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #e8dede;
+  font-family: 'Georgia', serif;
+  text-shadow: 0 0 5px #300000;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: pointer;
+  z-index: 6;
+
+  overflow-y: auto;
+  max-height: 30vh;
+}
+
+#text-box:hover {
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+}
+
+/* ==== Botões de escolha ==== */
+#choices {
+  margin-top: 15px;
+}
+
+.choice-button {
+  display: block;
+  background: rgba(139, 0, 0, 0.85);
+  border: 1px solid crimson;
+  border-radius: 8px;
+  color: #fdfdfd;
+  padding: 12px;
+  margin: 6px 0;
+  font-weight: bold;
+  font-size: 1rem;
+  font-family: 'Georgia', serif;
+  text-shadow: 0 0 2px black;
+  box-shadow: 0 0 10px rgba(139, 0, 0, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.choice-button:hover {
+  background: crimson;
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
+  transform: scale(1.02);
+}
+
+/* ==== Tela de transição (fade) ==== */
+#fade-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0;
+  transition: opacity 2s;
+  pointer-events: none;
+  z-index: 20;
+  pointer-events: all;
+}
+
+#fade-screen.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+
+/* ==== Painel de Afinidade ==== */
+#affinity-panel {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, rgba(40, 40, 40, 0.95), rgba(20, 20, 20, 0.95));
+  color: #f0f0f0;
+  padding: 16px;
+  border-radius: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 999;
+  width: 220px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease-in-out;
+}
+
+#affinity-panel h4 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #555;
+  padding-bottom: 6px;
+  color: #ffccff;
+}
+
+#affinity-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+#affinity-panel li {
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#affinity-panel li span {
+  font-weight: bold;
+  color: #aaffee;
+}
+
+#affinity-message {
+  font-size: 13px;
+  text-align: center;
+  margin-top: 10px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background-color: rgba(0, 255, 204, 0.1);
+  color: #00ffee;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  animation: fadeInOut 3s ease-in-out forwards;
+}
+
+/* ==== Animação de entrada/saída ==== */
+@keyframes fadeInOut {
+  0%   { opacity: 0; transform: translateY(10px); }
+  10%  { opacity: 1; transform: translateY(0); }
+  90%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+/* ==== Responsividade ==== */
+@media screen and (max-width: 600px) {
+  body {
+    align-items: flex-start;
+    padding-top: 20px;
+  }
+
+  #game-container {
+    max-height: 95vh;
+    padding: 15px;
+  }
+
+  #character {
+    height: 200px;
+    top: 10px;
+  }
+
+  #text-box {
+    font-size: 0.95rem;
+    padding: 15px;
+    max-height: 35vh;
+  }
+
+  .choice-button {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  #fade-screen {
+    width: 100%;
+    height: 100%;
+  }
+
+  #affinity-panel {
+    width: 90%;
+    max-width: 300px;
+    bottom: 10px;
+    top: auto;
+    right: 50%;
+    transform: translateX(50%);
+    font-size: 13px;
+    padding: 10px;
+    z-index: 5;
+    opacity: 0.9;
+  }
+
+  #affinity-panel h4 {
+    font-size: 14px;
+  }
+
+  #affinity-panel ul {
+    font-size: 13px;
+  }
+
+  #affinity-message {
+    font-size: 12px;
+  }
+}

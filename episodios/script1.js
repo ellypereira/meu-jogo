@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       silhouette.style.opacity = 0;
       setTimeout(() => silhouette.style.display = 'none', 1500);
-    }, 4000);
+    }, 2000);
   }
 
   function triggerFadeOut() {

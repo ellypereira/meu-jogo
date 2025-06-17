@@ -1,211 +1,53 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Episódio 7 - Blood And Silence</title>
- <link rel="shortcut icon" href="/meu-jogo/assets/favicongame.png" type="image/x-icon">
-  <style>
-    body {
-      font-family: 'Georgia', serif;
-      background-color: #0c0c0c;
-      color: #f8f8f8;
-      padding: 30px;
-      overflow: hidden;
-    }
-    #story-text {
-      max-width: 800px;
-      margin: auto;
-      font-size: 1.3em;
-      line-height: 1.7em;
-      margin-bottom: 20px;
-      transition: opacity 0.5s ease-in-out;
-    }
-    #text-box {
-      border: 2px solid #444;
-      padding: 20px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    #choices {
-      margin-top: 20px;
-    }
-    .choice-button {
-      background: #222;
-      color: #fff;
-      border: 1px solid #555;
-      padding: 10px 15px;
-      margin: 5px;
-      cursor: pointer;
-      border-radius: 8px;
-    }
-    .choice-button:hover {
-      background: #444;
-    }
-
-    .smoke {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      width: 20px;
-      height: 20px;
-      background: radial-gradient(rgba(200,200,200,0.3), transparent);
-      border-radius: 50%;
-      animation: rise 5s linear forwards;
-      pointer-events: none;
-    }
-
-    @keyframes rise {
-      0% {
-        transform: translateX(-50%) translateY(0) scale(1);
-        opacity: 0.3;
-      }
-      100% {
-        transform: translateX(-50%) translateY(-600px) scale(3);
-        opacity: 0;
-      }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Episódio 1 - Blood And Silence</title>
+  <link rel="stylesheet" href="teste1.css">
+  <link rel="shortcut icon" href="/assets/favicongame.png" type="image/x-icon">
 </head>
 <body>
 
-  <audio autoplay loop src="/meu-jogo/assets/musica-melancolica.mp3"></audio>
-
-  <div id="text-box">
-    <div id="story-text">(O silêncio preenche a mansão...)</div>
+  <!-- Painel de Afinidade -->
+  <div id="affinity-panel">
+    <h4>Relações</h4>
+    <ul>
+      <li>Lucien: <span id="lucien-score">0</span></li>
+      <li>Elias: <span id="elias-score">0</span></li>
+      <li>Klaus: <span id="klaus-score">0</span></li>
+      <li>Jake: <span id="jake-score">0</span></li>
+    </ul>
+    <div id="affinity-message"></div>
   </div>
-  <div id="choices"></div>
 
-  <script>
-    const storyText = document.getElementById('story-text');
-    const textBox = document.getElementById('text-box');
-    const choices = document.getElementById('choices');
-    const ep6Choice = localStorage.getItem('ep6Choice');
-    const klausAffinity = parseInt(localStorage.getItem('klausAffinity')) || 0;
-    const jakeAffinity = parseInt(localStorage.getItem('jakeAffinity')) || 0;
+  <!-- Tela de Nome -->
+  <div id="name-screen">
+    <div id="name-box">
+      <h1 class="gothic-title">Blood And Silence</h1>
+      <p class="gothic-subtitle">Desperte das sombras...</p>
+      <input id="name-input" type="text" placeholder="Seu nome" />
+      <button id="startBtn">Entrar na Escuridão</button>
+    </div>
+  </div>
 
-    let stage = 0;
-    let afterChoiceQueue = [];
-    let waitingClick = false;
+  <!-- Container do Jogo -->
+  <div id="game-container">
+    <div id="text-box">
+      <div id="story-text">Clique para continuar</div>
+    </div>
 
-    textBox.addEventListener('click', () => {
-      if (waitingClick && afterChoiceQueue.length > 0) {
-        const next = afterChoiceQueue.shift();
-        storyText.style.opacity = 0;
-        setTimeout(() => {
-          storyText.textContent = next.text;
-          storyText.style.opacity = 1;
-          if (afterChoiceQueue.length === 0 && next.callback) next.callback();
-        }, 500);
-      } else {
-        nextScene();
-      }
-    });
+    <div id="choices"></div>
+    <button id="next-episode-btn">Próximo Episódio</button>
+    <img id="silhouette" src="/assets/floresta1.png" alt="Silhueta" />
+    <div id="fade-screen"></div>
+  </div>
 
-    function nextScene() {
-      switch(stage) {
-        case 0:
-          showIntroByChoice();
-          stage++;
-          break;
-        case 1:
-          storyText.textContent = "(Você sente o peso da escolha que fez. O mundo está diferente.)";
-          stage++;
-          break;
-        case 2:
-          storyText.textContent = "(Você ouve passos. Lucien — ou o que restou dele — aparece à sua frente...)";
-          stage++;
-          break;
-        case 3:
-          showChoices();
-          break;
-        default:
-          break;
-      }
-    }
+  <!-- Música de Fundo -->
+  <audio id="bg-music" src="/assets/gothic.mp3" autoplay loop></audio>
 
-    function showIntroByChoice() {
-      if (ep6Choice === 'klaus') {
-        storyText.textContent = "(Klaus se foi... mas uma aura quente ainda protege seu corpo. Um último feitiço?)";
-      } else if (ep6Choice === 'jake') {
-        storyText.textContent = "(Jake se sacrificou. No bolso da sua jaqueta, você encontra um bilhete: 'Confie em Elias. Vá até a cripta.')";
-      } else {
-        storyText.textContent = "(Você sente a sombra da Rainha dentro de si. Lucien morreu por você. O poder... ainda pulsa.)";
-      }
-    }
+  <!-- Script do Jogo -->
+  <script src="teste1.js"></script>
 
-    function showChoices() {
-      choices.innerHTML = `
-        <button class="choice-button" onclick="choose(1)">Aceitar o poder sombrio que cresce dentro de você</button>
-        <button class="choice-button" onclick="choose(2)">Buscar redenção com Elias e Lucien</button>
-        <button class="choice-button" onclick="choose(3)">Fugir para as montanhas e abandonar tudo</button>
-      `;
-    }
-
-    function choose(option) {
-      choices.innerHTML = '';
-      waitingClick = true;
-      afterChoiceQueue = [];
-
-      if (option === 1) {
-        afterChoiceQueue.push(
-          { text: "(Você fecha os olhos. A energia da Rainha invade sua alma. Algo em você muda.)" },
-          { text: "(Ecos de antigas vozes ressoam em sua mente. Você não é mais totalmente humana.)", callback: endSmoke }
-        );
-      } else if (option === 2) {
-        afterChoiceQueue.push(
-          { text: "(Você decide buscar redenção. Elias ainda está ferido, mas seus olhos brilham de esperança.)" },
-          { text: "(Lucien, ou sua alma, caminha ao seu lado — silenciosa, mas presente.)", callback: endSmoke }
-        );
-      } else {
-        afterChoiceQueue.push(
-          { text: "(Você foge. Corre para longe da mansão, da dor, dos nomes e das promessas.)" },
-          { text: "(Mas a escuridão... corre atrás de você.)", callback: endSmoke }
-        );
-      }
-
-      triggerNextAfterChoice();
-    }
-
-    function triggerNextAfterChoice() {
-      if (afterChoiceQueue.length > 0) {
-        const next = afterChoiceQueue.shift();
-        storyText.style.opacity = 0;
-        setTimeout(() => {
-          storyText.textContent = next.text;
-          storyText.style.opacity = 1;
-          if (afterChoiceQueue.length === 0 && next.callback) next.callback();
-        }, 500);
-      }
-    }
-
-    function endSmoke() {
-      createSmoke();
-      afterChoiceQueue.push(
-        { text: "(O próximo capítulo será escrito com sangue, sombras... ou redenção.)" },
-        { text: "(Clique para continuar para o Episódio 8)", callback: showContinueButton }
-      );
-    }
-
-    function showContinueButton() {
-      choices.innerHTML = `
-        <button class="choice-button" onclick="goToNext()">Continuar para o Episódio 8</button>
-      `;
-    }
-
-    function goToNext() {
-      window.location.href = 'ep8.html';
-    }
-
-    function createSmoke() {
-      for (let i = 0; i < 30; i++) {
-        const smoke = document.createElement('div');
-        smoke.className = 'smoke';
-        smoke.style.left = Math.random() * window.innerWidth + 'px';
-        smoke.style.animationDelay = (Math.random() * 3) + 's';
-        document.body.appendChild(smoke);
-        setTimeout(() => smoke.remove(), 6000);
-      }
-    }
-  </script>
 </body>
-</html> -- >
+</html>
