@@ -2,9 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const storyText       = document.getElementById('story-text');
   const textBox         = document.getElementById('text-box');
   const choices         = document.getElementById('choices');
+
   const fadeScreen      = document.getElementById('fade-screen');
-  const musicFloresta = document.getElementById('bg-floresta');
-  const musicQuarto = document.getElementById('bg-quarto');
+  const musicFloresta   = document.getElementById('bg-floresta');
+  const musicQuarto     = document.getElementById('bg-quarto');
   const startBtn        = document.getElementById('startBtn');
   const nameInput       = document.getElementById('name-input');
   const nameScreen      = document.getElementById('name-screen');
@@ -12,72 +13,92 @@ document.addEventListener('DOMContentLoaded', () => {
   const silhouette      = document.getElementById('silhouette');
   const nextEpisodeBtn  = document.getElementById('next-episode-btn');
 
-
-function playFloresta() {
-  if (currentMusic === 'floresta') return;  // Já está tocando, não faz nada
-
-  fadeOut(musicQuarto, () => {
-    musicQuarto.pause();
-    musicQuarto.currentTime = 0;
-    musicFloresta.volume = 0;
-    musicFloresta.play();
-    fadeIn(musicFloresta);
-    currentMusic = 'floresta';
-  });
-}
-
-function playQuarto() {
-      if (currentMusic === 'quarto') return;  // Já está tocando, não faz nada
-    fadeOut(musicFloresta, () => {
-  musicFloresta.pause();
-  musicFloresta.currentTime = 0;
-  musicQuarto.volume = 0;
-  musicQuarto.play();
-  fadeIn(musicQuarto);
-      currentMusic = 'quarto';
-});
-}
-
-function fadeOut(audioElement, callback) {
-  let fadeAudio = setInterval(() => {
-    if (audioElement.volume > 0.05) {
-      audioElement.volume -= 0.05;
-    } else {
-      audioElement.volume = 0;
-      clearInterval(fadeAudio);
-      if (callback) callback();
-    }
-  }, 100); // Quanto menor o tempo, mais rápido o fade
-}
-
-function fadeIn(audioElement) {
-  let volume = 0;
-  let fadeAudio = setInterval(() => {
-    if (volume < 0.95) {
-      volume += 0.05;
-      audioElement.volume = volume;
-    } else {
-      audioElement.volume = 1;
-      clearInterval(fadeAudio);
-    }
-  }, 100);
-}
-  let currentMusic = 'Floresta';
+  let currentMusic = 'floresta';
   let stage = 0;
+  let waitingForChoice = false;
   let musicStarted = false;
   let playerName = localStorage.getItem('playerName') || '';
 
   let affinity = JSON.parse(localStorage.getItem('affinity')) || {
     Lucien: 0,
     Elias: 0,
-    Klaus: 0,
-    Jake: 0
   };
+
+  // === Função de efeito de digitação===
+  function typeWriter(text, callback){
+    let i = 0;
+    storyText.textContent = '';
+    const speed = 30;
+
+    function typing(){
+      if (i < text.length){
+      storyText.textContent += text.charAt(i);
+      i++;
+      setTimeout(typing, speed);
+      } else if (callback){
+        callback();
+      }
+    }
+    typing();
+   }
 
   if (playerName) {
     nameScreen.style.display = 'none';
     gameContainer.style.display = 'block';
   }
+
+  // ================= Música ===================
+
+  function playFloresta() {
+    if (currentMusic === 'floresta') return;
+    fadeOut(musicQuarto, () => {
+      musicQuarto.pause();
+      musicQuarto.currentTime = 0;
+      musicFloresta.volume = 0;
+      musicFloresta.play();
+      fadeIn(musicFloresta);
+      currentMusic = 'floresta';
+    });
+  }
+
+  function playQuarto() {
+    if (currentMusic === 'quarto') return;
+    fadeOut(musicFloresta, () => {
+      musicFloresta.pause();
+      musicFloresta.currentTime = 0;
+      musicQuarto.volume = 0;
+      musicQuarto.play();
+      fadeIn(musicQuarto);
+      currentMusic = 'quarto';
+    });
+  }
+
+  function fadeOut(audioElement, callback) {
+    let fadeAudio = setInterval(() => {
+      if (audioElement.volume > 0.05) {
+        audioElement.volume -= 0.05;
+      } else {
+        audioElement.volume = 0;
+        clearInterval(fadeAudio);
+        if (callback) callback();
+      }
+    }, 100);
+  }
+
+  function fadeIn(audioElement) {
+    let volume = 0;
+    let fadeAudio = setInterval(() => {
+      if (volume < 0.95) {
+        volume += 0.05;
+        audioElement.volume = volume;
+      } else {
+        audioElement.volume = 1;
+        clearInterval(fadeAudio);
+      }
+    }, 100);
+  }
+
+  // ============= Eventos ==============
 
   startBtn.addEventListener('click', () => {
     const name = nameInput.value.trim();
@@ -97,31 +118,12 @@ function fadeIn(audioElement) {
   });
 
   textBox.addEventListener('click', nextScene);
+
   nextEpisodeBtn.addEventListener('click', () => {
     window.location.href = 'ep2.html';
   });
 
-  function updateAffinityPanel() {
-    document.getElementById('lucien-score').textContent = affinity.Lucien;
-    document.getElementById('elias-score').textContent = affinity.Elias;
-    document.getElementById('klaus-score').textContent = affinity.Klaus;
-    document.getElementById('jake-score').textContent = affinity.Jake;
-  }
-
-  function showAffinityMessage(text) {
-    const msg = document.getElementById('affinity-message');
-    msg.textContent = text;
-    msg.style.animation = 'none';
-    msg.offsetHeight;
-    msg.style.animation = null;
-  }
-
-  function playMusicOnce() {
-    if (!musicStarted) {
-      bgMusic.play();
-      musicStarted = true;
-    }
-  }
+  // ============= Efeitos Visuais ==============
 
   function fadeToBlackAndBack() {
     fadeScreen.style.opacity = 1;
@@ -146,10 +148,33 @@ function fadeIn(audioElement) {
     }, 500);
   }
 
+  // ============= Afinidade ==============
+
+  function updateAffinityPanel() {
+    document.getElementById('lucien-score').textContent = affinity.Lucien;
+    document.getElementById('elias-score').textContent = affinity.Elias;
+    document.getElementById('klaus-score').textContent = affinity.Klaus;
+    document.getElementById('jake-score').textContent = affinity.Jake;
+  }
+
+  function showAffinityMessage(text) {
+    const msg = document.getElementById('affinity-message');
+    msg.textContent = text;
+    msg.style.animation = 'none';
+    msg.offsetHeight;
+    msg.style.animation = null;
+  }
+
+  // ============= História Principal ==============
+
   function nextScene() {
-if (currentMusic !== 'quarto') {
-  playFloresta();
-}
+    if (waitingForChoice) return;
+
+    textBox.removeEventListener('click', nextScene);
+
+    if (currentMusic !== 'quarto' && stage > 8) {
+      playQuarto();
+    }
 
     switch (stage) {
       case 0:
@@ -193,7 +218,6 @@ if (currentMusic !== 'quarto') {
             document.body.classList.remove('fade-in');
           }, 1000);
         }, 1000);
-         playQuarto();
         break;
       case 10:
         storyText.textContent = "(O quarto é escuro, decorado com velas, cortinas pesadas... e um aroma adocicado no ar.)";
@@ -211,57 +235,76 @@ if (currentMusic !== 'quarto') {
         showFirstChoices();
         return;
       case 15:
-        showFinalChoices();
-        return;
+        break;
       case 16:
+      showFinalChoices();
+      return;
+      case 17:
+        break;
+         case 18:
         defineRoute();
         return;
-      default:
+        default:
         return;
     }
-
+    textBox.addEventListener('click', nextScene);
     stage++;
   }
 
-  function showFirstChoices() {
+function showFirstChoices() {
+  waitingForChoice = true;
+  storyText.textContent = "(Lucien encosta na parede, cruzando os braços.) — Eu disse que ela não aguentaria. Frágil... mas intrigante.";
+
+  setTimeout(() => {
+    waitingForChoice = true;
+    storyText.textContent = "Eles te observam em silêncio, como se esperassem algo de você. Seu coração bate acelerado.";
     choices.innerHTML = `
-      <button class="choice-button" onclick="chooseFirst(1)">‘O que vocês fizeram comigo?’</button>
+      <button class="choice-button" onclick="chooseFirst(1)">‘O que vocês fizeram comigo? Fiquem longe!’</button>
       <button class="choice-button" onclick="chooseFirst(2)">‘Obrigada por me ajudarem... eu acho.’</button>
     `;
+  }, 3000); // Tempo antes de aparecer as escolhas
+}
+
+
+window.chooseFirst = function(option) {
+  waitingForChoice = false;
+  choices.innerHTML = '';
+
+  if (option === 1) {
+    storyText.textContent = "(Lucien sorri com sarcasmo.) 'Nada... ainda.' (Elias lança um olhar severo para ele.)";
+    affinity.Lucien += 1;
+    showAffinityMessage("+1 Afinidade com Lucien ❤️ — Ele admira sua coragem.");
+  } else if (option === 2) {
+    storyText.textContent = "(Elias sorri levemente.) — Você está segura. Tentamos não assustá-la.";
+    affinity.Elias += 1;
+    showAffinityMessage("+1 Afinidade com Elias 💙 — Sua gentileza o tocou.");
   }
 
-  window.chooseFirst = function(option) {
-    choices.innerHTML = '';
+  updateAffinityPanel();
+  stage = 15;
+  textBox.addEventListener('click', nextScene);
+};
 
-    if (option === 1) {
-      storyText.textContent = "(Lucien sorri com sarcasmo.) 'Nada... ainda.' (Elias olha para ele, desaprovando.)";
-      affinity.Lucien += 1;
-      showAffinityMessage("+1 de Romance com Lucien ❤️");
-    } else {
-      storyText.textContent = "(Elias sorri levemente.) __Você está segura. Tentamos não assustá-la.";
-      affinity.Elias += 1;
-      showAffinityMessage("+1 de Romance com Elias 💙");
-    }
-
-    updateAffinityPanel();
-    stage = 15;  // 👉 Agora só avança no próximo clique
-  };
 
   function showFinalChoices() {
-    setTimeout(() => {
-      storyText.textContent = "Eles trocam olhares. Você sente que há tensão entre eles... e também algo irresistível.";
-      choices.innerHTML = `
-        <button class="choice-button" onclick="chooseFinal(1)">Olhar para Lucien com curiosidade</button>
-        <button class="choice-button" onclick="chooseFinal(2)">Confiar mais em Elias</button>
-        <button class="choice-button" onclick="chooseFinal(3)">Evitar ambos e focar em entender o que está acontecendo</button>
-      `;
-    }, 5000);
+    waitingForChoice = true;
+    storyText.textContent = "Eles trocam olhares. Você sente que há tensão entre eles... e também algo irresistível.";
+    choices.innerHTML = `
+      <button class="choice-button" onclick="chooseFinal(1)">Olhar para Lucien com curiosidade</button>
+      <button class="choice-button" onclick="chooseFinal(2)">Confiar mais em Elias</button>
+      <button class="choice-button" onclick="chooseFinal(3)">Dar um passo atrás. Precisa entender o que está acontecendo primeiro.</button>
+    `;
+    textBox.removeEventListener('click', nextScene);
   }
 
   window.chooseFinal = function(option) {
+
+    waitingForChoice = false;
     choices.innerHTML = '';
+
+
     if (option === 1) {
-      storyText.textContent = "(Lucien levanta uma sobrancelha.) 'Gosto de você.'";
+      storyText.textContent = "(Lucien levanta uma sobrancelha.) — Gosto do seu olhar. Você não tem medo fácil.";
       affinity.Lucien += 2;
       showAffinityMessage("+2 de Romance com Lucien ❤️");
     } else if (option === 2) {
@@ -269,32 +312,35 @@ if (currentMusic !== 'quarto') {
       affinity.Elias += 2;
       showAffinityMessage("+2 de Romance com Elias 💙");
     } else {
-      storyText.textContent = "Você recua instintivamente. Algo está errado... mas não é só sobre eles.";
+      storyText.textContent = "Você respira fundo e recua. Precisa entender tudo antes de confiar em alguém.";
     }
 
     updateAffinityPanel();
-    stage = 16;  // 👉 Novamente: só avança no próximo clique
+      stage = 18;
+    textBox.addEventListener('click', nextScene);
+  
   };
 
   function defineRoute() {
     setTimeout(() => {
+       let message = "";
       if (affinity.Lucien > affinity.Elias) {
-        storyText.textContent = "Você sente uma atração perigosa por Lucien. Sua jornada seguirá por caminhos sombrios...";
+         message  = "Há algo em Lucien que te atrai. Um mistério perigoso... mas irresistível..";
       } else if (affinity.Elias > affinity.Lucien) {
-        storyText.textContent = "Você confia em Elias. Sua alma se conecta com a dele de forma misteriosa.";
+          message = "Elias transmite calma. Sua presença acalma sua alma e confunde sua mente.";
       } else {
-        storyText.textContent = "Você ainda não tem certeza... mas sabe que os dois escondem segredos profundos.";
+         message = "Ambos despertam algo em você, mas ainda é cedo para entender. O que eles escondem vai mudar tudo.";
       }
-
+       storyText.textContent = message;
       localStorage.setItem('affinity', JSON.stringify(affinity));
 
       setTimeout(() => {
-        storyText.textContent += " Mas algo está prestes a acontecer... algo que nenhum dos dois espera.";
+        storyText.textContent += " E o que está por vir... pode mudar o destino de todos.";
       }, 1000);
 
       setTimeout(() => {
         choices.innerHTML = `
-          <button class="choice-button" onclick="goToNext()">Episódio 3</button>
+          <button class="choice-button" onclick="goToNext()">Avançar para o capítulo 2</button>
         `;
       }, 4500);
     }, 1500);
