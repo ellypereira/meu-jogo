@@ -19,12 +19,38 @@ body {
 body.quarto {
   background-image: url('/meu-jogo/assets/quarto.png');
 }
+/* ==== volume do jogo ==== */
+#volume-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+
 
 /* ==== Container principal do jogo ==== */
 
+#eliasimg {
+  position: relative;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-height: 70vh;
+  width: auto;
+  object-fit: contain;
+  z-index: 5;
+  opacity: 0;
+  display: none;
+  transition: opacity 0.7s ease;
+}
+
 #game-container {
   width: 90%;
-  max-width: 800px;
+  max-width: 900px;
   max-height: 90vh;
   background: rgba(0, 0, 0, 0.6);
   border: 2px solid rgba(220, 20, 60, 0.8);
@@ -93,7 +119,7 @@ body.quarto {
     box-shadow: 0 0 30px rgba(200, 0, 0, 0.7);
 }
 
-.gothiic-title {
+.gothic-title {
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 2.5rem;
     color: crimson;
@@ -101,7 +127,7 @@ body.quarto {
     margin-bottom: 10px;
 }
 
-.gothiic-subtitle {
+.gothic-subtitle {
     font-size: 1.2rem;
     color: #ccc;
     margin-bottom: 30px;
@@ -179,7 +205,7 @@ body.quarto {
 
 #next-episode-btn {
   display: none;
-  opacity: 0;
+  opacity: 1;
   background-color: #1a1a1a;
   color: #e0dcdc;
   border: 2px solid #5c5c5c;
@@ -199,7 +225,7 @@ body.quarto {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
-#netx-episode-btn.show{
+#next-episode-btn.show {
     display: block;
     opacity: 1;
 }
@@ -369,8 +395,8 @@ body.fade-in {
   }
 
   #character {
-    height: 200px;
-    top: 10px;
+    width: 180px;
+    bottom: 30vh;
   }
 
   #text-box {
