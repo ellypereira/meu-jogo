@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Episódio 1 - Blood And Silence</title>
-  <link rel="stylesheet" href="teste1.css">
-  <link rel="shortcut icon" href="/assets/favicongame.png" type="image/x-icon">
+  <title>Capitulo 1 - Otome Game</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="/meu-jogo/assets/favicongame.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
@@ -33,21 +35,32 @@
 
   <!-- Container do Jogo -->
   <div id="game-container">
+
+    <img id="silhouette" src="/meu-jogo/assets/floresta1.png" alt="Silhueta" />
+
     <div id="text-box">
       <div id="story-text">Clique para continuar</div>
+      <div id="choices"></div>
     </div>
 
-    <div id="choices"></div>
+
     <button id="next-episode-btn">Próximo Episódio</button>
-    <img id="silhouette" src="/assets/floresta1.png" alt="Silhueta" />
+
     <div id="fade-screen"></div>
   </div>
 
   <!-- Música de Fundo -->
-  <audio id="bg-music" src="/assets/gothic.mp3" autoplay loop></audio>
+<audio id="bg-floresta" loop>
+  <source src="/meu-jogo/audios/gothic.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="bg-quarto" loop>
+  <source src="/meu-jogo/audios/music.mp3" type="audio/mpeg">
+</audio>
+
 
   <!-- Script do Jogo -->
-  <script src="teste1.js"></script>
+  <script src="game.js"></script>
 
 </body>
 </html>

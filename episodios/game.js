@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const textBox         = document.getElementById('text-box');
   const choices         = document.getElementById('choices');
   const fadeScreen      = document.getElementById('fade-screen');
-  const bgMusic         = document.getElementById('bg-music');
+  const musicFloresta = document.getElementById('bg-floresta');
+  const musicQuarto = document.getElementById('bg-quarto');
   const startBtn        = document.getElementById('startBtn');
   const nameInput       = document.getElementById('name-input');
   const nameScreen      = document.getElementById('name-screen');
@@ -11,6 +12,57 @@ document.addEventListener('DOMContentLoaded', () => {
   const silhouette      = document.getElementById('silhouette');
   const nextEpisodeBtn  = document.getElementById('next-episode-btn');
 
+
+function playFloresta() {
+  if (currentMusic === 'floresta') return;  // Já está tocando, não faz nada
+
+  fadeOut(musicQuarto, () => {
+    musicQuarto.pause();
+    musicQuarto.currentTime = 0;
+    musicFloresta.volume = 0;
+    musicFloresta.play();
+    fadeIn(musicFloresta);
+    currentMusic = 'floresta';
+  });
+}
+
+function playQuarto() {
+      if (currentMusic === 'quarto') return;  // Já está tocando, não faz nada
+    fadeOut(musicFloresta, () => {
+  musicFloresta.pause();
+  musicFloresta.currentTime = 0;
+  musicQuarto.volume = 0;
+  musicQuarto.play();
+  fadeIn(musicQuarto);
+      currentMusic = 'quarto';
+});
+}
+
+function fadeOut(audioElement, callback) {
+  let fadeAudio = setInterval(() => {
+    if (audioElement.volume > 0.05) {
+      audioElement.volume -= 0.05;
+    } else {
+      audioElement.volume = 0;
+      clearInterval(fadeAudio);
+      if (callback) callback();
+    }
+  }, 100); // Quanto menor o tempo, mais rápido o fade
+}
+
+function fadeIn(audioElement) {
+  let volume = 0;
+  let fadeAudio = setInterval(() => {
+    if (volume < 0.95) {
+      volume += 0.05;
+      audioElement.volume = volume;
+    } else {
+      audioElement.volume = 1;
+      clearInterval(fadeAudio);
+    }
+  }, 100);
+}
+  let currentMusic = 'Floresta';
   let stage = 0;
   let musicStarted = false;
   let playerName = localStorage.getItem('playerName') || '';
@@ -38,9 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
     nameScreen.style.display = 'none';
     gameContainer.style.display = 'block';
 
-      // 👉 Exibir o painel de afinidade
-  const affinityPanel = document.getElementById('affinity-panel');
-  if (affinityPanel) affinityPanel.style.display = 'block';
+    const affinityPanel = document.getElementById('affinity-panel');
+    if (affinityPanel) affinityPanel.style.display = 'block';
 
     nextScene();
   });
@@ -51,20 +102,19 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function updateAffinityPanel() {
-  document.getElementById('lucien-score').textContent = affinity.Lucien;
-  document.getElementById('elias-score').textContent = affinity.Elias;
-  document.getElementById('klaus-score').textContent = affinity.Klaus;
-  document.getElementById('jake-score').textContent = affinity.Jake;
-}
+    document.getElementById('lucien-score').textContent = affinity.Lucien;
+    document.getElementById('elias-score').textContent = affinity.Elias;
+    document.getElementById('klaus-score').textContent = affinity.Klaus;
+    document.getElementById('jake-score').textContent = affinity.Jake;
+  }
 
-function showAffinityMessage(text) {
-  const msg = document.getElementById('affinity-message');
-  msg.textContent = text;
-  msg.style.animation = 'none';
-  msg.offsetHeight; // força o reflow para reiniciar animação
-  msg.style.animation = null;
-}
-
+  function showAffinityMessage(text) {
+    const msg = document.getElementById('affinity-message');
+    msg.textContent = text;
+    msg.style.animation = 'none';
+    msg.offsetHeight;
+    msg.style.animation = null;
+  }
 
   function playMusicOnce() {
     if (!musicStarted) {
@@ -73,25 +123,33 @@ function showAffinityMessage(text) {
     }
   }
 
-function showSilhouette() {
-  const silhouette = document.getElementById('silhouette');
-  silhouette.style.display = 'block';
-  setTimeout(() => silhouette.style.opacity = 1, 50);
-  setTimeout(() => {
-    silhouette.style.opacity = 1;
-    setTimeout(() => silhouette.style.display = 'none', 1500);
-  }, 2000);
-}
-
-  function triggerFadeOut() {
-    fadeScreen.classList.add('show');
+  function fadeToBlackAndBack() {
+    fadeScreen.style.opacity = 1;
     setTimeout(() => {
-      nextEpisodeBtn.style.display = 'block';
-    }, 2500);
+      fadeScreen.style.opacity = 0;
+    }, 1500);
+  }
+
+  function showSilhouette() {
+    silhouette.style.display = 'block';
+    setTimeout(() => silhouette.style.opacity = 1, 50);
+    setTimeout(() => {
+      silhouette.style.opacity = 1;
+      setTimeout(() => silhouette.style.display = 'none', 1500);
+    }, 2000);
+  }
+
+  function screenShake() {
+    gameContainer.classList.add('shake');
+    setTimeout(() => {
+      gameContainer.classList.remove('shake');
+    }, 500);
   }
 
   function nextScene() {
-    playMusicOnce();
+if (currentMusic !== 'quarto') {
+  playFloresta();
+}
 
     switch (stage) {
       case 0:
@@ -121,9 +179,21 @@ function showSilhouette() {
         break;
       case 8:
         storyText.textContent = `*PUM!* Você tropeça, cai... e tudo escurece.`;
+        screenShake();
+        fadeToBlackAndBack();
         break;
       case 9:
         storyText.textContent = "(Uma dor de cabeça intensa... você acorda em uma cama luxuosa.)";
+        document.body.classList.add('fade-out');
+        setTimeout(() => {
+          document.body.classList.remove('fade-out');
+          document.body.classList.add('quarto');
+          document.body.classList.add('fade-in');
+          setTimeout(() => {
+            document.body.classList.remove('fade-in');
+          }, 1000);
+        }, 1000);
+         playQuarto();
         break;
       case 10:
         storyText.textContent = "(O quarto é escuro, decorado com velas, cortinas pesadas... e um aroma adocicado no ar.)";
@@ -162,6 +232,7 @@ function showSilhouette() {
 
   window.chooseFirst = function(option) {
     choices.innerHTML = '';
+
     if (option === 1) {
       storyText.textContent = "(Lucien sorri com sarcasmo.) 'Nada... ainda.' (Elias olha para ele, desaprovando.)";
       affinity.Lucien += 1;
@@ -171,8 +242,9 @@ function showSilhouette() {
       affinity.Elias += 1;
       showAffinityMessage("+1 de Romance com Elias 💙");
     }
-      updateAffinityPanel();
-    stage = 15;
+
+    updateAffinityPanel();
+    stage = 15;  // 👉 Agora só avança no próximo clique
   };
 
   function showFinalChoices() {
@@ -183,7 +255,7 @@ function showSilhouette() {
         <button class="choice-button" onclick="chooseFinal(2)">Confiar mais em Elias</button>
         <button class="choice-button" onclick="chooseFinal(3)">Evitar ambos e focar em entender o que está acontecendo</button>
       `;
-    }, 1000);
+    }, 5000);
   }
 
   window.chooseFinal = function(option) {
@@ -199,8 +271,9 @@ function showSilhouette() {
     } else {
       storyText.textContent = "Você recua instintivamente. Algo está errado... mas não é só sobre eles.";
     }
-      updateAffinityPanel();
-    stage = 16;
+
+    updateAffinityPanel();
+    stage = 16;  // 👉 Novamente: só avança no próximo clique
   };
 
   function defineRoute() {
@@ -228,6 +301,6 @@ function showSilhouette() {
   }
 
   window.goToNext = function() {
-    window.location.href = 'ep3.html';
+    window.location.href = 'ep.html';
   };
 });
