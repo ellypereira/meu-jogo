@@ -288,7 +288,7 @@ window.chooseFirst = function(option) {
 
   function showFinalChoices() {
     waitingForChoice = true;
-    storyText.textContent = "Eles trocam olhares. Você sente que há tensão entre eles... e também algo irresistível.";
+    storyText.textContent = "Você sente que há tensão entre eles... e também algo irresistível.";
     choices.innerHTML = `
       <button class="choice-button" onclick="chooseFinal(1)">Olhar para Lucien com curiosidade</button>
       <button class="choice-button" onclick="chooseFinal(2)">Confiar mais em Elias</button>
