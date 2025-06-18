@@ -80,7 +80,7 @@
      <button id="mute-button">🔊</button>
 
      <!--Música do fundo-->
-     <audio id="background-music" src="/meu-jogo/assets/bgm.mp3.mp3" loop autoplay></audio>
+     <audio id="background-music" src="/meu-jogo/assets/bgm.mp3.mp3" loop></audio>
 
      <script>
         const startButton = document.getElementById('start-button');
@@ -88,6 +88,7 @@
         const backgroundMusic = document.getElementById('background-music');
 
         startButton.addEventListener('click', () => {
+            backgroundMusic.play();
             window.location.href = 'episodios/capitulo1.html';
         });
 
