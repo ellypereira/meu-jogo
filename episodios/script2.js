@@ -296,5 +296,5 @@ function defineRouteEp4() {
 }
 
 function goToNext() {
-    window.location.href = 'ep4.html';
+    window.location.href = 'ep.html';
 }

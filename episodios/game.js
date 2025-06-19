@@ -430,7 +430,7 @@ function hideCharacter(characterId) {
   }
 
   window.goToNext = function() {
-    window.location.href = 'ep.html';
+    window.location.href = 'capitulo2.html';
   };
 
   // ========================
