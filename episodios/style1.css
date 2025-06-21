@@ -2,7 +2,7 @@
 body {
   margin: 0;
   font-family: 'Georgia', serif;
-  background-image: url(/meu-jogo/assets/floresta-anime.png);
+  background-image: url(assets/floresta-anime.png);
   background-size: cover;
   background-position: center;
   transition: background-image 1s ease-in-out;
@@ -17,7 +17,7 @@ body {
 }
 
 body.quarto {
-  background-image: url('/meu-jogo/assets/quarto.png');
+  background-image: url('assets/quarto.png');
 }
 /* ==== volume do jogo ==== */
 #volume-toggle {
@@ -79,7 +79,7 @@ body.quarto {
 
 /* ==== Silhueta ==== */
 #silhouette {
-  background: url('/meu-jogo/assets/elias-lucien.jpg') no-repeat center bottom;
+  background: url('assets/elias-lucien.jpg') no-repeat center bottom;
   position: relative;
   top: 50%;
   left: 50%;
@@ -100,7 +100,7 @@ body.quarto {
     left: 0;
     height: 100%;
     width: 100%;
-    background: linear-gradient(to bottom, rgba(10,0,0,0.9), rgba(30,0,0,0.85)), url(meu-jogo/assets/floresta.jpg) no-repeat center center;
+    background: linear-gradient(to bottom, rgba(10,0,0,0.9), rgba(30,0,0,0.85)), url(assets/floresta.jpg) no-repeat center center;
     background-size: cover;
     display: flex;
     justify-content: center;
