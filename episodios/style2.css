@@ -7,7 +7,7 @@
 
 body {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    background: url(/meu-jogo/assets/quarto.png) no-repeat center center fixed;
+    background: url(../assets/quarto.png) no-repeat center center fixed;
     background-size: cover;
     color: #fbfbfb;
     min-height: 100vh;
