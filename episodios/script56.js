@@ -123,7 +123,7 @@ function nextScene() {
             hideSceneImage();
             break;
         case 18:
-            updateScene("— Elias... onde está o colar? Está... com essa humana patética? — ela rosna.");
+            updateScene("— Elias... onde está o colar? Está... com essa humana patética? — ela grita.");
             break;
         case 19:
             updateScene("— Jake, Klaus... fracassaram antes. E falharão de novo — cospe ela, caminhando lentamente.");
@@ -199,7 +199,7 @@ if (option === 1) {
     klausAffinity += 3;
     afterChoiceQueue.push(
       { text: "(Você segura a mão de Klaus. Ele começa um ritual. Símbolos brilham, mas as sombras avançam...)" },
-      { text: "(Lanças negras atravessam o peito de Klaus. Ele cai nos seus braços, com sangue escorrendo.)" },
+      { text: "(Em um piscar de olhos lanças negras atravessam o peito de Klaus. Ele cai nos seus braços, com sangue escorrendo.)" },
       { text: "— Proteja... você... mesma... — diz ele, com o último suspiro.", callback: endTragic }
     );
   } else if (option === 2) {
@@ -207,14 +207,14 @@ if (option === 1) {
     afterChoiceQueue.push(
       { text: "(Jake segura sua mão. — Confia em mim? — pergunta ele. — Sempre. — você responde.)" },
       { text: "(Vocês correm pela passagem. Portas explodem. Lucien e Elias seguram as criaturas.)" },
-      { text: "(Mas...em um piscar de olhos, uma lança das sombras atravessa Jake. Ele te empurra para frente, sorrindo fraco.)" },
+      { text: "(Mas num instante, uma lança das sombras atravessa Jake. Ele te empurra para frente, sorrindo fraco.)" },
       { text: "— Corre... vive... por nós... — ele sussurra, caindo no chão.", callback: endTragic }
     );
   } else if (option === 3) {
     afterChoiceQueue.push(
       { text: "(Você se ajoelha. A Rainha sorri, acariciando seu rosto. — Eu sabia que faria a escolha certa...)" },
-      { text: "(De repente, Lucien atravessa sua própria alma como uma lâmina, perfurando a Rainha.)" },
-      { text: "(A explosão de luz negra consome tudo. Lucien te olha pela última vez antes de desaparecer...)", callback: endTragic }
+      { text: "(De repente, Lucien saca sua adaga e, em um único movimento, te empurra para o lado, perfurando a Rainha sem hesitar)" },
+      { text: "(Uma explosão de luz negra consome tudo. A Rainha, ferida, lança um feitiço que atravessa o peito de Lucien, perfurando seu coração. Ele te encara pela última vez... olhos cheios de dor e algo que parece amor... até seu corpo cair, sem vida.)", callback: endTragic }
     );
   }
 
@@ -264,7 +264,7 @@ function endTragic() {
   setTimeout(() => {
     showContinueButton();
     createSmoke();
-  }, 1500);
+  }, 4000);
 }
 
 function showContinueButton() {

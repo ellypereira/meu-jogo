@@ -1,0 +1,15 @@
+#affinity-panel {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(20, 0, 0, 0.85);
+    padding: 8px 20px;
+    border: 2px solid #8b0000;
+    border-radius: 10px;
+    color: #fff;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1rem;
+    z-index: 999;
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.7);
+}
