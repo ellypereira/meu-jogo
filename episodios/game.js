@@ -418,7 +418,7 @@ function hideCharacter(characterId) {
       localStorage.setItem('affinity', JSON.stringify(affinity));
 
       setTimeout(() => {
-        storyText.textContent += " O que está por vir... pode mudar tudo.";
+        storyText.textContent += "O que se aproxima carrega o poder de mudar tudo.";
       }, 1000);
 
       setTimeout(() => {
