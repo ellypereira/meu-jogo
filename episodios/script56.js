@@ -275,7 +275,7 @@ function showContinueButton() {
 
 function goToNext() {
   isLocked = false;
-  window.location.href = 'ep7.html';
+  window.location.href = 'ep.html';
 }
 
 

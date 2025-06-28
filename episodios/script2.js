@@ -84,6 +84,7 @@ function nextScene() {
 
         /** EPISÓDIO 4 **/
         case 14:
+            mudarCenario('bg-salao');
             storyText.textContent = "(Um novo dia amanhece. Ainda sinto o eco do colar em minha pele...)";
             stage++;
             break;
@@ -120,6 +121,18 @@ function nextScene() {
             break;
     }
 }
+
+function mudarCenario(classe) {
+  const tela = document.getElementById('game-screen');
+  console.log('Mudando cenário para:', classe);
+
+  // Remove todas as classes de cenário
+  tela.classList.remove('bg-quarto', 'bg-salão');
+
+  // Adiciona a nova
+  tela.classList.add(classe);
+}
+
 
 /**FUNÇÕES EPISÓDIO 3**/
 function showCollarImage() {
@@ -284,7 +297,7 @@ function defineRouteEp4() {
         localStorage.setItem('klausAffinity', klausAffinity);
 
         setTimeout(() => {
-            storyText.textContent += " a mansão vibra. Algo está despertando...)";
+            storyText.textContent += "A mansão treme, como se estivesse tentando avisar sobre um perigo iminente.";
         }, 1000);
 
         setTimeout(() => {
@@ -296,5 +309,5 @@ function defineRouteEp4() {
 }
 
 function goToNext() {
-    window.location.href = 'ep.html';
+    window.location.href = 'capitulo3.html';
 }

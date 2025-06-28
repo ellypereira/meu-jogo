@@ -33,6 +33,21 @@ body {
     box-shadow: 0 9 30px #550000, inset 0 0 10px rgba(255, 0, 0, 0.2);
 }
 
+#game-screen {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1s ease;
+}
+
+.bg-quarto {
+    background-image: url('/assets/quarto.png');
+}
+
+.bg-salao {
+    background-image: url('/assets/salão.png');
+}
+
 /* ==== TEXTO ==== */
 #text-box {
     margin-top: auto;
