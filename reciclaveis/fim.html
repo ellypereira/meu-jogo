@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fim da Jornada</title>
+  <link rel="stylesheet" href="style5.css">
+  <style>
+    #credits-screen {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      color: #fff;
+      font-family: Georgia, serif;
+      padding: 30px;
+      text-align: center;
+      z-index: 999;
+    }
+    #credits-screen h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    #credits-screen p {
+      font-size: 1.1rem;
+      margin: 8px 0;
+    }
+    .choice-button {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <div id="text-box">
+      <div id="story-text">(Carregando...)</div>
+    </div>
+    <div id="choices"></div>
+
+    <div id="romance-image">
+      <img id="romance-img" src="" alt="Cena Romântica">
+    </div>
+  </div>
+
+  <div id="credits-screen">
+    <h1>Fim da Jornada</h1>
+    <p>Personagens: Klaus, Jake, Lucien, Elias</p>
+    <p>Roteiro: Você</p>
+    <p>Arte, Emoção e Escolhas: criadas por suas mãos</p>
+    <p>"A luz venceu hoje... mas a escuridão sempre encontra um caminho."</p>
+    <button class="choice-button" onclick="restartGame()">Jogar Novamente</button>
+  </div>
+
+  <script>
+    let stage = 0;
+    let isLocked = false;
+    let afterChoiceQueue = [];
+    let waitingCallback = null;
+    let waitingForChoice = false;
+
+    const storyText = document.getElementById('story-text');
+    const choices = document.getElementById('choices');
+    const romanceImg = document.getElementById('romance-img');
+    const romanceContainer = document.getElementById('romance-image');
+    const creditsScreen = document.getElementById('credits-screen');
+
+    let klausAffinity = parseInt(localStorage.getItem('klausAffinity')) || 0;
+    let jakeAffinity = parseInt(localStorage.getItem('jakeAffinity')) || 0;
+    let lucienAffinity = parseInt(localStorage.getItem('lucienAffinity')) || 0;
+    let eliasAffinity = parseInt(localStorage.getItem('eliasAffinity')) || 0;
+    const deadCharacter = localStorage.getItem('deadCharacter');
+
+    function showRomanceImage(src) {
+      romanceImg.src = src;
+      romanceContainer.classList.add('show');
+      setTimeout(() => {
+        romanceContainer.classList.remove('show');
+      }, 4000);
+    }
+
+    function showRomanticEnding() {
+      const mostAffinity = Math.max(klausAffinity, jakeAffinity, lucienAffinity, eliasAffinity);
+      let chosen = "";
+      let image = "";
+
+      if (deadCharacter !== "klaus" && klausAffinity === mostAffinity) {
+        chosen = "Klaus se aproxima em silêncio, com os olhos marcados pela dor e pelo alívio. — Você sobreviveu... por todos nós — ele diz, tocando seu rosto. E então te beija, como se o tempo tivesse parado.";
+        image = "assets/beijo_klaus.png";
+      } else if (deadCharacter !== "jake" && jakeAffinity === mostAffinity) {
+        chosen = "Jake aparece atrás de você, ferido, mas sorrindo. — Sabia que conseguiria... minha heroína maluca — ele diz, te puxando para um beijo intenso, cheio de alívio e paixão.";
+        image = "assets/beijo_jake.png";
+      } else if (deadCharacter !== "lucien" && lucienAffinity === mostAffinity) {
+        chosen = "Lucien segura seu braço, firme. — Ainda estamos vivos. Ainda somos nós. — ele sussurra, antes de selar um beijo longo e doloroso.";
+        image = "assets/beijo_lucien.png";
+      } else if (eliasAffinity === mostAffinity) {
+        chosen = "Elias te encara com olhos marejados. — Você mudou tudo... inclusive a mim. — Ele se aproxima e te beija, como quem agradece por uma vida inteira.";
+        image = "assets/beijo_elias.png";
+      } else {
+        chosen = "(Você está sozinha. Mas livre. O preço foi alto... mas a vitória é sua.)";
+      }
+
+      if (image) showRomanceImage(image);
+
+      storyText.textContent = chosen + "\n\n(As sombras foram dissipadas. Mas o que você fará agora que o mundo mudou para sempre?)";
+      choices.innerHTML = `
+        <button class="choice-button" onclick="showFinalReflection()">Finalizar</button>
+      `;
+      isLocked = true;
+    }
+
+    function showFinalReflection() {
+      storyText.textContent = "(Você caminha pelos corredores destruídos da mansão. Ecos de memórias ressoam nas paredes. A guerra acabou...)";
+      choices.innerHTML = `
+        <button class="choice-button" onclick="endGame()">Encerrar História</button>
+      `;
+    }
+
+    function endGame() {
+      storyText.textContent = "(O colar em seu peito pulsa uma última vez... e silencia. Você venceu. Mas algo lhe diz que o destino ainda não acabou.)\n\nFIM";
+      choices.innerHTML = `
+        <button class="choice-button" onclick="goToCredits()">Ver Créditos</button>
+      `;
+    }
+
+    function goToCredits() {
+      document.getElementById('game-container').style.display = 'none';
+      creditsScreen.style.display = 'block';
+    }
+
+    function restartGame() {
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
+
+    // Inicializar diretamente o final
+    window.addEventListener('DOMContentLoaded', showRomanticEnding);
+  </script>
+</body>
+</html>

@@ -9,6 +9,7 @@ let jakeAffinity = parseInt(localStorage.getItem('jakeAffinity')) || 0;
 let lucienAffinity = parseInt(localStorage.getItem('lucienAffinity')) || 0;
 let eliasAffinity = parseInt(localStorage.getItem('eliasAffinity')) || 0;
 
+
 let afterChoiceQueue = [];
 let waitingForChoice = false;
 let waitingCallback = null;
@@ -200,21 +201,38 @@ if (option === 1) {
     afterChoiceQueue.push(
       { text: "(Você segura a mão de Klaus. Ele começa um ritual. Símbolos brilham, mas as sombras avançam...)" },
       { text: "(Em um piscar de olhos lanças negras atravessam o peito de Klaus. Ele cai nos seus braços, com sangue escorrendo.)" },
-      { text: "— Proteja... você... mesma... — diz ele, com o último suspiro.", callback: endTragic }
+      { text: "— Proteja... você... mesma... — diz ele, com o último suspiro.",
+       callback: () => {
+        localStorage.setItem('deadCharacter', 'klaus');
+       endTragic();
+      }
+    }
     );
+
   } else if (option === 2) {
     jakeAffinity += 3;
     afterChoiceQueue.push(
       { text: "(Jake segura sua mão. — Confia em mim? — pergunta ele. — Sempre. — você responde.)" },
       { text: "(Vocês correm pela passagem. Portas explodem. Lucien e Elias seguram as criaturas.)" },
       { text: "(Mas num instante, uma lança das sombras atravessa Jake. Ele te empurra para frente, sorrindo fraco.)" },
-      { text: "— Corre... vive... por nós... — ele sussurra, caindo no chão.", callback: endTragic }
+      { text: "— Corre... vive... por nós... — ele sussurra, caindo no chão.",
+       callback: () => {
+       localStorage.setItem('deadCharacter', 'jake');
+       endTragic();
+      }
+    }
     );
+
   } else if (option === 3) {
     afterChoiceQueue.push(
       { text: "(Você se ajoelha. A Rainha sorri, acariciando seu rosto. — Eu sabia que faria a escolha certa...)" },
       { text: "(De repente, Lucien saca sua adaga e, em um único movimento, te empurra para o lado, perfurando a Rainha sem hesitar)" },
-      { text: "(Uma explosão de luz negra consome tudo. A Rainha, ferida, lança um feitiço que atravessa o peito de Lucien, perfurando seu coração. Ele te encara pela última vez... olhos cheios de dor e algo que parece amor... até seu corpo cair, sem vida.)", callback: endTragic }
+      { text: "(Uma explosão de luz negra consome tudo. A Rainha, ferida, lança um feitiço que atravessa o peito de Lucien, perfurando seu coração. Ele te encara pela última vez... olhos cheios de dor e algo que parece amor... até seu corpo cair, sem vida.)",
+       callback: () => {
+      localStorage.setItem('deadCharacter', 'lucien');
+      endTragic();
+    }
+    }
     );
   }
 
@@ -269,13 +287,13 @@ function endTragic() {
 
 function showContinueButton() {
     choices.innerHTML = `
-      <button class="choice-button" onclick="goToNext()">Continuar para o Episódio 7</button>
+      <button class="choice-button" onclick="goToNext()">Avançar para o capítulo 4</button>
     `;
 }
 
 function goToNext() {
   isLocked = false;
-  window.location.href = 'ep.html';
+  window.location.href = 'capitulo4.html';
 }
 
 

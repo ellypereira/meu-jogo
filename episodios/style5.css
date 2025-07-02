@@ -8,7 +8,7 @@
 
 body {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    background: url(/assets/mansao-destruida.jpg) no-repeat center center fixed;
+    background: url(/assets/mansao-eclipse.png) no-repeat center center fixed;
     background-size: cover;
     color: #fbfbfb;
     min-height: 100vh;
@@ -96,6 +96,32 @@ body {
 }
 
 /*IMAGENS*/
+
+#romance-image {
+  position: absolute;
+  bottom: 160px; /* sobe a imagem acima do diálogo */
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  z-index: 4;
+  pointer-events: none;
+}
+
+#romance-image.show {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+
+#romance-img {
+  max-height: 350px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+
+
 #image-container{
     position: absolute;
     top: 50%;
@@ -178,4 +204,90 @@ body {
         transform: translateY(-100vh) scale(2);
         opacity: 0;
     }
+}
+
+/*FIM*/
+
+#credits-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(8, 8, 8, 0.95);
+    color: #fff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    z-index: 9999;
+    animation: fadeIn 1.5s ease-in-out forwards;
+}
+
+.credits-content {
+    text-align: center;
+    max-width: 600px;
+    padding: 30px;
+    border: 2px solid #6a3a3a;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    box-shadow: 0 0 20px crimson;
+    animation: fadeInUp 1.5s ease forwards;
+    opacity: 0; /* começa invisível */
+    transform: translateY(30px); /* começa levemente abaixo */
+}
+
+.credits-content h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.credits-content p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+}
+
+.credits-content button {
+    margin-top: 30px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    background: linear-gradient(to right, #4e0000, #730202);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 10px red;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.particle {
+  position: fixed;
+  bottom: -10px;
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: riseParticle linear infinite;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+@keyframes riseParticle {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1.5);
+    opacity: 0;
+  }
 }

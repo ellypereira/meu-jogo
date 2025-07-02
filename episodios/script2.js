@@ -227,7 +227,7 @@ function concludeEpisode3() {
      setTimeout(() => {
         nextScene();
 }, 5000);
-    }, 2000);
+    }, 3000);
 }
 
 /** ==== FUNÇÕES EPISÓDIO 4 ==== **/
@@ -302,7 +302,7 @@ function defineRouteEp4() {
 
         setTimeout(() => {
             choices.innerHTML = `
-                <button class="choice-button" onclick="goToNext()">Episódio 5</button>
+                <button class="choice-button" onclick="goToNext()">Avançar para o capítulo 3</button>
             `;
         }, 4000);
     }, 1500);
