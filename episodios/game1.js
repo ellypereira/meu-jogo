@@ -1,8 +1,6 @@
 // ========================
 // 🎮 BLOOD AND SILENCE 🎮
 // ========================
-// Sistema de narrativa interativa com afinidade, escolhas e transição de músicas
-
 // Aguarda o carregamento do DOM
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -173,6 +171,36 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = 'ep2.html';
   });
 
+  //SALVAMENTO DE NOMES DOS JOGADORES
+  function startGame() {
+  const playerName = document.getElementById('name-input').value.trim();
+
+  if (inputName === "") {
+    alert("Por favor, digite seu nome.");
+    return;
+  }
+
+  // Verifica se o usuário já está autenticado anonimamente
+    firebase.auth().signInAnonymously().then(() => {
+      const user = firebase.auth().currentUser;
+      const playerID = user.uid;
+
+      // Salva no localStorage para a tela inicial identificar depois
+      localStorage.setItem('playerID', playerID);
+      localStorage.setItem('playerName', playerName);
+
+      firebase.database().ref('players/' + playerID).set({
+        name: playerName,
+        joinedAt: Date.now()
+      });
+
+      document.getElementById('name-screen').style.display = 'none';
+      // aqui você inicia o jogo como quiser
+    }).catch(error => {
+      console.error("Erro ao autenticar:", error);
+    });
+  }
+  
   // ========================
   // ⚡️ Efeitos Visuais
   // ========================

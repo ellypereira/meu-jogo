@@ -1,106 +1,183 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blood And Silence</title>
-    <link rel="shortcut icon" href="assets/favicon.ico.png" type="image/x-icon">
-    <style>
-        /*fundo vampiro*/
-        body{
-     margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: black;
-    background-size: cover;
-    background-position: center;
-    font-family: 'Franklin Gothic Medium', sans-serif;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blood And Silence</title>
+  <link rel="shortcut icon" href="assets/favicon.ico.png" type="image/x-icon" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: black;
+      background-size: cover;
+      background-position: center;
+      font-family: 'Franklin Gothic Medium', sans-serif;
+    }
 
-            /* Container para a imagem */
-        #game-container {
-            width: 90%;
-            max-width: 600px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+    #game-container {
+      width: 90%;
+      max-width: 600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
 
-         /* Imagem central */
-        #game-image {
-            width: 500px; /* tamanho da imagem */
-            height: auto;
-            border: 2px solid #370d0d;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(60, 53, 53, 0.5);}
+    #game-image {
+      width: 500px;
+      height: auto;
+      border: 2px solid #370d0d;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(60, 53, 53, 0.5);
+    }
 
-            
-        /* Botões */
-        button {
-            padding: 12px 24px;
-            margin: 10px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            background-color: #8b0000; /* tom vampiresco */
-            color: #fff;
-            transition: background-color 0.3s;
-            width: 90%;
-            max-width: 300px;
-        }
+    button {
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #8b0000;
+      color: #fff;
+      transition: background-color 0.3s;
+      width: 90%;
+      max-width: 300px;
+    }
 
-         button:hover {
-            background-color: #a00000;
-        }
+    button:hover {
+      background-color: #a00000;
+    }
 
-        /* Botão de mute */
-        #mute-button {
-            background-color: transparent;
-            font-size: 1.5em;
-            margin-top: 20px;
-            width: auto;
-        }
-    </style>
+    #mute-button {
+      background-color: transparent;
+      font-size: 1.5em;
+      margin-top: 20px;
+      width: auto;
+    }
+
+    #last-players {
+      color: #3d2424;
+      font-size: 1em;
+      margin-top: 10px;
+      text-align: center;
+      background-color: rgba(20, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 300px;
+    }
+  </style>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+const firebaseConfig = {
+  apiKey: "AIzaSyB-qtCyNArt94tjKr-2r_YWRVwHIgN5z4Q",
+  authDomain: "bloodandsilence-3efb0.firebaseapp.com",
+  projectId: "bloodandsilence-3efb0",
+  storageBucket: "bloodandsilence-3efb0.firebasestorage.app",
+  messagingSenderId: "893656333626",
+  appId: "1:893656333626:web:a32ec8a81b1fe00f046403",
+  measurementId: "G-9Z7CZEN5DM"
+};
+
+    firebase.initializeApp(firebaseConfig);
+  </script>
 </head>
+
 <body>
-    <!-- Contêiner da img-->
-     <div id="game-container">
-        <img id="game-image" src="assets/capa.png" alt="capa vampiresca">
-     </div>
+  <div id="game-container">
+    <img id="game-image" src="assets/capa.png" alt="capa vampiresca" />
+  </div>
 
-    <!-- Botão para iniciar o game-->
-     <button id="start-button">Iniciar Jogo</button>
+  <button id="start-button">Iniciar Jogo</button>
+  <button id="mute-button">🔊</button>
 
-    <!-- Botão para mutar/desmutar -->
-     <button id="mute-button">🔊</button>
+  <div id="last-players">Últimos jogadores: ...</div>
+  <div id="player-counter" style="color: white; margin-top: 10px;"></div>
 
-     <!--Música do fundo-->
-     <audio id="background-music" src="assets/bgm.mp3.mp3" loop></audio>
 
-     <script>
-        const startButton = document.getElementById('start-button');
-        const muteButton = document.getElementById('mute-button');
-        const backgroundMusic = document.getElementById('background-music');
 
-        startButton.addEventListener('click', () => {
-            backgroundMusic.play();
-            window.location.href = 'episodios/capitulo1.html';
+  <audio id="background-music" src="/audios/bgm.mp3" loop></audio>
+
+<script>
+  const startButton = document.getElementById('start-button');
+  const muteButton = document.getElementById('mute-button');
+  const backgroundMusic = document.getElementById('background-music');
+  let isMuted = false;
+
+  const storedName = localStorage.getItem('playerName');
+
+  startButton.addEventListener('click', () => {
+    backgroundMusic.play();
+    window.location.href = 'episodios/capitulo1.html';
+  });
+
+  muteButton.addEventListener('click', () => {
+  if (backgroundMusic.paused) {
+    backgroundMusic.play().then(() => {
+      isMuted = false;
+      backgroundMusic.muted = false;
+      muteButton.textContent = '🔊';
+    }).catch(err => {
+      console.warn('O áudio não pôde ser reproduzido automaticamente:', err);
+    });
+  } else {
+    isMuted = !isMuted;
+    backgroundMusic.muted = isMuted;
+    muteButton.textContent = isMuted ? '🔇' : '🔊';
+  }
+});
+
+  firebase.auth().signInAnonymously().then(() => {
+    const user = firebase.auth().currentUser;
+    const playerID = user.uid;
+
+    if (storedName){
+    firebase.database().ref('players/' + playerID).once('value').then(snapshot => {
+      if (!snapshot.exists()) {
+        firebase.database().ref('players/' + playerID).set({
+          joinedAt: Date.now(),
+          name: storedName
         });
+      }
+    });
+}
 
-        // Controla o mute/desmute
-        let isMuted = false;
+    // Atualiza contador e últimos jogadores
+    firebase.database().ref('players').on('value', snapshot => {
+      const count = snapshot.numChildren();
+      document.getElementById('player-counter').textContent = `👥 Jogadores únicos: ${count}`;
 
-        muteButton.addEventListener('click', () => {
-            isMuted = !isMuted;
-            backgroundMusic.muted = isMuted;
-            muteButton.textContent = isMuted ? '🔇' : '🔊';
+      const players = [];
+      snapshot.forEach(child => {
+        const data = child.val();
+        players.push({
+          name: data.name,
+          joinedAt: data.joinedAt
         });
-     </script>
+      });
+
+      players.sort((a, b) => b.joinedAt - a.joinedAt);
+      const lastPlayers = players.slice(0, 3);
+      document.getElementById('last-players').innerHTML =
+        '<strong>Últimos jogadores:</strong><br>' +
+        lastPlayers.map(p => `🧛 ${p.name}`).join('<br>');
+    });
+
+  }).catch((error) => {
+    console.error("Erro no login anônimo:", error);
+  });
+</script>
 
 </body>
 </html>
