@@ -5,74 +5,103 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Blood And Silence</title>
   <link rel="shortcut icon" href="assets/favicon.ico.png" type="image/x-icon" />
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: black;
-      background-size: cover;
-      background-position: center;
-      font-family: 'Franklin Gothic Medium', sans-serif;
-    }
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    background-size: cover;
+    background-position: center;
+    font-family: 'Franklin Gothic Medium', sans-serif;
+  }
 
-    #game-container {
-      width: 90%;
-      max-width: 600px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 20px;
-    }
+  #game-container {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 10px;
+  }
 
-    #game-image {
-      width: 500px;
-      height: auto;
-      border: 2px solid #370d0d;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(60, 53, 53, 0.5);
-    }
+  #game-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border: 2px solid #370d0d;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(60, 53, 53, 0.5);
+  }
 
+  button {
+    padding: 12px 24px;
+    margin: 10px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #8b0000;
+    color: #fff;
+    transition: background-color 0.3s;
+    width: 90%;
+    max-width: 300px;
+  }
+
+  button:hover {
+    background-color: #a00000;
+  }
+
+  #mute-button {
+    background-color: transparent;
+    font-size: 1.5em;
+    margin-top: 20px;
+    width: auto;
+  }
+
+#last-players-toast {
+  margin-top: 20px;
+  background-color: rgba(20, 0, 0, 0.85);
+  color: #d6bebe;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+  font-size: 1em;
+  text-align: center;
+  max-width: 300px;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+  #last-players-toast.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #player-counter {
+    color: white;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
     button {
-      padding: 12px 24px;
-      margin: 10px;
-      font-size: 1.2em;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background-color: #8b0000;
-      color: #fff;
-      transition: background-color 0.3s;
-      width: 90%;
-      max-width: 300px;
-    }
-
-    button:hover {
-      background-color: #a00000;
-    }
-
-    #mute-button {
-      background-color: transparent;
-      font-size: 1.5em;
-      margin-top: 20px;
-      width: auto;
-    }
-
-    #last-players {
-      color: #3d2424;
       font-size: 1em;
-      margin-top: 10px;
-      text-align: center;
-      background-color: rgba(20, 0, 0, 0.3);
-      padding: 10px;
-      border-radius: 8px;
-      max-width: 300px;
+      padding: 10px 20px;
     }
-  </style>
+
+    #last-players-toast {
+      font-size: 0.9em;
+      padding: 8px 16px;
+    }
+  }
+</style>
+
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -99,11 +128,15 @@ const firebaseConfig = {
     <img id="game-image" src="assets/capa.png" alt="capa vampiresca" />
   </div>
 
+  <!-- Botões -->
   <button id="start-button">Iniciar Jogo</button>
   <button id="mute-button">🔊</button>
 
-  <div id="last-players">Últimos jogadores: ...</div>
+  <!-- Contador de jogadores -->
   <div id="player-counter" style="color: white; margin-top: 10px;"></div>
+  
+  <!-- 🔽 Agora o toast vem DEPOIS do contador -->  
+  <div id="last-players-toast" class="hidden">Últimos jogadores: ...</div>
 
 
 
@@ -155,24 +188,36 @@ const firebaseConfig = {
 
     // Atualiza contador e últimos jogadores
     firebase.database().ref('players').on('value', snapshot => {
-      const count = snapshot.numChildren();
-      document.getElementById('player-counter').textContent = `👥 Jogadores únicos: ${count}`;
+  const count = snapshot.numChildren();
+  document.getElementById('player-counter').textContent = `👥 Jogadores únicos: ${count}`;
 
-      const players = [];
-      snapshot.forEach(child => {
-        const data = child.val();
-        players.push({
-          name: data.name,
-          joinedAt: data.joinedAt
-        });
-      });
-
-      players.sort((a, b) => b.joinedAt - a.joinedAt);
-      const lastPlayers = players.slice(0, 3);
-      document.getElementById('last-players').innerHTML =
-        '<strong>Últimos jogadores:</strong><br>' +
-        lastPlayers.map(p => `🧛 ${p.name}`).join('<br>');
+  const players = [];
+  snapshot.forEach(child => {
+    const data = child.val();
+    players.push({
+      name: data.name,
+      joinedAt: data.joinedAt
     });
+  });
+
+  players.sort((a, b) => b.joinedAt - a.joinedAt);
+  const lastPlayers = players.slice(0, 3);
+
+  const lastPlayersToast = document.getElementById('last-players-toast');
+  lastPlayersToast.innerHTML =
+    '<strong>Últimos jogadores:</strong><br>' +
+    lastPlayers.map(p => `🧛 ${p.name}`).join('<br>');
+
+  // Mostra o toast
+  lastPlayersToast.classList.remove('hidden');
+
+  // Esconde após 3 segundos
+  setTimeout(() => {
+    lastPlayersToast.classList.add('hidden');
+  }, 3000);
+});
+
+
 
   }).catch((error) => {
     console.error("Erro no login anônimo:", error);
