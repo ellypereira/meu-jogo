@@ -34,6 +34,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========================
   // 💖 Sistema de Afinidade
   // ========================
+  function showAffinityPanel() {
+  const panel = document.getElementById('affinity-panel');
+  panel.classList.add('show');
+
+  // Oculta automaticamente após 5 segundos
+  setTimeout(() => {
+    panel.classList.remove('show');
+  }, 5000);
+}
   let affinity = JSON.parse(localStorage.getItem('affinity')) || {
     Lucien: 0,
     Elias: 0,
@@ -231,21 +240,27 @@ function hideCharacter(characterId) {
     }, 1500);
   }
 
-  function showSilhouette() {
-    silhouette.style.display = 'block';
-    setTimeout(() => silhouette.style.opacity = 1, 50);
-    setTimeout(() => {
-      silhouette.style.opacity = 1;
-      setTimeout(() => silhouette.style.display = 'none', 1500);
-    }, 2000);
-  }
+ function showSilhouette() {
+  silhouette.classList.remove('fade-out');
+  silhouette.style.display = 'block';
 
-  function screenShake() {
-    gameContainer.classList.add('shake');
-    setTimeout(() => {
-      gameContainer.classList.remove('shake');
-    }, 500);
-  }
+  // Espera um pequeno tempo para ativar a animação
+  setTimeout(() => {
+    silhouette.classList.add('fade-in');
+  }, 50);
+
+  // Aguarda a exibição e depois faz sumir suavemente
+  setTimeout(() => {
+    silhouette.classList.remove('fade-in');
+    silhouette.classList.add('fade-out');
+  }, 2500); // 2.5 segundos de exibição
+
+  // Depois de sumir, esconde do DOM
+  setTimeout(() => {
+    silhouette.style.display = 'none';
+  }, 3000);
+}
+
 
   // ========================
   // 💌 Afinidade
@@ -261,11 +276,26 @@ function hideCharacter(characterId) {
 
   function showAffinityMessage(text) {
     const msg = document.getElementById('affinity-message');
+    const panel = document.getElementById('affinity-panel');
+
     msg.textContent = text;
     msg.style.animation = 'none';
     msg.offsetHeight;
     msg.style.animation = null;
+
+    panel.classList.add('show');
+
+    setTimeout(() => {
+      panel.classList.remove('show');
+    }, 5000);
   }
+  function screenShake() {
+  gameContainer.classList.add('shake');
+  setTimeout(() => {
+    gameContainer.classList.remove('shake');
+  }, 500);
+}
+
 
   // ========================
   // 📖 História Principal
