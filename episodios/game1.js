@@ -1,48 +1,38 @@
 // ========================
 // 🎮 BLOOD AND SILENCE 🎮
 // ========================
-// Aguarda o carregamento do DOM
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ========================
   // 🔗 Seleção de Elementos
-  // ========================
-  const storyText       = document.getElementById('story-text');
-  const textBox         = document.getElementById('text-box');
-  const choices         = document.getElementById('choices');
-  const fadeScreen      = document.getElementById('fade-screen');
-  const musicFloresta   = document.getElementById('bg-floresta');
-  const musicQuarto     = document.getElementById('bg-quarto');
-  const startBtn        = document.getElementById('startBtn');
-  const volumeBtn       = document.getElementById('volume-toggle');
-  const nameInput       = document.getElementById('name-input');
-  const nameScreen      = document.getElementById('name-screen');
-  const gameContainer   = document.getElementById('game-container');
-  const silhouette      = document.getElementById('silhouette');
-  const nextEpisodeBtn  = document.getElementById('next-episode-btn');
+  const storyText = document.getElementById('story-text');
+  const textBox = document.getElementById('text-box');
+  const choices = document.getElementById('choices');
+  const fadeScreen = document.getElementById('fade-screen');
+  const musicFloresta = document.getElementById('bg-floresta');
+  const musicQuarto = document.getElementById('bg-quarto');
+  const startBtn = document.getElementById('startBtn');
+  const volumeBtn = document.getElementById('volume-toggle');
+  const nameInput = document.getElementById('name-input');
+  const nameScreen = document.getElementById('name-screen');
+  const gameContainer = document.getElementById('game-container');
+  const silhouette = document.getElementById('silhouette');
+  const nextEpisodeBtn = document.getElementById('next-episode-btn');
   const eliasimg = document.getElementById('eliasimg');
 
-  // ========================
   // 🔧 Variáveis de Controle
-  // ========================
   let isMuted = false;
   let currentMusic = 'null';
   let stage = 0;
   let waitingForChoice = false;
   let playerName = localStorage.getItem('playerName') || '';
 
-  // ========================
   // 💖 Sistema de Afinidade
-  // ========================
   function showAffinityPanel() {
-  const panel = document.getElementById('affinity-panel');
-  panel.classList.add('show');
+    const panel = document.getElementById('affinity-panel');
+    panel.classList.add('show');
+    setTimeout(() => panel.classList.remove('show'), 5000);
+  }
 
-  // Oculta automaticamente após 5 segundos
-  setTimeout(() => {
-    panel.classList.remove('show');
-  }, 5000);
-}
   let affinity = JSON.parse(localStorage.getItem('affinity')) || {
     Lucien: 0,
     Elias: 0,
@@ -50,53 +40,42 @@ document.addEventListener('DOMContentLoaded', () => {
     Jake: 0
   };
 
-  // ========================
   // 🔈 Volume Inicial
-  // ========================
   musicFloresta.volume = 1;
 
-  // ========================
   // 🔇 Controle de Volume
-  // ========================
   volumeBtn.addEventListener('click', () => {
-    if (musicFloresta.paused) {
+    if (musicFloresta.paused && musicQuarto.paused) {
       musicFloresta.play().then(() => {
         isMuted = false;
         musicFloresta.muted = false;
+        musicQuarto.muted = false;
         volumeBtn.textContent = '🔊';
-      }).catch(err => {
-        console.warn('Erro ao tocar música:', err);
-      });
+      }).catch(err => console.warn('Erro ao tocar música:', err));
     } else {
       isMuted = !isMuted;
       musicFloresta.muted = isMuted;
+      musicQuarto.muted = isMuted;
       volumeBtn.textContent = isMuted ? '🔇' : '🔊';
     }
   });
 
-  // ========================
-  // ✍️ Efeito de Digitação
-  // ========================
+  // ✍️ Efeito de Digitação (opcional)
   function typeWriter(text, callback) {
     let i = 0;
     storyText.textContent = '';
     const speed = 30;
-
     function typing() {
       if (i < text.length) {
         storyText.textContent += text.charAt(i);
         i++;
         setTimeout(typing, speed);
-      } else if (callback) {
-        callback();
-      }
+      } else if (callback) callback();
     }
     typing();
   }
 
-  // ========================
   // 🎵 Gerenciamento de Música
-  // ========================
   function playFloresta() {
     if (currentMusic === 'floresta') return;
     fadeOut(musicQuarto, () => {
@@ -106,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
       musicFloresta.play().then(() => {
         fadeIn(musicFloresta);
         currentMusic = 'floresta';
-      }).catch(e => console.warn("Erro ao tocar bg-floresta:", e));
+      });
     });
   }
 
@@ -122,40 +101,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function fadeOut(audioElement, callback) {
-    let fadeAudio = setInterval(() => {
-      if (audioElement.volume > 0.05) {
-        audioElement.volume -= 0.05;
+  function fadeOut(audio, callback) {
+    let fade = setInterval(() => {
+      if (audio.volume > 0.05) {
+        audio.volume -= 0.05;
       } else {
-        audioElement.volume = 0;
-        clearInterval(fadeAudio);
+        audio.volume = 0;
+        clearInterval(fade);
         if (callback) callback();
       }
     }, 100);
   }
 
-  function fadeIn(audioElement) {
+  function fadeIn(audio) {
     let volume = 0;
-    let fadeAudio = setInterval(() => {
+    let fade = setInterval(() => {
       if (volume < 0.95) {
         volume += 0.05;
-        audioElement.volume = volume;
+        audio.volume = volume;
       } else {
-        audioElement.volume = 1;
-        clearInterval(fadeAudio);
+        audio.volume = 1;
+        clearInterval(fade);
       }
     }, 100);
   }
 
-  // ========================
-  // 🟢 Início do Jogo
-  // ========================
+  // Início Automático
   if (playerName) {
     nameScreen.style.display = 'none';
     gameContainer.style.display = 'block';
   }
 
-  startBtn.addEventListener('click', () => {
+  // Início do Jogo
+  startBtn.addEventListener('click', startGame);
+
+  function startGame() {
     const name = nameInput.value.trim();
     if (!name) {
       alert('Por favor, digite seu nome.');
@@ -163,147 +143,87 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     playerName = name;
     localStorage.setItem('playerName', name);
-    nameScreen.style.display = 'none';
-    gameContainer.style.display = 'block';
 
-    const affinityPanel = document.getElementById('affinity-panel');
-    if (affinityPanel) affinityPanel.style.display = 'block';
-
-    musicFloresta.play().then(() => {
-      currentMusic = 'floresta';
-    }).catch(e => console.warn("Erro ao iniciar música:", e));
-
-    nextScene();
-  });
-
-  nextEpisodeBtn.addEventListener('click', () => {
-    window.location.href = 'ep2.html';
-  });
-
-  //SALVAMENTO DE NOMES DOS JOGADORES
-  function startGame() {
-  const playerName = document.getElementById('name-input').value.trim();
-
-  if (inputName === "") {
-    alert("Por favor, digite seu nome.");
-    return;
-  }
-
-  // Verifica se o usuário já está autenticado anonimamente
-    firebase.auth().signInAnonymously().then(() => {
-      const user = firebase.auth().currentUser;
-      const playerID = user.uid;
-
-      // Salva no localStorage para a tela inicial identificar depois
+    // Firebase
+    firebase.auth().signInAnonymously().then((userCredential) => {
+      const playerID = userCredential.user.uid;
       localStorage.setItem('playerID', playerID);
-      localStorage.setItem('playerName', playerName);
 
       firebase.database().ref('players/' + playerID).set({
         name: playerName,
         joinedAt: Date.now()
       });
 
-      document.getElementById('name-screen').style.display = 'none';
-      // aqui você inicia o jogo como quiser
-    }).catch(error => {
-      console.error("Erro ao autenticar:", error);
-    });
+      nameScreen.style.display = 'none';
+      gameContainer.style.display = 'block';
+      document.getElementById('affinity-panel').style.display = 'block';
+
+      musicFloresta.play().then(() => {
+        currentMusic = 'floresta';
+      });
+
+      nextScene();
+    }).catch(error => console.error("Erro ao autenticar:", error));
   }
-  
-  // ========================
-  // ⚡️ Efeitos Visuais
-  // ========================
 
-  // Faz a imagem aparecer suavemente
-function showCharacter(characterId) {
-    const character = document.getElementById(characterId);
-    character.style.display = 'block';
-    setTimeout(() => {
-        character.style.opacity = '1';
-    }, 10);
-}
-
-// Faz a imagem sumir suavemente
-function hideCharacter(characterId) {
-    const character = document.getElementById(characterId);
-    character.style.opacity = '0';
-    setTimeout(() => {
-        character.style.display = 'none';
-    }, 700); // Tempo igual ao transition do CSS
-}
-
-
+  // Efeitos Visuais
   function fadeToBlackAndBack() {
     fadeScreen.style.opacity = 1;
-    setTimeout(() => {
-      fadeScreen.style.opacity = 0;
-    }, 1500);
+    setTimeout(() => fadeScreen.style.opacity = 0, 1500);
   }
 
- function showSilhouette() {
-  silhouette.classList.remove('fade-out');
-  silhouette.style.display = 'block';
+  function showSilhouette() {
+    silhouette.classList.remove('fade-out');
+    silhouette.style.display = 'block';
+    setTimeout(() => silhouette.classList.add('fade-in'), 50);
+    setTimeout(() => {
+      silhouette.classList.remove('fade-in');
+      silhouette.classList.add('fade-out');
+    }, 2500);
+    setTimeout(() => silhouette.style.display = 'none', 3000);
+  }
 
-  // Espera um pequeno tempo para ativar a animação
-  setTimeout(() => {
-    silhouette.classList.add('fade-in');
-  }, 50);
+  function showCharacter(id) {
+    const el = document.getElementById(id);
+    el.style.display = 'block';
+    setTimeout(() => el.style.opacity = 1, 10);
+  }
 
-  // Aguarda a exibição e depois faz sumir suavemente
-  setTimeout(() => {
-    silhouette.classList.remove('fade-in');
-    silhouette.classList.add('fade-out');
-  }, 2500); // 2.5 segundos de exibição
+  function hideCharacter(id) {
+    const el = document.getElementById(id);
+    el.style.opacity = 0;
+    setTimeout(() => el.style.display = 'none', 700);
+  }
 
-  // Depois de sumir, esconde do DOM
-  setTimeout(() => {
-    silhouette.style.display = 'none';
-  }, 3000);
-}
+  function screenShake() {
+    gameContainer.classList.add('shake');
+    setTimeout(() => gameContainer.classList.remove('shake'), 500);
+  }
 
-
-  // ========================
-  // 💌 Afinidade
-  // ========================
+  // Afinidade
   function updateAffinityPanel() {
     document.getElementById('lucien-score').textContent = affinity.Lucien;
     document.getElementById('elias-score').textContent = affinity.Elias;
     document.getElementById('klaus-score').textContent = affinity.Klaus;
     document.getElementById('jake-score').textContent = affinity.Jake;
     document.getElementById('affinity-panel').style.display = 'block';
-
   }
 
   function showAffinityMessage(text) {
     const msg = document.getElementById('affinity-message');
     const panel = document.getElementById('affinity-panel');
-
     msg.textContent = text;
     msg.style.animation = 'none';
     msg.offsetHeight;
     msg.style.animation = null;
-
     panel.classList.add('show');
-
-    setTimeout(() => {
-      panel.classList.remove('show');
-    }, 5000);
+    setTimeout(() => panel.classList.remove('show'), 5000);
   }
-  function screenShake() {
-  gameContainer.classList.add('shake');
-  setTimeout(() => {
-    gameContainer.classList.remove('shake');
-  }, 500);
-}
 
-
-  // ========================
-  // 📖 História Principal
-  // ========================
+  // História
   function nextScene() {
     if (waitingForChoice) return;
     textBox.removeEventListener('click', nextScene);
-
     if (currentMusic !== 'quarto' && stage > 8) playQuarto();
 
     switch (stage) {
@@ -355,18 +275,10 @@ function hideCharacter(characterId) {
       case 12:
         storyText.textContent = "(O vampiro angelical entra.) __Você desmaiou, mas está segura.";
         showCharacter('eliasimg');
-        eliasimg.style.display = 'block';
-        setTimeout(() => {
-            eliasimg.style.opacity = 1;
-        }, 50);
         break;
       case 13:
         storyText.textContent = "(O rebelde aparece, cruzando os braços.) __Eu disse que ela não aguentaria.";
         hideCharacter('eliasimg');
-        eliasimg.style.opacity = 0;
-        setTimeout(() => {
-          eliasimg.style.display = 'none';
-        }, 500);
         break;
       case 14:
         showFirstChoices();
@@ -384,17 +296,14 @@ function hideCharacter(characterId) {
       default:
         return;
     }
+
     textBox.addEventListener('click', nextScene);
     stage++;
   }
 
-  // ========================
-  // 🔥 Primeira Escolha
-  // ========================
   function showFirstChoices() {
     waitingForChoice = true;
     storyText.textContent = "(Eles te olham, esperando sua reação.)";
-
     setTimeout(() => {
       choices.innerHTML = `
         <button class="choice-button" onclick="chooseFirst(1)">‘O que vocês fizeram comigo? Fiquem longe!’</button>
@@ -406,25 +315,20 @@ function hideCharacter(characterId) {
   window.chooseFirst = function(option) {
     waitingForChoice = false;
     choices.innerHTML = '';
-
     if (option === 1) {
       storyText.textContent = "(Lucien sorri com sarcasmo.) 'Nada... ainda.'";
       affinity.Lucien += 1;
       showAffinityMessage("+1 Afinidade com Lucien ❤️");
-    } else if (option === 2) {
+    } else {
       storyText.textContent = "(Elias sorri levemente.) — Você está segura.";
       affinity.Elias += 1;
       showAffinityMessage("+1 Afinidade com Elias 💙");
     }
-
     updateAffinityPanel();
     stage = 15;
     textBox.addEventListener('click', nextScene);
   };
 
-  // ========================
-  // 💘 Escolha Final
-  // ========================
   function showFinalChoices() {
     waitingForChoice = true;
     storyText.textContent = "Você sente tensão no ar... e algo irresistível.";
@@ -457,26 +361,28 @@ function hideCharacter(characterId) {
     textBox.addEventListener('click', nextScene);
   };
 
-  // ========================
-  // 🚩 Definir Rota Final
-  // ========================
   function defineRoute() {
     setTimeout(() => {
       let message = "";
+      let rotaEscolhida = "";
 
       if (affinity.Lucien > affinity.Elias) {
         message = "Algo em Lucien te atrai. Um mistério perigoso... mas irresistível.";
+        rotaEscolhida = "Lucien";
       } else if (affinity.Elias > affinity.Lucien) {
         message = "Elias transmite calma. Sua presença acalma sua alma.";
+        rotaEscolhida = "Elias";
       } else {
         message = "Ambos despertam algo em você, mas ainda é cedo para entender.";
+        rotaEscolhida = "neutra";
       }
 
       storyText.textContent = message;
       localStorage.setItem('affinity', JSON.stringify(affinity));
+      localStorage.setItem('rotaFinal', rotaEscolhida);
 
       setTimeout(() => {
-        storyText.textContent += "O que se aproxima carrega o poder de mudar tudo.";
+        storyText.textContent += " O que se aproxima carrega o poder de mudar tudo.";
       }, 1000);
 
       setTimeout(() => {
@@ -491,8 +397,6 @@ function hideCharacter(characterId) {
     window.location.href = 'capitulo2.html';
   };
 
-  // ========================
-  // 👉 Clique para Avançar
-  // ========================
+  // Clique para Avançar
   textBox.addEventListener('click', nextScene);
 });
