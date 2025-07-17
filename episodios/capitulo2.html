@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capitulo 2 - Otome Game</title>
-    <link rel="stylesheet" href="style2.css">
-    <link rel="shortcut icon" href="../assets/favicongame.png" type="image/x-icon">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Capítulo 2 - Otome Game</title>
+    <link rel="stylesheet" href="style2.css" />
+    <link rel="shortcut icon" href="../assets/favicongame.png" type="image/x-icon" />
 </head>
 <body id="game-screen">
     <div id="game-container">
-
-        <!--Imagem do colar (EP3)-->
+        
+        <!-- Container de Imagens -->
         <div id="image-container">
-            <img id="collar-image" src="../assets/colar.png" alt="Colar antigo">
+            <!-- Imagem do colar (aparece no momento certo via JS) -->
+            <img id="collar-image" class="hidden" src="../assets/colar.png" alt="Colar antigo" />
+
+            <!-- Imagens dos personagens (aparecem conforme o diálogo) -->
+            <img id="jake-image" class="character-image hidden" src="../assets/jake.jpg" alt="Jake" />
+            <img id="klaus-image" class="character-image hidden" src="../assets/klaus.jpg" alt="Klaus" />
         </div>
 
-        <!--Imagens dos personagens (EP$)-->
-        <img id="jake-image" class="character-image" src="../assets/jake.jpg" alt="Jake">
-        <img id="klaus-image" class="character-image" src="../assets/klaus.jpg" alt="Klas">
-
-        <!--Caixa de texto-->
+        <!-- Caixa de Texto -->
         <div id="text-box">
             <div id="story-text">(Carregando...)</div>
         </div>
 
-        <!--Área de escolhas-->
+        <!-- Área de Escolhas -->
         <div id="choices"></div>
 
-        <!--Audio ambiente-->
+        <!-- Música de Fundo -->
         <audio id="bg-music" src="../audios/music.mp3" preload="auto" loop></audio>
     </div>
 
-    <!--Script principal-->
+    <!-- Script Principal -->
     <script src="script2.js" defer></script>
 </body>
 </html>

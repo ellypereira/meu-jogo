@@ -1,3 +1,14 @@
+// ========================
+// 🎮 BLOOD AND SILENCE — Capítulo 2
+// =======================
+
+
+// Aguarda o carregamento do DOM
+
+
+  // ========================
+  // 🔗 Seleção de Elementos
+  // ========================
 const storyText = document.getElementById('story-text');
 const textBox = document.getElementById('text-box');
 const choices = document.getElementById('choices');
@@ -21,8 +32,19 @@ textBox.addEventListener('click', nextScene);
 
 function nextScene() {
     if(!musicStarted) {
+        bgMusic.volume = 0.4;
         bgMusic.play();
+        musicStarted = true;
     }
+
+    function updateStoryText(newText) {
+  storyText.classList.add('fade-out');
+
+  setTimeout(() => {
+    storyText.textContent = newText;
+    storyText.classList.remove('fade-out');
+  }, 200); // tempo de fade-out antes de atualizar
+}
 
     switch (stage) {
         /** EPISÓDIO 3 **/
@@ -97,6 +119,7 @@ function nextScene() {
             stage++;
             break;
         case 17:
+            console.log("Mostrando Jake");
             storyText.textContent = "(Ele me olha por cima dos fones, com um sorriso.) __Você deve ser a garota do colar — murmura. —Eu sou Jake...";
             showCharacterImage(jakeImage);
             stage++;
@@ -127,7 +150,7 @@ function mudarCenario(classe) {
   console.log('Mudando cenário para:', classe);
 
   // Remove todas as classes de cenário
-  tela.classList.remove('bg-quarto', 'bg-salão');
+  tela.classList.remove('bg-quarto', 'bg-salao');
 
   // Adiciona a nova
   tela.classList.add(classe);
@@ -136,29 +159,23 @@ function mudarCenario(classe) {
 
 /**FUNÇÕES EPISÓDIO 3**/
 function showCollarImage() {
- const imageContainer = document.getElementById('image-container');
- const collarImage = document.getElementById('collar-image');
+  const collarImage = document.getElementById('collar-image');
 
-
-   if (imageContainer && collarImage) {
-    collarImage.classList.add('pulsing');
-    imageContainer.classList.add('show');
-
-    collarImage.classList.add('pulsing');
-    imageContainer.classList.add('show');
+  if (collarImage) {
+    collarImage.classList.remove('hidden'); // mostra o colar
+    collarImage.classList.add('pulsing');   // animação opcional
 
     setTimeout(() => {
-        imageContainer.classList.add('hide');
-        collarImage.classList.remove('pulsing');
+      collarImage.classList.add('hidden');   // esconde o colar após 3s
+      collarImage.classList.remove('pulsing');
     }, 3000);
+  } else {
+    console.error('Colar não encontrado');
+  }
+}
 
-    setTimeout(() => {
-        imageContainer.classList.remove('show', 'hide');
-    }, 4500);
-} else {
-    console.error('Elemento não encontrado: image-container ou collar-image');
-}
-}
+
+
 
 
 function showIdentityChoice() {
@@ -168,6 +185,7 @@ function showIdentityChoice() {
         <button class="choice-button" onclick="chooseIdentity(2)">Recusar e tirar o colar</button>
     `;
 }
+
 
 
 function chooseIdentity(option) {
@@ -231,13 +249,22 @@ function concludeEpisode3() {
 }
 
 /** ==== FUNÇÕES EPISÓDIO 4 ==== **/
-function showCharacterImage(imageElement, time = 3000) {
-    imageElement.style.opacity = 1;
+function showCharacterImage(imageElement, duration = 3000) {
+  // Esconde todas as outras imagens antes
+  const allImages = document.querySelectorAll('.character-image');
+  allImages.forEach(img => {
+    img.classList.remove('show');
+  });
 
-    setTimeout(() => {
-        imageElement.style.opacity = 0;
-    }, time);
+  // Mostra a imagem suavemente
+  imageElement.classList.add('show');
+
+  // Esconde depois de X milissegundos (fade out)
+  setTimeout(() => {
+    imageElement.classList.remove('show');
+  }, duration);
 }
+
 
 function showFirstChoicesEp4() {
     choices.innerHTML = `
@@ -286,7 +313,7 @@ function chooseEp4Second(option) {
 function defineRouteEp4() {
     setTimeout(() => {
         if (jakeAffinity > klausAffinity) {
-            storyText.textContent = "(Jake sorri, e logo em seguinte diz) — Você é do tipo que escolhe seus próprios comandos?! (logo em seguinte é interrompido";
+            storyText.textContent = "(Jake sorri, e diz) — Você é do tipo que escolhe seus próprios comandos? — Mas ele é interrompido por um estrondo.";
         } else if (klausAffinity > jakeAffinity) {
             storyText.textContent = "(Klaus permanece em silêncio, mas um leve aceno revela respeito. Ou alarme.)";
         } else {
