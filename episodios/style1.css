@@ -136,7 +136,7 @@ body.quarto {
   display: flex;
   flex-direction: column;
   align-items: center;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(2px);
   z-index: 2;
   overflow: hidden;
 }
@@ -246,17 +246,24 @@ body.quarto {
 /* ========== PAINEL DE AFINIDADE ========== */
 #affinity-panel {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 220px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90%;
   background: linear-gradient(135deg, rgba(40, 40, 40, 0.95), rgba(20, 20, 20, 0.95));
   color: #f0f0f0;
-  padding: 16px;
+  padding: 12px 20px;
   border-radius: 10px;
   font-size: 14px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
   display: none;
   z-index: 999;
+  opacity: 1;
+  animation: fadeOut 3s forwards;
+}
+
+#affinity-panel.fade-out {
+  opacity: 0;
 }
 
 #affinity-panel.show {
@@ -285,6 +292,13 @@ body.quarto {
 }
 
 /* ========== TELA DE TRANSIÇÃO ESCURA ========== */
+
+@keyframes fadeOut {
+  0% { opacity: 1;}
+   80% { opacity: 1;}
+    100% {opacity: 0; display: none;}
+}
+
 #fade-screen {
   position: fixed;
   top: 0; left: 0;

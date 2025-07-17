@@ -212,14 +212,24 @@ document.addEventListener('DOMContentLoaded', () => {
   function showAffinityMessage(text) {
     const msg = document.getElementById('affinity-message');
     const panel = document.getElementById('affinity-panel');
-    msg.textContent = text;
-    msg.style.animation = 'none';
-    msg.offsetHeight;
-    msg.style.animation = null;
-    panel.classList.add('show');
-    setTimeout(() => panel.classList.remove('show'), 5000);
-  }
 
+    msg.textContent = text;
+    // resetar qualquer fade-out anterior 
+    panel.classList.remove('fade-out');
+    panel.style.display = 'block';
+
+    // forçar reflow para reiniciar animaçãp
+    panel.offsetHeight;
+
+  // Iniciar desaparecimento automático
+  setTimeout(() => {
+    panel.classList.add('fade-out');
+    setTimeout(() => {
+      panel.style.display = 'none';
+      panel.classList.remove('fade-out');
+    }, 1000); // Tempo do fade
+  }, 2500); // Tempo visível
+}
   // História
   function nextScene() {
     if (waitingForChoice) return;
@@ -250,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         storyText.textContent = `(Você sente o coração acelerar. Eles são perigosamente lindos.)`;
         break;
       case 7:
-        storyText.textContent = `(O medo domina você. Corre desesperada.)`;
+        storyText.textContent = `(O pânico te paralisa por um instante… depois, você corre, movida apenas pelo desespero.)`;
         break;
       case 8:
         storyText.textContent = `*PUM!* Você tropeça, cai... e tudo escurece.`;
@@ -358,8 +368,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateAffinityPanel();
     stage = 18;
+    setTimeout(() => {
     textBox.addEventListener('click', nextScene);
-  };
+  }, 1500);
+};
 
   function defineRoute() {
     setTimeout(() => {
