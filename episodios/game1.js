@@ -382,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
         message = "Algo em Lucien te atrai. Um mistério perigoso... mas irresistível.";
         rotaEscolhida = "Lucien";
       } else if (affinity.Elias > affinity.Lucien) {
-        message = "Elias transmite calma. Sua presença acalma sua alma.";
+        message = "A calma de Elias é contagiante; ele tem o dom de tranquilizar a alma de quem está por perto.";
         rotaEscolhida = "Elias";
       } else {
         message = "Ambos despertam algo em você, mas ainda é cedo para entender.";
@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('rotaFinal', rotaEscolhida);
 
       setTimeout(() => {
-        storyText.textContent += " O que se aproxima carrega o poder de mudar tudo.";
+        storyText.textContent += "Há algo se aproximando, algo com a capacidade de transformar tudo.";
       }, 1000);
 
       setTimeout(() => {

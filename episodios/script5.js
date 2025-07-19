@@ -146,25 +146,28 @@ function showRomanticEnding() {
   let image = "";
 
   if (deadCharacter !== "klaus" && klausAffinity === mostAffinity) {
-    chosen = "Klaus se aproxima em silêncio, com os olhos marcados pela dor e pelo alívio. — Você sobreviveu... por todos nós — ele diz, tocando seu rosto. E então te beija, como se o tempo tivesse parado.";
+    chosen = "Klaus se aproxima em silêncio, o olhar entre a dor e o alívio. — Você sobreviveu... — sussurra, tocando seu rosto antes de te beijar, como se o tempo parasse ali.";
     image = "/assets/beijo_klaus.png";
   } else if (deadCharacter !== "jake" && jakeAffinity === mostAffinity) {
-    chosen = "Jake aparece atrás de você, ferido, mas sorrindo. — Sabia que conseguiria... minha heroína maluca — ele diz, te puxando para um beijo intenso, cheio de alívio e paixão.";
+    chosen = "Jake aparece, ferido, mas sorrindo. — Minha heroína louca... — sussurra, te puxando para um beijo que mistura dor e amor.";
     image = "/assets/beijo_jake.png";
   } else if (deadCharacter !== "lucien" && lucienAffinity === mostAffinity) {
-    chosen = "Lucien segura seu braço, firme. — Ainda estamos vivos. Ainda somos nós. — ele sussurra, antes de selar um beijo longo e doloroso, como se pedisse para o tempo parar ali.";
+    chosen = "Lucien segura seu braço. — Ainda somos nós... — sussurra, antes de te beijar como se o tempo precisasse parar.";
     image = "/assets/beijo_lucien.png";
   } else if (eliasAffinity === mostAffinity) {
-    chosen = "Elias te encara com olhos marejados. — Você mudou tudo... inclusive a mim. — Ele se aproxima devagar e te beija, como quem agradece por uma vida inteira.";
+    chosen = "Elias te olha, emocionado. — Você mudou tudo... — Ele te beija, como um agradecimento silencioso.";
     image = "/assets/beijo_elias.png";
   } else {
     chosen = "(Você está sozinha. Mas livre. O preço foi alto... mas a vitória é sua. Pela primeira vez, o silêncio é paz.)";
     image = ""; // Sem imagem
   }
 
+  document.getElementById("text-box").classList.add("text-box-transparent");
+
+
   if (image) showRomanceImage(image);
 
-  storyText.textContent = chosen + "\n\n(As sombras foram dissipadas. Mas o que você fará agora que o mundo mudou para sempre?)";
+  storyText.textContent = chosen + "\n\n(As sombras caíram. Mas e agora... quem você será nesse novo mundo?)";
   choices.innerHTML = `
     <button class="choice-button" onclick="showFinalReflection()">Finalizar</button>
   `;
@@ -172,14 +175,14 @@ function showRomanticEnding() {
 }
 
 function showFinalReflection() {
-  storyText.textContent = "(Você caminha pelos corredores destruídos da mansão. Ecos de memórias ressoam nas paredes. A guerra acabou...)";
+  storyText.textContent = "(Pelos corredores em ruínas, os ecos do passado te seguem, a guerra chegou ao fim.)";
   choices.innerHTML = `
     <button class="choice-button" onclick="endGame()">Encerrar História</button>
   `;
 }
 
 function endGame() {
-storyText.textContent = "(O colar em seu peito pulsa uma última vez... e silencia. Você venceu. As sombras se dissiparam, mas em seu íntimo, uma dúvida permanece...)\n\n(Será esse realmente o fim?)";
+storyText.textContent = "(O colar pulsa uma última vez... e silencia, você venceu. As sombras se dissiparam, mas em seu íntimo, uma dúvida permanece...)\n\n(Será esse realmente o fim?)";
   choices.innerHTML = `
     <button class="choice-button" onclick="goToCredits()">Ver Créditos</button>
   `;

@@ -23,16 +23,21 @@ document.addEventListener("DOMContentLoaded", () => {
   nextScene();
 });
 
+function getFirstSurvivor () {
+  const all = ["jake", "klaus", "lucien"];
+  return all.find(p => p !== deadCharacter);
+}
+
 function nextScene() {
   switch (stage) {
     case 0:
-      storyText.textContent = "(A mansão respira como uma besta ferida. O chão treme. O ar cheira a sangue e magia quebrada.)";
+      storyText.textContent = "(A mansão respira como uma besta ferida.)";
       break;
     case 1:
       storyText.textContent = "(Você desperta entre escombros, com o som de respirações ofegantes e gemidos distantes. Está viva... por pouco.)";
       break;
     case 2:
-      if (deadCharacter !== "jake") {
+      if ( deadCharacter !== "jake") {
         storyText.textContent = "Jake surge entre a fumaça, mancando. — Aquilo... não foi uma luta. Foi um aviso. Ela está jogando com a gente.";
       } else if (deadCharacter !== "klaus") {
         storyText.textContent = "Klaus segura o grimório queimado. — A barreira caiu. A mansão está vulnerável. Ela vai voltar, e vai ser pior.";
