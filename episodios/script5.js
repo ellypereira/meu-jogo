@@ -196,7 +196,7 @@ storyText.textContent = "(O colar pulsa uma última vez... e silencia, você ven
 
     function restartGame() {
       localStorage.clear();
-      window.location.href = "../inicio.html";
+      window.location.href = "../thanks.html";
     }
 
     function createParticle() {
