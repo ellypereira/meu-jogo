@@ -132,9 +132,6 @@ function showRomanceImage(src, duration = 4000) {
   romanceImg.src = src;
   romanceContainer.classList.add('show');
 
-  const kissSound = new Audio('/assets/kiss.mp3');
-  kissSound.play();
-
   setTimeout(() => {
     romanceContainer.classList.remove('show');
   }, duration);
