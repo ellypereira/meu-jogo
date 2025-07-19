@@ -14,14 +14,12 @@ const textBox = document.getElementById('text-box');
 const romanceImg = document.getElementById('romance-img');
 const creditsScreen = document.getElementById('credits-screen');
 
-
 let klausAffinity = parseInt(localStorage.getItem('klausAffinity')) || 0;
 let jakeAffinity = parseInt(localStorage.getItem('jakeAffinity')) || 0;
 let lucienAffinity = parseInt(localStorage.getItem('lucienAffinity')) || 0;
 let eliasAffinity = parseInt(localStorage.getItem('eliasAffinity')) || 0;
 
 const deadCharacter = localStorage.getItem('deadCharacter');
-
 
 textBox.addEventListener('click', () => {
   if (isLocked) return;
@@ -127,7 +125,6 @@ function triggerNextAfterChoice() {
   }
 }
 
-
 function showRomanceImage(src, duration = 4000) {
   const romanceContainer = document.getElementById('romance-image');
   const romanceImg = document.getElementById('romance-img');
@@ -135,35 +132,38 @@ function showRomanceImage(src, duration = 4000) {
   romanceImg.src = src;
   romanceContainer.classList.add('show');
 
+  const kissSound = new Audio('/assets/kiss.mp3');
+  kissSound.play();
+
   setTimeout(() => {
     romanceContainer.classList.remove('show');
   }, duration);
 }
 
 function showRomanticEnding() {
-  const mostAffinity = Math.max(klausAffinity, jakeAffinity, lucienAffinity, eliasAffinity);
+  const affinities = [
+    { name: "klaus", value: klausAffinity, dead: deadCharacter === "klaus", image: "/assets/beijo_klaus.png", text: "Klaus se aproxima em silêncio, o olhar entre a dor e o alívio. — Você sobreviveu... — sussurra, tocando seu rosto antes de te beijar, como se o tempo parasse ali." },
+    { name: "jake", value: jakeAffinity, dead: deadCharacter === "jake", image: "/assets/beijo_jake.png", text: "Jake aparece, ferido, mas sorrindo. — Minha heroína louca... — sussurra, te puxando para um beijo que mistura dor e amor." },
+    { name: "lucien", value: lucienAffinity, dead: deadCharacter === "lucien", image: "/assets/beijo_lucien.png", text: "Lucien segura seu braço. — Ainda somos nós... — sussurra, antes de te beijar como se o tempo precisasse parar." },
+    { name: "elias", value: eliasAffinity, dead: false, image: "/assets/beijo_elias.png", text: "Elias te olha, emocionado. — Você mudou tudo... — Ele te beija, como um agradecimento silencioso." }
+  ];
+
+  const maxAffinity = Math.max(...affinities.map(a => a.value));
+  const topChoices = affinities.filter(a => a.value === maxAffinity && !a.dead);
+
   let chosen = "";
   let image = "";
 
-  if (deadCharacter !== "klaus" && klausAffinity === mostAffinity) {
-    chosen = "Klaus se aproxima em silêncio, o olhar entre a dor e o alívio. — Você sobreviveu... — sussurra, tocando seu rosto antes de te beijar, como se o tempo parasse ali.";
-    image = "/assets/beijo_klaus.png";
-  } else if (deadCharacter !== "jake" && jakeAffinity === mostAffinity) {
-    chosen = "Jake aparece, ferido, mas sorrindo. — Minha heroína louca... — sussurra, te puxando para um beijo que mistura dor e amor.";
-    image = "/assets/beijo_jake.png";
-  } else if (deadCharacter !== "lucien" && lucienAffinity === mostAffinity) {
-    chosen = "Lucien segura seu braço. — Ainda somos nós... — sussurra, antes de te beijar como se o tempo precisasse parar.";
-    image = "/assets/beijo_lucien.png";
-  } else if (eliasAffinity === mostAffinity) {
-    chosen = "Elias te olha, emocionado. — Você mudou tudo... — Ele te beija, como um agradecimento silencioso.";
-    image = "/assets/beijo_elias.png";
+  if (topChoices.length > 0) {
+    const selected = topChoices[Math.floor(Math.random() * topChoices.length)];
+    chosen = selected.text;
+    image = selected.image;
   } else {
     chosen = "(Você está sozinha. Mas livre. O preço foi alto... mas a vitória é sua. Pela primeira vez, o silêncio é paz.)";
     image = ""; // Sem imagem
   }
 
   document.getElementById("text-box").classList.add("text-box-transparent");
-
 
   if (image) showRomanceImage(image);
 
@@ -182,38 +182,35 @@ function showFinalReflection() {
 }
 
 function endGame() {
-storyText.textContent = "(O colar pulsa uma última vez... e silencia, você venceu. As sombras se dissiparam, mas em seu íntimo, uma dúvida permanece...)\n\n(Será esse realmente o fim?)";
+  storyText.textContent = "(O colar pulsa uma última vez... e silencia, você venceu. As sombras se dissiparam, mas em seu íntimo, uma dúvida permanece...)\n\n(Será esse realmente o fim?)";
   choices.innerHTML = `
     <button class="choice-button" onclick="goToCredits()">Ver Créditos</button>
   `;
 }
 
-    function goToCredits() {
-      document.getElementById('game-container').style.display = 'none';
-      creditsScreen.style.display = 'flex';
-    }
+function goToCredits() {
+  document.getElementById('game-container').style.display = 'none';
+  creditsScreen.style.display = 'flex';
+}
 
+function restartGame() {
+  localStorage.clear();
+  window.location.href = "../thanks.html";
+}
 
-    function restartGame() {
-      localStorage.clear();
-      window.location.href = "../thanks.html";
-    }
-
-    function createParticle() {
+// Partículas de fundo
+function createParticle() {
   const particle = document.createElement('div');
   particle.classList.add('particle');
   particle.style.left = `${Math.random() * 100}vw`;
   particle.style.animationDuration = `${2 + Math.random() * 3}s`;
   particle.style.opacity = Math.random().toFixed(2);
   document.body.appendChild(particle);
-
-  setTimeout(() => particle.remove(), 5000); // remove depois de subir
+  setTimeout(() => particle.remove(), 5000);
 }
-
-// Gera partículas aleatórias continuamente
 setInterval(createParticle, 300);
 
-
+// Iniciar história
 document.addEventListener("DOMContentLoaded", () => {
   nextScene();
 });
