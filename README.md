@@ -42,4 +42,3 @@ Klaus - Bonitão que esconde um lado obscuro.
 - ## 📷 Prévia
 - Link: https://superb-marshmallow-f96ca4.netlify.app/
 
-![screenshot](assets/capa.png)
