@@ -6,6 +6,35 @@
     box-sizing: border-box;
 }
 
+/* SISTEMA DE PA'S */
+
+#hud-pa {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 9999;
+}
+
+#hud-pa span {
+    color: #fff;
+}
+
+#btn-anuncio {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer
+    font-size 12px;
+}
+
 body {
     font-family: Georgia, 'Times New Roman', Times, serif;
     background: url(/assets/mansao-eclipse.png) no-repeat center center fixed;

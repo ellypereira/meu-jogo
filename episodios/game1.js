@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       isMuted = !isMuted;
       musicFloresta.muted = isMuted;
-      musicQuarto.muted = isMuted;
+      musicQuarto.muted = isMuted; 
       volumeBtn.textContent = isMuted ? '🔇' : '🔊';
     }
   });
@@ -233,6 +233,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // História
   function nextScene() {
     if (waitingForChoice) return;
+
+    // 💰 TENTAR GASTAR 1 PA ANTES DE AVANÇAR
+  if (typeof tentarGastarPA === "function") {
+    const ok = tentarGastarPA(1);
+    if (!ok) {
+      // Sem PA → não avança a cena
+      return;
+    }
+  }
+  
     textBox.removeEventListener('click', nextScene);
     if (currentMusic !== 'quarto' && stage > 8) playQuarto();
 

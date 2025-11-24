@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="style1.css">
   <link rel="shortcut icon" href="../assets/favicongame.png" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap" rel="stylesheet">
-
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4798913322025265"
+     crossorigin="anonymous"></script>
 
   <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -31,6 +32,11 @@
 
 </head>
 <body>
+
+  <div id="hud-pa">
+    <span>PA: <span id="pa-valor">0</span></span>
+    <button id="btn-anuncio">Assistirr anúncio (+10 PA) </button>
+  </div>
 
   <!-- Painel de Afinidade -->
   <div id="affinity-panel">
@@ -90,6 +96,8 @@
 
 
   <!-- Script do Jogo -->
+  <script src="pa-system.js"></script>
+
   <script src="game1.js"></script>
 
 </body>

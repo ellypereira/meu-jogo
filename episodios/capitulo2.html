@@ -6,9 +6,18 @@
     <title>Capítulo 2 - Otome Game</title>
     <link rel="stylesheet" href="style2.css" />
     <link rel="shortcut icon" href="../assets/favicongame.png" type="image/x-icon" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4798913322025265"
+     crossorigin="anonymous"></script>
 </head>
+
 <body id="game-screen">
     <div id="game-container">
+
+    <div id="hud-pa">
+    <span>PA: <span id="pa-valor">0</span></span>
+    <button id="btn-anuncio">Assistirr anúncio (+10 PA) </button>
+  </div>
+    
         
         <!-- Container de Imagens -->
         <div id="image-container">
@@ -33,6 +42,7 @@
     </div>
 
     <!-- Script Principal -->
+    <script src="pa-system.js"></script> <!--Sistema de PA-->
     <script src="script2.js" defer></script>
 </body>
 </html>

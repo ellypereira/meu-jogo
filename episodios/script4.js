@@ -29,6 +29,17 @@ function getFirstSurvivor () {
 }
 
 function nextScene() {
+
+   // 💰 GASTA 1 PA ANTES DE AVANÇAR
+  if (typeof tentarGastarPA === "function") {
+    const ok = tentarGastarPA(1);
+    if (!ok) {
+      // Sem PA → não avança
+      return;
+    }
+  }
+
+  
   switch (stage) {
     case 0:
       storyText.textContent = "(A mansão respira como uma besta ferida.)";

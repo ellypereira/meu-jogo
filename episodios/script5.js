@@ -44,6 +44,16 @@ textBox.addEventListener('click', () => {
 });
 
 function nextScene() {
+
+     // 💰 GASTA 1 PA ANTES DE AVANÇAR
+  if (typeof tentarGastarPA === "function") {
+    const ok = tentarGastarPA(1);
+    if (!ok) {
+      // Sem PA → não avança
+      return;
+    }
+  }
+  
   switch (stage) {
     case 0:
       storyText.textContent = "(O céu escurece. Um eclipse se forma acima da mansão. As sombras vibram ao redor de você.)";

@@ -78,6 +78,15 @@ function nextScene() {
     musicStarted = true;
   }
 
+   // 💰 GASTA 1 PA ANTES DE AVANÇAR
+  if (typeof tentarGastarPA === "function") {
+    const ok = tentarGastarPA(1);
+    if (!ok) {
+      // Sem PA → não avança
+      return;
+    }
+  }
+
   switch (stage) {
     // ===== EPISÓDIO 3 =====
     case 0:
