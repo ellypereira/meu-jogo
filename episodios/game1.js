@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const nextEpisodeBtn = document.getElementById('next-episode-btn');
   const eliasimg = document.getElementById('eliasimg');
 
+
   // 🔧 Variáveis de Controle
   let isMuted = false;
   let currentMusic = 'null';
@@ -230,6 +231,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1000); // Tempo do fade
   }, 2500); // Tempo visível
 }
+
+
   // História
   function nextScene() {
     if (waitingForChoice) return;

@@ -1,9 +1,23 @@
 // ========================
-// CONFIGURAÇÃO DO SISTEMA
+// SISTEMA DE PA - BLOOD AND SILENCE
 // ========================
-const DAILY_PA = 15;   // PA que o jogador ganha todo dia
-const AD_PA = 10;      // PA ganho por anúncio assistido
+const DAILY_PA = 15;     // PA diário
+const AD_PA = 10;        // PA por "anúncio"
 const STORAGE_KEY = "bs_pa_data_v1";
+
+function showAlert(message) {
+  const alertBox = document.getElementById("custom-alert");
+  const alertMessage = document.getElementById("alert-message");
+  const alertOk = document.getElementById("alert-ok");
+
+  alertMessage.textContent = message;
+  alertBox.classList.add("show");
+
+  alertOk.onclick = () => {
+    alertBox.classList.remove("show");
+  };
+}
+
 
 // Estado em memória
 let paState = {
@@ -11,9 +25,6 @@ let paState = {
   lastDate: null
 };
 
-// ========================
-// FUNÇÕES DE PERSISTÊNCIA
-// ========================
 function getTodayString() {
   const hoje = new Date();
   return hoje.toISOString().slice(0, 10); // "YYYY-MM-DD"
@@ -27,21 +38,19 @@ function loadPAState() {
     try {
       const data = JSON.parse(saved);
 
-      // Se for um dia novo, reseta os PA para o valor diário
+      // Dia novo → reseta PA diário
       if (data.lastDate !== today) {
         paState = {
           pa: DAILY_PA,
           lastDate: today
         };
       } else {
-        // Mesmo dia, continua de onde parou
         paState = {
           pa: typeof data.pa === "number" ? data.pa : DAILY_PA,
           lastDate: data.lastDate || today
         };
       }
     } catch (e) {
-      // Se der erro ao ler, começa do zero nesse dia
       paState = {
         pa: DAILY_PA,
         lastDate: today
@@ -63,9 +72,6 @@ function savePAState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(paState));
 }
 
-// ========================
-// ATUALIZAÇÃO DA HUD
-// ========================
 function updatePAHUD() {
   const spanPA = document.getElementById("pa-valor");
   if (spanPA) {
@@ -73,9 +79,7 @@ function updatePAHUD() {
   }
 }
 
-// ========================
-// GASTAR E GANHAR PA
-// ========================
+// Tenta gastar X PA. Se não tiver, bloqueia.
 function tentarGastarPA(qtd) {
   if (paState.pa >= qtd) {
     paState.pa -= qtd;
@@ -83,35 +87,40 @@ function tentarGastarPA(qtd) {
     updatePAHUD();
     return true;
   } else {
-    alert("Você ficou sem PA por hoje! Volte amanhã ou assista um anúncio para ganhar mais.");
+    if (typeof showAlert === "function") {
+      showAlert("Você ficou sem PA por hoje! Volte amanhã ou use o botão de patrocínio para ganhar mais.");
+    } else {
+      alert ("Você ficou sem PA por hoje! Volte amanhã ou use botão de patrocínio para ganhar mais.");
+    }
     return false;
   }
 }
 
-// Chame isso quando o anúncio terminar com sucesso
+// Ganha PA (chamado quando o jogador retorna do patrocinio.html)
 function ganharPAComAnuncio() {
   paState.pa += AD_PA;
   savePAState();
   updatePAHUD();
-  alert(`Você ganhou +${AD_PA} PA!`);
+  showAlert(`Você ganhou +${AD_PA} PA por apoiar o jogo!`);
 }
 
-// ========================
-// INICIALIZAÇÃO
-// ========================
+// Inicialização do sistema de PA
 window.addEventListener("load", () => {
   loadPAState();
+
+  // Verifica se o jogador acabou de sair do patrocinio.html
+  const rewardFlag = localStorage.getItem("reward-pa");
+  if (rewardFlag === "ok") {
+    localStorage.removeItem("reward-pa");
+    // Dá a recompensa apenas uma vez
+    ganharPAComAnuncio();
+  }
 
   const btnAnuncio = document.getElementById("btn-anuncio");
   if (btnAnuncio) {
     btnAnuncio.addEventListener("click", () => {
-      // Aqui, no futuro, você integra com a plataforma de anúncios.
-      // Quando o anúncio terminar, chama ganharPAComAnuncio().
-      // Por enquanto vamos simular:
-      const confirmar = confirm("Simular anúncio assistido?\n(Aqui entraria o vídeo de anúncio de verdade)");
-      if (confirmar) {
-        ganharPAComAnuncio();
-      }
+      // Leva para a página de patrocínio
+      window.location.href = "patrocinio.html";
     });
   }
 });
