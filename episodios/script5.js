@@ -62,13 +62,13 @@ function nextScene() {
       storyText.textContent = "(A Rainha das Sombras surge diante de você, sangrando das batalhas anteriores. Mas seu olhar ainda queima.)";
       break;
     case 2:
-      storyText.textContent = "— Você ousou me desafiar... perdeu amigos por isso. Está disposta a morrer também? — ela pergunta.";
+      storyText.textContent = "— Você ousou me desafiar... perdeu amigos por isso. Está disposta a morrer também? (ela pergunta.)";
       break;
     case 3:
       storyText.textContent = "(Você sente o colar aquecer. Ele vibra, como se pedisse ação. Seus dedos se fecham sobre ele.)";
       break;
     case 4:
-      storyText.textContent = "— Eu não vou morrer aqui. Você é quem vai — você diz, encarando-a nos olhos pela primeira vez.";
+      storyText.textContent = "— Eu não vou morrer aqui. Você é quem vai! (você diz, encarando-a nos olhos pela primeira vez.)";
       break;
     case 5:
       storyText.textContent = "(Elias surge ao seu lado, ferido, mas determinado.) — Estou com você até o fim. Ela não pode vencer.";
@@ -150,9 +150,9 @@ function showRomanceImage(src, duration = 4000) {
 function showRomanticEnding() {
   const affinities = [
     { name: "klaus", value: klausAffinity, dead: deadCharacter === "klaus", image: "/assets/beijo_klaus.png", text: "Klaus se aproxima em silêncio, o olhar entre a dor e o alívio. — Você sobreviveu... — sussurra, tocando seu rosto antes de te beijar, como se o tempo parasse ali." },
-    { name: "jake", value: jakeAffinity, dead: deadCharacter === "jake", image: "/assets/beijo_jake.png", text: "Jake aparece, ferido, mas sorrindo. — Minha heroína louca... — sussurra, te puxando para um beijo que mistura dor e amor." },
-    { name: "lucien", value: lucienAffinity, dead: deadCharacter === "lucien", image: "/assets/beijo_lucien.png", text: "Lucien segura seu braço. — Ainda somos nós... — sussurra, antes de te beijar como se o tempo precisasse parar." },
-    { name: "elias", value: eliasAffinity, dead: false, image: "/assets/beijo_elias.png", text: "Elias te olha, emocionado. — Você mudou tudo... — Ele te beija, como um agradecimento silencioso." }
+    { name: "jake", value: jakeAffinity, dead: deadCharacter === "jake", image: "/assets/beijo-jake.png", text: "Jake aparece, ferido, mas sorrindo. — Minha heroína louca... — sussurra, te puxando para um beijo que mistura dor e amor." },
+    { name: "lucien", value: lucienAffinity, dead: deadCharacter === "lucien", image: "/assets/lucien-beijo.png", text: "Lucien segura seu braço. — Ainda somos nós... — sussurra, antes de te beijar como se o tempo precisasse parar." },
+    { name: "elias", value: eliasAffinity, dead: false, image: "/assets/finale-elias.png", text: "Elias te olha, emocionado. — Você mudou tudo... — Ele te beija, como um agradecimento silencioso." }
   ];
 
   const maxAffinity = Math.max(...affinities.map(a => a.value));

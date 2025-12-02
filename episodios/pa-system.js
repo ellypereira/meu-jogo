@@ -88,15 +88,15 @@ function tentarGastarPA(qtd) {
     return true;
   } else {
     if (typeof showAlert === "function") {
-      showAlert("Você ficou sem PA por hoje! Volte amanhã ou use o botão de patrocínio para ganhar mais.");
+      showAlert("Você ficou sem PA por hoje! Volte amanhã ou use o botão de bastidores para ganhar mais.");
     } else {
-      alert ("Você ficou sem PA por hoje! Volte amanhã ou use botão de patrocínio para ganhar mais.");
+      alert ("Você ficou sem PA por hoje! Volte amanhã ou use botão de bastidores para ganhar mais.");
     }
     return false;
   }
 }
 
-// Ganha PA (chamado quando o jogador retorna do patrocinio.html)
+// Ganha PA (chamado quando o jogador retorna do blog.html)
 function ganharPAComAnuncio() {
   paState.pa += AD_PA;
   savePAState();
@@ -119,8 +119,8 @@ window.addEventListener("load", () => {
   const btnAnuncio = document.getElementById("btn-anuncio");
   if (btnAnuncio) {
     btnAnuncio.addEventListener("click", () => {
-      // Leva para a página de patrocínio
-      window.location.href = "   blog.html";
+      // Leva para a página de bastidores
+      window.location.href = "blog.html";
     });
   }
 });

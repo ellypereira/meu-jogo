@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
         storyText.textContent = `(Você sente o coração acelerar. Eles são perigosamente lindos.)`;
         break;
       case 7:
-        storyText.textContent = `(O pânico te paralisa por um instante… depois, você corre, movida apenas pelo desespero.)`;
+        storyText.textContent = `(O pânico te paralisa por um instante… você corre, movida apenas pelo desespero.)`;
         break;
       case 8:
         storyText.textContent = `*PUM!* Você tropeça, cai... e tudo escurece.`;
@@ -339,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <button class="choice-button" onclick="chooseFirst(1)">‘O que vocês fizeram comigo? Fiquem longe!’</button>
         <button class="choice-button" onclick="chooseFirst(2)">‘Obrigada por me ajudarem... eu acho.’</button>
       `;
-    }, 3000);
+    }, 2000);
   }
 
   window.chooseFirst = function(option) {

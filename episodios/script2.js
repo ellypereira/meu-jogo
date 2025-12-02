@@ -11,15 +11,34 @@ const jakeImage = document.getElementById('jake-image');
 const klausImage = document.getElementById('klaus-image');
 const collarImage = document.getElementById('collar-image');
 
-let stage = 0;
+const STAGE_KEY_CAP2 = 'bs_stage_cap2_v1';
+let savedStage = parseInt(localStorage.getItem(STAGE_KEY_CAP2), 10);
+let stage = Number.isNaN(savedStage) ? 0 : savedStage;
+
 let musicStarted = false;
 let isLocked = false;
+let waitingForChoice = false; // evitar gastar PA em escolha
 
 // Afinidades
-let lucienAffinity = parseInt(localStorage.getItem('lucienAffinity')) || 0;
-let eliasAffinity = parseInt(localStorage.getItem('eliasAffinity')) || 0;
-let jakeAffinity = parseInt(localStorage.getItem('jakeAffinity')) || 0;
-let klausAffinity = parseInt(localStorage.getItem('klausAffinity')) || 0;
+const oldAffinity = JSON.parse(localStorage.getItem('affinity')) || {
+  Lucien: 0,
+  Elias: 0,
+  Klaus: 0,
+  Jake: 0
+};
+
+// inicializações com fallback seguro (parseInt com radix e verificação NaN)
+let lucienAffinity = parseInt(localStorage.getItem('lucienAffinity'), 10);
+if (Number.isNaN(lucienAffinity)) lucienAffinity = oldAffinity.Lucien || 0;
+
+let eliasAffinity = parseInt(localStorage.getItem('eliasAffinity'), 10);
+if (Number.isNaN(eliasAffinity)) eliasAffinity = oldAffinity.Elias || 0;
+
+let jakeAffinity = parseInt(localStorage.getItem('jakeAffinity'), 10);
+if (Number.isNaN(jakeAffinity)) jakeAffinity = oldAffinity.Jake || 0;
+
+let klausAffinity = parseInt(localStorage.getItem('klausAffinity'), 10);
+if (Number.isNaN(klausAffinity)) klausAffinity = oldAffinity.Klaus || 0;
 
 // ========================
 // EVENTO DE CLIQUE
@@ -60,6 +79,7 @@ function showCollarImage() {
 
 function mudarCenario(classe) {
   const tela = document.getElementById('game-screen');
+  if (!tela) return;
   tela.classList.remove('bg-quarto', 'bg-salao');
   tela.classList.add(classe);
 }
@@ -68,17 +88,20 @@ function mudarCenario(classe) {
 // CENAS
 // ========================
 function nextScene() {
-  if (isLocked) return;
+  // bloqueia se estiver num estado de escolha
+  if (isLocked || waitingForChoice) return;
+
+  // trava rápido pra evitar double-clicks
   isLocked = true;
   setTimeout(() => isLocked = false, 600);
 
   if (!musicStarted) {
     bgMusic.volume = 0.4;
-    bgMusic.play();
+    try { bgMusic.play(); } catch(e) {}
     musicStarted = true;
   }
 
-   // 💰 GASTA 1 PA ANTES DE AVANÇAR
+  // 💰 GASTA 1 PA ANTES DE AVANÇAR
   if (typeof tentarGastarPA === "function") {
     const ok = tentarGastarPA(1);
     if (!ok) {
@@ -91,7 +114,8 @@ function nextScene() {
     // ===== EPISÓDIO 3 =====
     case 0:
       updateStoryText("(Um dia se passou... Elias e Lucien foram atenciosos.)");
-      stage++; break;
+      stage++;
+      break;
     case 1:
       updateStoryText("(Falaram sobre o colar... O mesmo que perdi no orfanato anos atrás.)");
       stage++; break;
@@ -124,11 +148,17 @@ function nextScene() {
       updateStoryText("(Ao tocá-lo... vozes antigas sussurraram sob minha pele. Me chamavam.)");
       stage++; break;
     case 11:
-      showIdentityChoice(); break;
+      showIdentityChoice(); 
+      // salva o ponto de escolha pra voltar aqui caso recarregue
+      localStorage.setItem(STAGE_KEY_CAP2, stage);
+      return;
     case 12:
-      showBondingChoice(); break;
+      showBondingChoice(); 
+      // salvado dentro da função bond se o jogador decidir
+      return;
     case 13:
-      concludeEpisode3(); break;
+      concludeEpisode3(); 
+      return;
 
     // ===== EPISÓDIO 4 =====
     case 14:
@@ -153,18 +183,30 @@ function nextScene() {
       updateStoryText("(Jake suspira, sem parar o jogo.) __Ignore o Klaus. Ele prefere o silêncio ao caos... e às pessoas.");
       stage++; break;
     case 20:
-      showFirstChoicesEp4(); break;
+      showFirstChoicesEp4(); 
+      // salva o ponto de escolha
+      localStorage.setItem(STAGE_KEY_CAP2, stage);
+      return;
     case 21:
-      showSecondChoicesEp4(); break;
+      showSecondChoicesEp4(); 
+      // salvo dentro da escolha
+      return;
     case 22:
-      defineRouteEp4(); break;
+      defineRouteEp4(); 
+      return;
+    default:
+      return;
   }
+
+  // Salva o stage atual sempre que avançar cena
+  localStorage.setItem(STAGE_KEY_CAP2, stage);
 }
 
 // ========================
 // FUNÇÕES DE ESCOLHA — EP3
 // ========================
 function showIdentityChoice() {
+  waitingForChoice = true;
   updateStoryText("As vozes diziam meu nome... mas não o de agora. Um nome antigo, esquecido.");
   choices.innerHTML = `
     <button class="choice-button" onclick="chooseIdentity(1)">Aceitar o chamado</button>
@@ -173,19 +215,26 @@ function showIdentityChoice() {
 }
 
 function chooseIdentity(option) {
+  waitingForChoice = false;
   choices.innerHTML = '';
   if (option === 1) {
     updateStoryText("(Você fecha os olhos. As vozes ecoam em sua mente. Algo desperta.)");
+    // dependendo da lógica, você pode aumentar afinidade aqui
   } else {
     updateStoryText("(Você arranca o colar. O silêncio volta... mas algo dentro de você grita.)");
     lucienAffinity -= 1;
     eliasAffinity -= 1;
+    // salva imediamente para não perder se jogador sair
+    localStorage.setItem('lucienAffinity', lucienAffinity);
+    localStorage.setItem('eliasAffinity', eliasAffinity);
   }
   stage = 12;
+  localStorage.setItem(STAGE_KEY_CAP2, stage);
 }
 
 function showBondingChoice() {
   setTimeout(() => {
+    waitingForChoice = true;
     updateStoryText("Lucien e Elias observam de longe. Você sente o peso de suas expectativas.");
     choices.innerHTML = `
       <button class="choice-button" onclick="bond(1)">Aproximar-se de Lucien</button>
@@ -196,19 +245,25 @@ function showBondingChoice() {
 }
 
 function bond(option) {
+  waitingForChoice = false;
   choices.innerHTML = '';
   if (option === 1) {
     updateStoryText("Lucien se aproxima com um sorriso sombrio. __'Você está começando a entender.'");
     lucienAffinity += 2;
+    localStorage.setItem('lucienAffinity', lucienAffinity);
   } else if (option === 2) {
     updateStoryText("Elias toca seu ombro suavemente. __'Não está sozinha. Nunca esteve.'");
     eliasAffinity += 2;
+    localStorage.setItem('eliasAffinity', eliasAffinity);
   } else {
     updateStoryText("(Você segura o colar com força. Precisa de silêncio para ouvir o que ele diz.)");
     lucienAffinity = 0;
     eliasAffinity = 0;
+    localStorage.setItem('lucienAffinity', lucienAffinity);
+    localStorage.setItem('eliasAffinity', eliasAffinity);
   }
   stage = 13;
+  localStorage.setItem(STAGE_KEY_CAP2, stage);
 }
 
 function concludeEpisode3() {
@@ -221,9 +276,12 @@ function concludeEpisode3() {
       updateStoryText("Sozinha no quarto, você ouve novamente os sussurros. __Eles estão vindo.__");
     }
 
+    // afinidades já foram salvas nas escolhas, mas reforçamos
     localStorage.setItem('lucienAffinity', lucienAffinity);
     localStorage.setItem('eliasAffinity', eliasAffinity);
+
     stage = 14;
+    localStorage.setItem(STAGE_KEY_CAP2, stage);
 
     setTimeout(() => nextScene(), 5000);
   }, 3000);
@@ -233,6 +291,7 @@ function concludeEpisode3() {
 // FUNÇÕES DE ESCOLHA — EP4
 // ========================
 function showFirstChoicesEp4() {
+  waitingForChoice = true;
   choices.innerHTML = `
     <button class="choice-button" onclick="chooseEp4First(1)">Ficar perto de Jake e puxar conversa</button>
     <button class="choice-button" onclick="chooseEp4First(2)">Observar Klaus em silêncio</button>
@@ -240,19 +299,24 @@ function showFirstChoicesEp4() {
 }
 
 function chooseEp4First(option) {
+  waitingForChoice = false;
   choices.innerHTML = '';
   if (option === 1) {
     updateStoryText("(Jake solta uma risada sombria...) — Gosto de gente curiosa — sussurra.");
     jakeAffinity += 1;
+    localStorage.setItem('jakeAffinity', jakeAffinity);
   } else {
     updateStoryText("(Klaus rompe o silêncio...) — Silêncio também é uma forma de confiança — diz.");
     klausAffinity += 1;
+    localStorage.setItem('klausAffinity', klausAffinity);
   }
   stage = 21;
+  localStorage.setItem(STAGE_KEY_CAP2, stage);
 }
 
 function showSecondChoicesEp4() {
   setTimeout(() => {
+    waitingForChoice = true;
     updateStoryText("Há algo sombrio neles... Um guarda segredos nas palavras afiadas, o outro, nos silêncios profundos.");
     choices.innerHTML = `
       <button class="choice-button" onclick="chooseEp4Second(1)">Mostrar interesse pelo mundo de Jake</button>
@@ -263,23 +327,27 @@ function showSecondChoicesEp4() {
 }
 
 function chooseEp4Second(option) {
+  waitingForChoice = false;
   choices.innerHTML = '';
   if (option === 1) {
     updateStoryText("(Jake fecha o notebook, olhos faiscando...) — Você joga? Podemos conversar sobre a sua missão...");
     jakeAffinity += 2;
+    localStorage.setItem('jakeAffinity', jakeAffinity);
   } else if (option === 2) {
     updateStoryText("(Klaus avança lentamente...) — Você sente, não sente? Algo se move entre mundos.");
     klausAffinity += 2;
+    localStorage.setItem('klausAffinity', klausAffinity);
   } else {
     updateStoryText("(Você se retira, envolta pela escuridão crescente...)");
   }
   stage = 22;
+  localStorage.setItem(STAGE_KEY_CAP2, stage);
 }
 
 function defineRouteEp4() {
   setTimeout(() => {
     if (jakeAffinity > klausAffinity) {
-      updateStoryText("(Jake sorri, e diz) — Você é do tipo que escolhe seus próprios comandos? — Mas ele é interrompido por um estrondo.");
+      updateStoryText("(Jake sorri, e diz) — Você é do tipo que escolhe seus próprios comandos? — (Mas ele é interrompido por um estrondo.)");
     } else if (klausAffinity > jakeAffinity) {
       updateStoryText("(Klaus permanece em silêncio, mas um leve aceno revela respeito.)");
     } else {
