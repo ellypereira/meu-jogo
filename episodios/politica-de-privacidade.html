@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Política de Privacidade — Blood And Silence</title>
+  <meta name="description" content="Política de Privacidade do jogo Blood And Silence. Informações sobre coleta, uso e exclusão de dados." />
+  <style>
+    :root{
+      --bg:#0b0711;
+      --card:#0f0b14;
+      --accent:#b0273c;
+      --text:#f5f5f5;
+      --muted:#c9c9c9;
+      --container-width:960px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#06040a,#0b0711 60%);color:var(--text)}
+    .wrap{max-width:var(--container-width);margin:32px auto;padding:28px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+    header h1{margin:0;font-size:1.6rem;letter-spacing:.06em}
+    header p{color:var(--muted);margin:8px 0 18px}
+    main{display:block}
+    section{background:var(--card);padding:16px;border-radius:10px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.03)}
+    h2{margin:0 0 8px;color:var(--accent)}
+    p{margin:8px 0;color:var(--text);line-height:1.5}
+    ul{margin:8px 0 12px 20px;color:var(--text)}
+    a{color:var(--accent);text-decoration:none}
+    footer{margin-top:10px;color:var(--muted);font-size:0.9rem;text-align:center}
+    .small{font-size:0.92rem;color:var(--muted)}
+    .kbd{background:#0b0b0b;padding:2px 6px;border-radius:6px;border:1px solid rgba(255,255,255,0.02);font-family:monospace}
+    .contact{margin-top:8px;padding:12px;background:linear-gradient(180deg, rgba(176,39,60,0.06), rgba(176,39,60,0.02));border-radius:8px}
+    @media(max-width:720px){.wrap{margin:16px;padding:18px}}
+  </style>
+</head>
+<body>
+  <div class="wrap" role="main">
+    <header>
+      <h1>Política de Privacidade — Blood And Silence</h1>
+      <p class="small">Versão: 1.0 — Vigente desde <strong>2 de dezembro de 2025</strong>.</p>
+      <p class="small">Esta política explica como o jogo <em>Blood And Silence</em> coleta, usa, armazena e protege dados dos usuários. Leia com atenção.</p>
+    </header>
+
+    <main>
+      <section aria-labelledby="coleta">
+        <h2 id="coleta">1. Que dados coletamos</h2>
+        <p>O jogo e o site podem armazenar e/ou processar os seguintes tipos de dados:</p>
+        <ul>
+          <li><strong>Dados locais (localStorage):</strong> progresso do jogo (capítulo/estágio), afinidades, nome do jogador, configurações (volume, preferências), flags de funcionalidades. Esses dados ficam salvos no navegador do usuário e não são enviados automaticamente a servidores.</li>
+          <li><strong>Dados de autenticação anônima (Firebase, opcional):</strong> se a autenticação anônima do Firebase for usada, um identificador de usuário anônimo (UID) pode ser criado para salvar metadados no banco de dados Realtime Database ou Firestore; esses dados podem incluir apenas nome público e timestamp de criação, conforme configurado pela desenvolvedora.</li>
+          <li><strong>Dados coletados por terceiros:</strong> serviços de anúncios (ex.: Google AdSense) e provedores de analytics (se integrados) podem coletar cookies, identificadores de publicidade, ou dados de uso agregados para personalização de anúncios e relatórios. Esses provedores têm suas próprias políticas.</li>
+          <li><strong>Dados enviados voluntariamente:</strong> contatos via formulário, e-mail, ou informações que o jogador decida enviar manualmente para suporte/contato.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="uso">
+        <h2 id="uso">2. Para que usamos os dados</h2>
+        <p>Usamos os dados para finalidades limitadas e legítimas:</p>
+        <ul>
+          <li>Salvar e restaurar o progresso do jogo (localmente).</li>
+          <li>Oferecer preferências de usuário (volume, nome salvo, configurações).</li>
+          <li>Melhorar a experiência do jogo com análises agregadas e correções de bugs.</li>
+          <li>Monetização passiva por anúncios exibidos em páginas do site/blog (quando aplicável).</li>
+          <li>Comunicação com usuários, caso o jogador entre em contato via e-mail.</li>
+        </ul>
+        <p>Não usamos dados para fins que não estejam listados aqui sem consentimento explícito.</p>
+      </section>
+
+      <section aria-labelledby="ads-analytics">
+        <h2 id="ads-analytics">3. Anúncios e serviços de terceiros</h2>
+        <p>O site pode exibir anúncios através de redes de terceiros (ex.: Google AdSense). Esses provedores podem usar cookies, identificadores de dispositivo, e outras tecnologias para veicular anúncios relevantes. A desenvolvedora NÃO controla diretamente as práticas desses provedores.</p>
+        <p>Importantíssimo: <strong>não solicitamos nem incentivamos cliques em anúncios</strong>. Oferecemos conteúdo editorial e opções de apoio (Patreon/Ko-fi) como forma segura de apoiar o projeto.</p>
+        <p>Para saber mais sobre como o Google usa dados para anúncios, visite as páginas oficiais do Google Ads/AdSense e a Central de Privacidade do Google.</p>
+      </section>
+
+      <section aria-labelledby="storage">
+        <h2 id="storage">4. Como armazenamos dados</h2>
+        <p><strong>LocalStorage (no navegador):</strong> progressos e preferências ficam salvos localmente no dispositivo do jogador. Para apagar, o usuário pode limpar o armazenamento local do navegador (devtools → Application → Local Storage → remover) ou usar a opção de exclusão disponível no jogo, se houver.</p>
+        <p><strong>Firebase / servidor:</strong> se configurado, alguns dados mínimos (ex.: nome público e UID anon) podem ser gravados em Realtime Database ou Firestore. Estes dados são armazenados nos servidores da Google (ou outro provedor) e estão sujeitos à política de privacidade do provedor.</p>
+      </section>
+
+      <section aria-labelledby="retencao">
+        <h2 id="retencao">5. Por quanto tempo retemos dados</h2>
+        <p>Dados locais permanecem no dispositivo até serem removidos pelo usuário ou pelo navegador. Dados armazenados em serviços de backend (ex.: Firebase) são mantidos conforme a configuração da desenvolvedora; caso deseje exclusão, solicite por e-mail (veja seção de contato).</p>
+      </section>
+
+      <section aria-labelledby="seus-direitos">
+        <h2 id="seus-direitos">6. Seus direitos (GDPR / CCPA e similares)</h2>
+        <p>Dependendo da sua jurisdição, você pode ter direitos como:</p>
+        <ul>
+          <li>Solicitar acesso aos dados que mantemos sobre você;</li>
+          <li>Solicitar correção ou exclusão de dados;</li>
+          <li>Retirar consentimento quando aplicável;</li>
+          <li>Solicitar a portabilidade dos dados (quando possível).</li>
+        </ul>
+        <p>Para exercer qualquer direito, envie uma solicitação para o e-mail de contato indicado abaixo. Tentaremos responder dentro de um prazo razoável (normalmente 30 dias).</p>
+      </section>
+
+      <section aria-labelledby="seguranca">
+        <h2 id="seguranca">7. Segurança</h2>
+        <p>Tomamos medidas razoáveis para proteger dados (criptografia em trânsito para servidores, boas práticas de codificação). Entretanto, nenhuma transmissão na Internet ou armazenamento digital é 100% seguro. Se ocorrer um incidente relevante, comunicaremos rapidamente aos afetados quando requerido por lei.</p>
+      </section>
+
+      <section aria-labelledby="criancas">
+        <h2 id="criancas">8. Público infantil</h2>
+        <p>O jogo não é direcionado a crianças pequenas. Não coletamos intencionalmente informações pessoais de menores de idade. Se souber que uma criança forneceu dados pessoais sem consentimento dos pais, entre em contato para que possamos remover os dados.</p>
+      </section>
+
+      <section aria-labelledby="alteracoes">
+        <h2 id="alteracoes">9. Alterações nesta política</h2>
+        <p>Esta política pode ser atualizada. A versão vigente e a data de atualização estarão no topo da página. Recomendamos que verifique periodicamente.</p>
+      </section>
+
+      <section aria-labelledby="contato">
+        <h2 id="contato">10. Contato e solicitações</h2>
+        <p>Se você quiser acessar, corrigir ou excluir dados, ou tiver dúvidas sobre esta política, entre em contato:</p>
+        <div class="contact">
+          <p><strong>E-mail:</strong> <a href="bloodandsilence1@gmail.com">bloodandsilence1@gmail.com</a></p>
+          <p><strong>Assunto sugerido:</strong> "Privacidade — Pedido de exclusão" (ou outro conforme o caso).</p>
+        </div>
+        <p>Na sua mensagem, informe o máximo de dados para podermos identificar o registro (ex.: playerName salvo, playerID, capítulo onde parou, data aproximada).</p>
+      </section>
+    </main>
+
+    <footer>
+      <p class="small">Blood And Silence — Desenvolvedora independente. Esta política não substitui aconselhamento jurídico. Se quiser uma versão legal detalhada (para submissão a plataformas comerciais), considere revisar com um profissional.</p>
+      <p class="small">Data de vigência: <strong>2 de dezembro de 2025</strong></p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -88,9 +88,9 @@ function tentarGastarPA(qtd) {
     return true;
   } else {
     if (typeof showAlert === "function") {
-      showAlert("Você ficou sem PA por hoje! Volte amanhã ou use o botão de bastidores para ganhar mais.");
+      showAlert("Você ficou sem PA por hoje! Volte amanhã ou use o botão de bastidores.");
     } else {
-      alert ("Você ficou sem PA por hoje! Volte amanhã ou use botão de bastidores para ganhar mais.");
+      alert ("Você ficou sem PA por hoje! Volte amanhã ou use botão de bastidores.");
     }
     return false;
   }
