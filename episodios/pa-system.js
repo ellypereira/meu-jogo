@@ -11,7 +11,7 @@ function showAlert(message) {
   const alertOk = document.getElementById("alert-ok");
 
   alertMessage.textContent = message;
-  alertBox.classList.add("show");
+  alertBox.classList.add("show"); 
 
   alertOk.onclick = () => {
     alertBox.classList.remove("show");
@@ -120,7 +120,7 @@ window.addEventListener("load", () => {
   if (btnAnuncio) {
     btnAnuncio.addEventListener("click", () => {
       // Leva para a página de patrocínio
-      window.location.href = "patrocinio.html";
+      window.location.href = "   blog.html";
     });
   }
 });

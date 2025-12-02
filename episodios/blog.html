@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blood And Silence – Bastidores do Jogo</title>
+  <link rel="shortcut icon" href="../assets/favicongame.png" type="image/x-icon" />
+
+  <!-- Script global do AdSense (mantenha o seu client) -->
+  <script async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4798913322025265"
+    crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --bg: #050308;
+      --bg-card: #0b0713;
+      --accent: #b0273c;
+      --accent-soft: #f1b6c3;
+      --text: #f5f5f5;
+      --muted: #c9c9c9;
+      --border: #262133;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #1a0f25 0, #050308 55%);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+        Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px 12px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 960px;
+      background: rgba(5, 3, 8, 0.9);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      padding: 24px 20px 28px;
+    }
+
+    header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 1.4fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    article section {
+      background: linear-gradient(145deg, rgba(12, 7, 22, 0.9), rgba(11, 6, 18, 0.95));
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 16px 18px;
+      margin-bottom: 16px;
+    }
+
+    article h2 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+      color: var(--accent-soft);
+    }
+
+    article p {
+      margin: 0 0 10px;
+      line-height: 1.55;
+      font-size: 0.96rem;
+      color: var(--text);
+    }
+
+    article a {
+      color: var(--accent-soft);
+      text-decoration: underline;
+    }
+
+    .characters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .character-card {
+      background: rgba(8, 4, 15, 0.95);
+      border-radius: 12px;
+      padding: 10px 10px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .character-img {
+      width: 100%;
+      height: 160px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: #120918;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: 8px;
+    }
+
+    .character-name {
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--accent-soft);
+      font-size: 0.98rem;
+    }
+
+    .character-desc {
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    /* coluna lateral: anúncio + info retorno */
+    aside {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .support-box {
+      background: radial-gradient(circle at top left, #281024, #0b0713);
+      border-radius: 14px;
+      padding: 14px 14px 12px;
+      border: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+
+    .support-box strong {
+      color: var(--accent-soft);
+    }
+
+    .support-box small {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .ad-container {
+      background: rgba(8, 4, 15, 0.92);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 10px;
+    }
+
+    .ad-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.7;
+      margin-bottom: 6px;
+    }
+
+    .return-box {
+      background: rgba(8, 4, 15, 0.92);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 12px 14px 14px;
+      font-size: 0.9rem;
+    }
+
+    #countdown {
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    #back-btn {
+      width: 100%;
+      margin-top: 4px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: none;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      background: #3b2a40;
+      color: #b9b2c7;
+      cursor: not-allowed;
+      transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease,
+        color 0.2s ease;
+    }
+
+    #back-btn.enabled {
+      background: linear-gradient(135deg, #b0273c, #e5597a);
+      color: #fff;
+      box-shadow: 0 0 18px rgba(176, 39, 60, 0.55);
+      cursor: pointer;
+    }
+
+    #back-btn.enabled:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 22px rgba(176, 39, 60, 0.75);
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Blood And Silence – Bastidores & Universo</h1>
+      <p>
+        Obrigada por abrir esta página e conhecer mais sobre o mundo que deu origem ao jogo. 💉🖤
+      </p>
+    </header>
+
+    <main>
+      <article>
+        <!-- SOBRE O JOGO -->
+        <section>
+          <h2>Sobre o jogo</h2>
+          <p>
+            <strong>Blood And Silence</strong> é um otome game com clima gótico, vampiros, mansões sombrias
+            e escolhas que afetam seus relacionamentos e o destino da protagonista. Cada decisão pode aproximar
+            você de um romance intenso… ou de um fim trágico.
+          </p>
+          <p>
+            A ideia do jogo nasceu da vontade de misturar <em>drama, romance e suspense</em> em uma experiência
+            interativa, onde o jogador sente que realmente está vivendo dentro de uma história sombria, cheia de
+            segredos e personagens marcantes.
+          </p>
+        </section>
+
+        <!-- PERSONAGENS -->
+        <section>
+          <h2>Personagens principais</h2>
+          <p>Conheça alguns dos vampiros e figuras que cruzam o caminho da protagonista:</p>
+
+          <div class="characters">
+            <div class="character-card">
+              <!-- troque o src pelas imagens reais dos personagens -->
+              <img src="../assets/lucienSexy.png" alt="Lucien" class="character-img" />
+              <div class="character-name">Lucien</div>
+              <div class="character-desc">
+                Sarcástico, intenso e perigosamente charmoso. Lucien é aquele tipo de vampiro que parece
+                brincar com o perigo – e com o seu coração. Ele te provoca o tempo todo, mas também é o
+                primeiro a surgir quando algo ameaça você.
+              </div>
+            </div>
+
+            <div class="character-card">
+              <img src="../assets/EliasPasta/Elias1.1.png" alt="Elias" class="character-img" />
+              <div class="character-name">Elias</div>
+              <div class="character-desc">
+                Calmo, observador e com uma aura quase angelical. Elias transmite segurança, mesmo cercado
+                por escuridão. Suas palavras são gentis, mas seus segredos podem ser tão profundos quanto a noite.
+              </div>
+            </div>
+
+            <div class="character-card">
+              <img src="../assets/KlausPasta/Klaus2.1.png"Klaus" class="character-img" />
+              <div class="character-name">Klaus</div>
+              <div class="character-desc">
+                Estratégico e sério, Klaus enxerga o mundo como um tabuleiro. Ele está sempre pensando
+                três passos à frente, e sua forma de demonstrar proteção nem sempre é suave – mas é intensa.
+              </div>
+            </div>
+
+            <div class="character-card">
+              <img src="../assets/JakePasta/jake1.1.png" alt="Jake" class="character-img" />
+              <div class="character-name">Jake</div>
+              <div class="character-desc">
+                Descontraído, irônico e cheio de energia. Jake traz um pouco de luz em meio ao caos, mas
+                também guarda cicatrizes e memórias que o tornaram mais perigoso do que aparenta.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- COMO O PROJETO NASCEU -->
+        <section>
+          <h2>Como Blood And Silence nasceu</h2>
+          <p>
+            Sempre gostei de jogos otome — aqueles cheios de romance, escolhas e personagens marcantes.
+            Tenho meus favoritos e até hoje jogo vários deles, porque sempre me senti inspirada por
+            esses mundos cheios de drama e emoção.
+            </p>
+
+            <p>
+            Ao mesmo tempo, sempre tive interesse por programação e criação de histórias. Então um dia
+            surgiu a pergunta que não saía da minha cabeça: <em>“E se eu criasse meu próprio jogo?”</em>
+            Um jogo com o clima, o estilo e os personagens que eu, como jogadora, sempre quis ver.
+            </p>
+
+            <p>
+            <strong>Blood And Silence</strong> nasceu assim — de uma mistura de paixão por otomes,
+            vontade de aprender e o desejo de construir um universo inteiro sozinha.  
+            Não é o jogo mais perfeito do mundo (pelo menos por enquanto 😅), porque tudo aqui é feito
+            por mim, nos meus horários e com muito carinho. Mas acredito que, com o tempo,
+            dedicação e apoio de quem joga, ele pode crescer, ganhar visibilidade e receber aquele
+            <em>glow up</em> que merece.
+            </p>
+
+            <p>
+            A história original começou como um simples rascunho no papel.  
+            Fiquei com medo de perder tudo, então decidi postar no Wattpad — onde você consegue acompanhar
+            a versão em texto e ver como essa ideia foi evoluindo até virar o jogo que existe hoje.
+            </p>
+        </section>
+
+        <!-- WATTPAD -->
+        <section>
+          <h2>Leia a história original no Wattpad</h2>
+          <p>
+            Se você quiser conhecer a versão em texto que inspirou o jogo, pode ler a história completa no
+            Wattpad:
+          </p>
+          <p>
+            👉 <a href="https://www.wattpad.com/story/394766892-blood-and-silence" target="_blank" rel="noopener noreferrer">
+              Clique aqui para ler Blood And Silence no Wattpad
+            </a>
+          </p>
+          <p>
+            Lá você encontra descrições mais detalhadas, pensamentos da protagonista e cenas que talvez não
+            apareçam exatamente do mesmo jeito no jogo. É como enxergar o outro lado da névoa.
+          </p>
+        </section>
+      </article>
+
+      <aside>
+        <!-- CAIXA DE APOIO / TEXTO NEUTRO -->
+        <div class="support-box">
+          <strong>Obrigada por apoiar o projeto 🩸</strong>
+          <p>
+            Só de visitar esta página e conhecer um pouco mais dos bastidores, você já ajuda muito o
+            desenvolvimento do jogo. Alguns espaços desta área podem exibir anúncios enquanto você navega.
+          </p>
+          <small>
+            Como forma de agradecimento, após alguns segundos você poderá voltar ao jogo com um pequeno
+            bônus de PA.
+          </small>
+        </div>
+
+        <!-- BLOCO DE ANÚNCIO DO ADSENSE -->
+
+
+        <!-- CONTAGEM + VOLTAR AO JOGO -->
+        <div class="return-box">
+          <div id="countdown">
+            Recomendamos que você leia um pouco desta página. Em <strong>10s</strong> o botão de retorno será liberado.
+          </div>
+
+          <button id="back-btn" disabled>Espere alguns segundos…</button>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      Esta página existe para explicar melhor o universo do jogo e ajudar na continuidade do projeto.
+    </footer>
+  </div>
+
+  <script>
+    const countdownEl = document.getElementById("countdown");
+    const backBtn = document.getElementById("back-btn");
+
+    let seconds = 10;
+
+    const timer = setInterval(() => {
+      seconds--;
+
+      if (seconds > 0) {
+        countdownEl.innerHTML =
+          `Recomendamos que você leia um pouco desta página. Em <strong>${seconds}s</strong> o botão de retorno será liberado.`;
+      } else {
+        clearInterval(timer);
+        countdownEl.textContent =
+          "Pronto! Se quiser, você já pode voltar ao jogo. Obrigada por tirar um tempo para conhecer mais sobre Blood And Silence.";
+        backBtn.disabled = false;
+        backBtn.classList.add("enabled");
+        backBtn.textContent = "Voltar ao jogo";
+      }
+    }, 1000);
+
+    backBtn.addEventListener("click", () => {
+      if (backBtn.disabled) return;
+
+      // Marca que o jogador visitou a página de apoio
+      // (o jogo interpreta isso como um bônus de PA ao retornar)
+      localStorage.setItem("reward-pa", "ok");
+
+      // Volta para a página anterior do capítulo
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        // fallback – volta para o capítulo 1 se não houver histórico
+        window.location.href = "capitulo1.html";
+      }
+    });
+  </script>
+</body>
+</html>

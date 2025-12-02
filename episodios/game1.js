@@ -23,7 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // 🔧 Variáveis de Controle
   let isMuted = false;
   let currentMusic = 'null';
-  let stage = 0;
+
+  // * Salvar/Carregar estágio do jogo
+  const STAGE_KEY = 'bs_stage_v1';
+  let savedStage = parseInt(localStorage.getItem(STAGE_KEY), 10);
+  let stage = Number.isNaN(savedStage) ? 0 : savedStage;
+
   let waitingForChoice = false;
   let playerName = localStorage.getItem('playerName') || '';
 
@@ -322,6 +327,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     textBox.addEventListener('click', nextScene);
     stage++;
+    // * Salva estágio atual sempre que avançar.
+    localStorage.setItem(STAGE_KEY, stage);
   }
 
   function showFirstChoices() {
@@ -348,7 +355,10 @@ document.addEventListener('DOMContentLoaded', () => {
       showAffinityMessage("+1 Afinidade com Elias 💙");
     }
     updateAffinityPanel();
+
     stage = 15;
+    localStorage.setItem(STAGE_KEY, stage); // * salva aqui também
+
     textBox.addEventListener('click', nextScene);
   };
 
@@ -381,6 +391,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateAffinityPanel();
     stage = 18;
+    localStorage.setItem(STAGE_KEY, stage); // * Salva aqui tbm
+    
     setTimeout(() => {
     textBox.addEventListener('click', nextScene);
   }, 1500);
