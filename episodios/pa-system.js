@@ -1,10 +1,17 @@
 // ========================
 // SISTEMA DE PA - BLOOD AND SILENCE
 // ========================
-const DAILY_PA = 15;     // PA diário
-const AD_PA = 10;        // PA por "anúncio"
-const STORAGE_KEY = "bs_pa_data_v1";
 
+// quantidade d PA
+const DAILY_PA = 15;           // PA que o jogador ganha todo dia
+const DAILY_BONUS_PA = 10;     // Bônus diário opcional (botão no HUD)
+
+// Chaves de armazenamento
+const STORAGE_KEY = "bs_pa_data_v1";      // estado de PA
+const BONUS_KEY   = "bs_daily_bonus_v1";  // controle de bônus diário (por data)
+
+
+// Alertinha bonitinho 
 function showAlert(message) {
   const alertBox = document.getElementById("custom-alert");
   const alertMessage = document.getElementById("alert-message");
@@ -18,17 +25,18 @@ function showAlert(message) {
   };
 }
 
-
 // Estado em memória
 let paState = {
   pa: DAILY_PA,
   lastDate: null
 };
 
+
 function getTodayString() {
   const hoje = new Date();
   return hoje.toISOString().slice(0, 10); // "YYYY-MM-DD"
 }
+
 
 function loadPAState() {
   const saved = localStorage.getItem(STORAGE_KEY);
@@ -87,40 +95,66 @@ function tentarGastarPA(qtd) {
     updatePAHUD();
     return true;
   } else {
-    if (typeof showAlert === "function") {
-      showAlert("Você ficou sem PA por hoje! Volte amanhã ou use o botão de bastidores.");
-    } else {
-      alert ("Você ficou sem PA por hoje! Volte amanhã ou use botão de bastidores.");
-    }
+      showAlert("Você ficou sem PA por hoje! Volte amanhã ou apoie o projeto para continuar acompanhando a história.");
     return false;
   }
 }
 
-// Ganha PA (chamado quando o jogador retorna do blog.html)
-function ganharPAComAnuncio() {
-  paState.pa += AD_PA;
-  savePAState();
-  updatePAHUD();
-  showAlert(`Você ganhou +${AD_PA} PA por apoiar o jogo!`);
+// Retorna true se ainda não pegou bônus hoje
+function podePegarBonusHoje() {
+  const hoje = getTodayString();
+  const lastBonus = localStorage.getItem(BONUS_KEY);
+  return lastBonus !== hoje;
 }
 
-// Inicialização do sistema de PA
-window.addEventListener("load", () => {
-  loadPAState();
-
-  // Verifica se o jogador acabou de sair do patrocinio.html
-  const rewardFlag = localStorage.getItem("reward-pa");
-  if (rewardFlag === "ok") {
-    localStorage.removeItem("reward-pa");
-    // Dá a recompensa apenas uma vez
-    ganharPAComAnuncio();
+// Dá bônus diário de PA
+function pegarBonusDiario() {
+  if (!podePegarBonusHoje()) {
+    showAlert("Você já pegou o bônus diário de hoje. Volte amanhã!");
+    return;
   }
 
+  paState.pa += DAILY_BONUS_PA;
+  savePAState();
+  updatePAHUD();
+  localStorage.setItem(BONUS_KEY, getTodayString());
+
+  showAlert(`Você ganhou +${DAILY_BONUS_PA} PA de bônus diário!`);
+}
+
+
+// INICIALIZAÇÃO
+// ----------------------------
+window.addEventListener("load", () => {
+  // Carrega/atualiza PA diário
+  loadPAState();
+
+  // Botão de bônus diário (se você colocar no HTML)
+  const btnBonus = document.getElementById("btn-bonus-diario");
+  if (btnBonus) {
+    btnBonus.addEventListener("click", pegarBonusDiario);
+  }
+
+  // Botão do blog / (antes era "Assistir anúncio")
   const btnAnuncio = document.getElementById("btn-anuncio");
   if (btnAnuncio) {
     btnAnuncio.addEventListener("click", () => {
-      // Leva para a página de bastidores
-      window.location.href = "blog.html";
+      // Abre a página de blog em nova aba
+      // Importante: n tem ligação com recompensa de PA, pra não dar problema com AdSense
+      window.open("blog.html", "_blank");
     });
   }
 });
+
+// ----------------------------
+// Função extra se você quiser
+// dar PA por outras coisas (ex: códigos, eventos especiais)
+// ----------------------------
+function ganharPA(valor) {
+  const v = Number(valor) || 0;
+  if (v <= 0) return;
+
+  paState.pa += v;
+  savePAState();
+  updatePAHUD();
+}
