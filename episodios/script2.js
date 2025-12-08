@@ -58,13 +58,18 @@ function updateStoryText(newText) {
 
 function showTemporaryImage(imageElement, duration = 3000) {
   const allImages = document.querySelectorAll('.character-image, #collar-image');
-  allImages.forEach(img => img.classList.remove('show'));
+  allImages.forEach(img => {
+  img.classList.remove('show');
+  img.classList.add('hidden');
+  });
 
   if (imageElement) {
     imageElement.classList.remove('hidden');
     imageElement.classList.add('show');
+
     setTimeout(() => {
       imageElement.classList.remove('show');
+      imageElement.classList.add('hidden');
     }, duration);
   }
 }
@@ -113,11 +118,11 @@ function nextScene() {
   switch (stage) {
     // ===== EPISÓDIO 3 =====
     case 0:
-      updateStoryText("(Um dia se passou... Elias e Lucien foram atenciosos.)");
+      updateStoryText("(Já faz um dia desde que acordei naquela cama estranha. Elias e Lucien tentaram agir como se tudo fosse normal... mas nada aqui é.)");
       stage++;
       break;
     case 1:
-      updateStoryText("(Falaram sobre o colar... O mesmo que perdi no orfanato anos atrás.)");
+      updateStoryText("(Hoje eles finalmente falaram sobre o colar... O mesmo que perdi no orfanato, anos atrás.)");
       stage++; break;
     case 2:
       updateStoryText("(Disseram que ele pertencia à minha mãe, uma Guardiã do limiar.)");
@@ -129,23 +134,23 @@ function nextScene() {
       updateStoryText("(Contaram sobre rituais antigos, vínculos de sangue e alma)");
       stage++; break;
     case 5:
-      updateStoryText("(Minha mãe se ofereceu como âncora... Selando algo, ou alguém)");
+      updateStoryText("(Minha mãe se ofereceu como âncora... Selando algo, ou alguém que não quer ficar presa.)");
       stage++; break;
     case 6:
-      updateStoryText("(O colar era a chave)");
+      updateStoryText("(O colar era parte do pacto, uma chave.)");
       stage++; break;
     case 7:
-      updateStoryText("(Não foi fácil aceitar que fui vigiada desde o nascimento.)");
+      updateStoryText("(Eles disseram que eu fui vigiada desde o nascimento, não por compaixão, mas porque talvez eu tivesse herdado o lugar dela.)");
       stage++; break;
     case 8:
-      updateStoryText("(Não por compaixão, mas porque acham que herdei o papel dela — ou algo pior.)");
+      updateStoryText("(Não sei o que dói mais, a ideia de ter sido um fardo... ou a sensação de que no fundo sempre soube que tinha algo errado comigo.)");
       stage++; break;
     case 9:
-      updateStoryText("(Hoje, Elias me deu um colar. Talvez o mesmo de antes, restaurado.)");
+      updateStoryText("(Hoje, Elias me devolveu o mesmo colar que havia 'perdido'. Ele parece novo, mas a energia é a mesma de quando era criança)");
       showCollarImage();
       stage++; break;
     case 10:
-      updateStoryText("(Ao tocá-lo... vozes antigas sussurraram sob minha pele. Me chamavam.)");
+      updateStoryText("(Ao tocá-lo... vozes antigas sussurraram sob minha pele, me chamavam...)");
       stage++; break;
     case 11:
       showIdentityChoice(); 
@@ -163,24 +168,26 @@ function nextScene() {
     // ===== EPISÓDIO 4 =====
     case 14:
       mudarCenario('bg-salao');
-      updateStoryText("(Um novo dia amanhece. Ainda sinto o eco do colar em minha pele...)");
+      updateStoryText("(Um novo dia começa, mas o ar na mansão está diferente. O colar pesa no meu pescoço como se tivesse dobrado de peso durante a noite)");
       stage++; break;
     case 15:
-      updateStoryText("(Elias está ausente. Lucien saiu antes do amanhecer. Estou sozinha... ou quase.)");
+      updateStoryText("(Elias saiu cedo para 'resolver algo'. Lucien desapareceu antes do amanhecer. Pela primeira vez, estou sozinha nos corredores... ou quase.)");
       stage++; break;
     case 16:
-      updateStoryText("(Um som eletrônico. Risadas abafadas. Então vejo alguém no canto do salão, jogando em um notebook com fones enormes.)");
+      updateStoryText("O silêncio é quebrado por um som eletrônico, quase fora de lugar ali. Cliques rápidos, música abafada, risos baixos)");
       stage++; break;
     case 17:
-      updateStoryText("(Ele me olha por cima dos fones, com um sorriso.) __Você deve ser a garota do colar — murmura. —Eu sou Jake...");
+      updateStoryText("(Sigo o som até um canto do salão. Um garoto está jogando em um notebook. Ele levanta os olhos por cima da tela.)" +
+        "__'Então você é a famosa garota do colar, sou Jake. A mansão ficou menos chata desde que você chegou.'");
       showCharacterImage(jakeImage);
       stage++; break;
     case 18:
-      updateStoryText("(Antes que eu pudesse responder, ouço passos suaves. Um homem alto, com postura rígida, entra em silêncio. Ele apenas me encara.)");
+      updateStoryText("(Antes que eu consiga responder, ouço passos firmes atrás de mim.)" +
+      " Um homem alto, de postura impecável, entra em silêncio. Ele não sorri. Apenas me analisa dos pés à cabeça, como se eu fosse parte de um relatório.)");
       showCharacterImage(klausImage);
       stage++; break;
     case 19:
-      updateStoryText("(Jake suspira, sem parar o jogo.) __Ignore o Klaus. Ele prefere o silêncio ao caos... e às pessoas.");
+      updateStoryText("(Jake suspira sem tirar os olhos da tela.) __'Relaxa, ele não morde... muito' (comenta, rindo sozinho.) —'Esse é o Klaus. Ele gosta mais de planejamento do que de pessoas.'");
       stage++; break;
     case 20:
       showFirstChoicesEp4(); 
@@ -207,9 +214,9 @@ function nextScene() {
 // ========================
 function showIdentityChoice() {
   waitingForChoice = true;
-  updateStoryText("As vozes diziam meu nome... mas não o de agora. Um nome antigo, esquecido.");
+  updateStoryText("As vozes no fundo da minha mente repetem um nome antigo, não é o nome que me deram no orfanato. É algo que parece... anterior a tudo.");
   choices.innerHTML = `
-    <button class="choice-button" onclick="chooseIdentity(1)">Aceitar o chamado</button>
+    <button class="choice-button" onclick="chooseIdentity(1)">Aceitar o chamado e ouvir as vozes</button>
     <button class="choice-button" onclick="chooseIdentity(2)">Recusar e tirar o colar</button>
   `;
 }
@@ -218,10 +225,10 @@ function chooseIdentity(option) {
   waitingForChoice = false;
   choices.innerHTML = '';
   if (option === 1) {
-    updateStoryText("(Você fecha os olhos. As vozes ecoam em sua mente. Algo desperta.)");
+    updateStoryText("(Fecho os olhos e deixo as vozes chegarem mais perto. Elas não falam comigo como se eu fosse uma estranha... Mas como se estivessem me reencontrando)");
     // dependendo da lógica, você pode aumentar afinidade aqui
   } else {
-    updateStoryText("(Você arranca o colar. O silêncio volta... mas algo dentro de você grita.)");
+    updateStoryText("(Meu instinto grita mais alto. Arranco o colar do pescoço, o metal arranha minha pele, as vozes somem num corte seco... Mas algo dentro de mim começa a gritar no lugar deles.)");
     lucienAffinity -= 1;
     eliasAffinity -= 1;
     // salva imediamente para não perder se jogador sair
@@ -235,11 +242,11 @@ function chooseIdentity(option) {
 function showBondingChoice() {
   setTimeout(() => {
     waitingForChoice = true;
-    updateStoryText("Lucien e Elias observam de longe. Você sente o peso de suas expectativas.");
+    updateStoryText("Quando abro os olhos, vejo Lucien e Elias me observando de longe. Não sei se é preocupação, curiosidade ou medo....");
     choices.innerHTML = `
-      <button class="choice-button" onclick="bond(1)">Aproximar-se de Lucien</button>
-      <button class="choice-button" onclick="bond(2)">Ficar ao lado de Elias</button>
-      <button class="choice-button" onclick="bond(3)">Ficar sozinha com o colar</button>
+      <button class="choice-button" onclick="bond(1)">Aproximar-se de Lucien, apesar do risco</button>
+      <button class="choice-button" onclick="bond(2)">Ficar ao lado de Elias em busca de segurança</button>
+      <button class="choice-button" onclick="bond(3)">Pedir para ficar sozinha com o colar</button>
     `;
   }, 500);
 }
@@ -248,15 +255,15 @@ function bond(option) {
   waitingForChoice = false;
   choices.innerHTML = '';
   if (option === 1) {
-    updateStoryText("Lucien se aproxima com um sorriso sombrio. __'Você está começando a entender.'");
+    updateStoryText("(Caminho até Lucien, meu coração acelerado.) __'Você está começando a entender' (diz ele, com um sorriso sombrio. Não sei se isso é um aviso ou um elogio)");
     lucienAffinity += 2;
     localStorage.setItem('lucienAffinity', lucienAffinity);
   } else if (option === 2) {
-    updateStoryText("Elias toca seu ombro suavemente. __'Não está sozinha. Nunca esteve.'");
+    updateStoryText("(Me aproximo de Elias, quase por reflexo. Ele pousa a mão no meu ombro, com cuidado.) __'Você não está sozinha, nunca esteve.' (Ele diz, e alguma parte de mim acredita nisso)");
     eliasAffinity += 2;
     localStorage.setItem('eliasAffinity', eliasAffinity);
   } else {
-    updateStoryText("(Você segura o colar com força. Precisa de silêncio para ouvir o que ele diz.)");
+    updateStoryText("(Respiro fundo) __Eu... preciso ficar um pouco sozinha com isso. (Seguro o colar com força, se existe uma resposta, quero ouvir da minha própria maneira)");
     lucienAffinity = 0;
     eliasAffinity = 0;
     localStorage.setItem('lucienAffinity', lucienAffinity);
@@ -269,11 +276,11 @@ function bond(option) {
 function concludeEpisode3() {
   setTimeout(() => {
     if (lucienAffinity > eliasAffinity) {
-      updateStoryText("Lucien a observa. __'A chave despertou. E o que está preso... sente você.'");
+      updateStoryText("(Sinto o olhar de Lucien queimar minha nuca) __'E o que está preso... Finalmente sente você, o colar despertou' (ele diz em voz baixa)");
     } else if (eliasAffinity > lucienAffinity) {
-      updateStoryText("Elias segura sua mão. __'O selo está enfraquecendo. Mas ainda há tempo... se escolher com sabedoria.'");
+      updateStoryText("(Elias segura minha mão com firmeza) __'O selo está enfraquecendo' (ele admite) __'Mas ainda há tempo...Se você escolher com sabedoria'.");
     } else {
-      updateStoryText("Sozinha no quarto, você ouve novamente os sussurros. __Eles estão vindo.__");
+      updateStoryText("(Sozinha no quarto, encosto a testa na madeira fria da porta, as vozes voltam em sussurros quase inaudíveis) __Eles estão vindo.__");
     }
 
     // afinidades já foram salvas nas escolhas, mas reforçamos
@@ -283,7 +290,7 @@ function concludeEpisode3() {
     stage = 14;
     localStorage.setItem(STAGE_KEY_CAP2, stage);
 
-    setTimeout(() => nextScene(), 5000);
+   /* setTimeout(() => nextScene(), 5000); */ //fiz isso pois o meu dialogo estava avançando sem click
   }, 3000);
 }
 
@@ -293,8 +300,8 @@ function concludeEpisode3() {
 function showFirstChoicesEp4() {
   waitingForChoice = true;
   choices.innerHTML = `
-    <button class="choice-button" onclick="chooseEp4First(1)">Ficar perto de Jake e puxar conversa</button>
-    <button class="choice-button" onclick="chooseEp4First(2)">Observar Klaus em silêncio</button>
+    <button class="choice-button" onclick="chooseEp4First(1)">Se aproximar de Jake e puxar conversa sobre o jogo dele</button>
+    <button class="choice-button" onclick="chooseEp4First(2)">Observar Klaus em silêncio e tentar entender seu jeito</button>
   `;
 }
 
@@ -302,11 +309,11 @@ function chooseEp4First(option) {
   waitingForChoice = false;
   choices.innerHTML = '';
   if (option === 1) {
-    updateStoryText("(Jake solta uma risada sombria...) — Gosto de gente curiosa — sussurra.");
+    updateStoryText("(Me aproximo de Jake e tento ver a tela.) —'Você sempre joga assim para esquecer o caos lá fora?' (Ele ri baixo, e responde) —'Às vezes, é o caos daqui que salva do de lá.'");
     jakeAffinity += 1;
     localStorage.setItem('jakeAffinity', jakeAffinity);
   } else {
-    updateStoryText("(Klaus rompe o silêncio...) — Silêncio também é uma forma de confiança — diz.");
+    updateStoryText("(Fico perto de Klaus, sem dizer nada. Ele percebe, mas não afasta o olhar da janela.) — O silêncio também é uma escolha (ele diz por fim.) —'E, às vezes, é a mais segura.'");
     klausAffinity += 1;
     localStorage.setItem('klausAffinity', klausAffinity);
   }
@@ -317,10 +324,10 @@ function chooseEp4First(option) {
 function showSecondChoicesEp4() {
   setTimeout(() => {
     waitingForChoice = true;
-    updateStoryText("Há algo sombrio neles... Um guarda segredos nas palavras afiadas, o outro, nos silêncios profundos.");
+    updateStoryText("Os dois são opostos completos: um preenche o espaço com risadas e comentários, o outro com silêncio e presença. E, de algum jeito, os dois parecem perigosos");
     choices.innerHTML = `
-      <button class="choice-button" onclick="chooseEp4Second(1)">Mostrar interesse pelo mundo de Jake</button>
-      <button class="choice-button" onclick="chooseEp4Second(2)">Tentar entender o silêncio de Klaus</button>
+      <button class="choice-button" onclick="chooseEp4Second(1)">Mostrar interesse pelo mundo de Jake e suas histórias</button>
+      <button class="choice-button" onclick="chooseEp4Second(2)">Tentar puxar conversa séria com Klaus</button>
       <button class="choice-button" onclick="chooseEp4Second(3)">Preferir ficar sozinha e refletir</button>
     `;
   }, 600);
@@ -330,15 +337,15 @@ function chooseEp4Second(option) {
   waitingForChoice = false;
   choices.innerHTML = '';
   if (option === 1) {
-    updateStoryText("(Jake fecha o notebook, olhos faiscando...) — Você joga? Podemos conversar sobre a sua missão...");
+    updateStoryText("(Sento perto de Jake.) — Me conta, o que você jogava antes de tudo isso? (Ele fecha o notebook aos poucos.) —'Histórias onde eu podia salvar alguém... Acho que agora é a sua vez de escolher quem salvar.'");
     jakeAffinity += 2;
     localStorage.setItem('jakeAffinity', jakeAffinity);
   } else if (option === 2) {
-    updateStoryText("(Klaus avança lentamente...) — Você sente, não sente? Algo se move entre mundos.");
+    updateStoryText("(Respiro fundo e encaro Klaus.) —'Você sempre parece saber mais do que fala.' (Ele sustenta meu olhar.) —'Saber demais é um risco. Mas alguém precisa carregar esse peso, não é?'");
     klausAffinity += 2;
     localStorage.setItem('klausAffinity', klausAffinity);
   } else {
-    updateStoryText("(Você se retira, envolta pela escuridão crescente...)");
+    updateStoryText("(Dou alguns passos para longe. Preciso ver a mansão com meus próprios olhos, sem ninguém filtrando o que está acontecendo por mim.)");
   }
   stage = 22;
   localStorage.setItem(STAGE_KEY_CAP2, stage);
@@ -347,18 +354,18 @@ function chooseEp4Second(option) {
 function defineRouteEp4() {
   setTimeout(() => {
     if (jakeAffinity > klausAffinity) {
-      updateStoryText("(Jake sorri, e diz) — Você é do tipo que escolhe seus próprios comandos? — (Mas ele é interrompido por um estrondo.)");
+      updateStoryText("(Jake se estica na cadeira, me olhando como se fosse um novo desafio.) —'Você é do tipo que prefere escolher o próprio comando, né?' (Antes que eu responda, um estrondo corta o ar)");
     } else if (klausAffinity > jakeAffinity) {
-      updateStoryText("(Klaus permanece em silêncio, mas um leve aceno revela respeito.)");
+      updateStoryText("(Klaus permanece em silêncio, mas algo muda em seu olhar. Um aceno quase imperceptível, mostra um tipo de respeito silencioso que ele não dá para qualquer um.)");
     } else {
-      updateStoryText("(Os dois observam você. Talvez nenhum deles seja o que aparenta...)");
+      updateStoryText("(Sinto os dois me observando. Talvez nenhum deles seja o que aparenta...)");
     }
 
     localStorage.setItem('jakeAffinity', jakeAffinity);
     localStorage.setItem('klausAffinity', klausAffinity);
 
     setTimeout(() => {
-      updateStoryText(storyText.textContent + " A mansão treme, como se estivesse tentando avisar sobre um perigo iminente.");
+      updateStoryText(storyText.textContent + " A mansão inteira treme, como se estivesse tentando avisar sobre um perigo iminente.");
     }, 1000);
 
     setTimeout(() => {

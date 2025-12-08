@@ -46,6 +46,17 @@ textBox.addEventListener('click', () => {
   // se estamos numa escolha com botões, clique no texto não faz nada
   if (inChoice) return;
 
+
+  // 💰 GASTA 1 PA ANTES DE QUALQUER AVANÇO (normal ou afterChoiceQueue)
+  // 💰 GASTA 1 PA ANTES DE AVANÇAR
+  if (typeof tentarGastarPA === "function") {
+    const ok = tentarGastarPA(1);
+    if (!ok) {
+      // Sem PA → não avança, stage continua o mesmo
+      return;
+    }
+  }
+
   // inicia música na primeira vez
   if (!musicStarted) {
     bgMusic.play();
@@ -75,14 +86,8 @@ function hideSceneImage() {
 // ================= FUNÇÕES PRINCIPAIS ===================
 
 function nextScene() {
-  // 💰 GASTA 1 PA ANTES DE AVANÇAR
-  if (typeof tentarGastarPA === "function") {
-    const ok = tentarGastarPA(1);
-    if (!ok) {
-      // Sem PA → não avança, stage continua o mesmo
-      return;
-    }
-  }
+
+  
 
   switch (stage) {
     // ======== Treinamento com Klaus ========
@@ -92,64 +97,64 @@ function nextScene() {
       stage++;
       break;
     case 1:
-      updateScene("— Isso é básico, mas pode salvar sua vida. Preste atenção — ele diz, sua voz cortante como uma lâmina.");
+      updateScene("— Isso é básico, mas pode salvar sua vida. Preste atenção (a voz dele é reta, afiada, sem espaço para bricadeiras.)");
       hideSceneImage();
       stage++;
       break;
     case 2:
-      updateScene("(Ele me ensina símbolos de proteção, sal negro, círculos de contenção... mas algo me incomoda.)");
+      updateScene("(Símbolos de proteção, sal negro, círculos de contenção...Minha mente tente acompanhar cada detalhe, mas meu peito só consegue repetir a mesma pergunta: isso ainda é treino... ou já é preparação para um fim anunciado?)");
       stage++;
       break;
     case 3:
-      updateScene("— O que você vê... nem sempre é a verdade — completa, olhando pela janela, desconfiado.");
+      updateScene("— O que você vê... nem sempre é a verdade — completa Klaus, olhando pela janela, desconfiado.");
       stage++;
       break;
     case 4:
-      updateScene("(Um estalo seco ecoa. Folhas se mexem. Algo... ou alguém... se aproxima.)");
+      updateScene("(Um estalo seco ecoa do lado de fora. Galhos se movem. Por um segundo, tenho sensação de que a mansão inteira prende a respiração junto comigo)");
       stage++;
       break;
     case 5:
-      updateScene("(Jake invade a sala, ofegante, sem o sorriso debochado de sempre.) — Temos um problema sério.");
+      updateScene("(A porta se abre com um tranco. Jake invade a sala, ofegante, sem o sorriso debochado de sempre.) —Temos um problema sério.");
       stage++;
       break;
     case 6:
-      updateScene("— Vi movimentações na floresta. Não são animais. E... não são humanos também.");
+      updateScene("—Vi movimentações na floresta. Não são animais. E... não são humanos também.");
       stage++;
       break;
     case 7:
-      updateScene("— Eles estão vindo. E não temos muito tempo — completa Jake, tirando os fones do pescoço.");
+      updateScene("— Eles estão vindo. E não temos muito tempo — completa Jake, tirando os fones do pescoço como se aquilo fosse um sinal de que a brincadeira acabou.");
       stage++;
       break;
 
     // ======== Começa a tensão ========
     case 8:
-      updateScene("(Klaus fecha o grimório com força.) — Prepare-se. Isso... não é um treinamento.");
+      updateScene("(Klaus fecha o grimório com força, o som ecoa pelo salão como tiro) —Prepare-se. Isso... não é um treinamento.");
       stage++;
       break;
     case 9:
-      updateScene("(Portas tremem. A energia muda. Até o ar parece mais pesado.)");
+      updateScene("(As paredes rangem. Portas tremem. O ar fica mais pesado, como se cada respiração precisasse atravessar sombras para chegar até meus pulmões)");
       stage++;
       break;
     case 10:
-      updateScene("— Proteja-se, custe o que custar — Klaus entrega uma adaga e traça símbolos no chão.");
+      updateScene("— Proteja-se, custe o que custar (Klaus entrega uma adaga e traça símbolos no chão com precisão quase obsessiva.)");
       stage++;
       break;
     case 11:
-      updateScene("(Mas antes que o ritual termine, Lucien aparece, olhos em brasas. Elias logo atrás, sério.)");
+      updateScene("(Antes que o ritual termine, Lucien entra no salão, olhos em brasas trazendo a tempestade com ele. Elias vem logo atrás, o rosto sério demais para fingir controle.)");
       showSceneImage('/assets/lucienolhosred.png');
       stage++;
       break;
     case 12:
-      updateScene("— Já começaram... — Lucien murmura. — Ela está vindo. A Rainha...");
+      updateScene("— Já começaram... (Lucien diz, sem tirar os olhos de mim) — Ela está vindo. A Rainha...");
       hideSceneImage();
       stage++;
       break;
     case 13:
-      updateScene("(Elias se aproxima) — Ela quer o colar. E quer você. Não acredite em nenhuma palavra que ela disser.");
+      updateScene("(Elias se aproxima, a voz baixa, mas urgente.) — Ela quer o colar. E quer você. Não acredite em nenhuma palavra que ela disser.");
       stage++;
       break;
     case 14:
-      updateScene("— Preparem o círculo. Agora! — grita Elias, espalhando sal negro no chão.");
+      updateScene("— Preparem o círculo. Agora! (grita Elias, espalhando sal negro no chão enquanto as luzes vacilam)");
       stage++;
       break;
 
@@ -162,33 +167,33 @@ function nextScene() {
 
     // ======== A Rainha chega ========
     case 16:
-      updateScene("(O chão treme. Uma fenda se abre na parede. Dela sai... uma mulher. Ou o que restou de algo que um dia foi.)");
+      updateScene("(O chão treme sob meus pés. Uma fenda se abre na paredem, rasgando a realidade como se fosse papel. Daquela abertura, algo começa a se arrastar para dentro do salão)");
       showSceneImage('/assets/rainhadassombras.png');
       stage++;
       break;
     case 17:
-      updateScene("(Cabelos negros flutuam, olhos totalmente vermelhos. A Rainha das Sombras.)");
+      updateScene("(Cabelos negros que se movem como fumaça, pele pálida demais, olhos completamente vermelhos. A Rainha das Sombras. não parece só viva, parece antiga, errada e poderosa.)");
       hideSceneImage();
       stage++;
       break;
     case 18:
-      updateScene("— Elias... onde está o colar? Está... com essa humana patética? — ela grita.");
+      updateScene("—Elias breve... onde está o colar? (a voz dela corta o ar como lâmina) ——Não me diga que está... com essa humana patética?");
       stage++;
       break;
     case 19:
-      updateScene("— Jake, Klaus... fracassaram antes. E falharão de novo — cospe ela, caminhando lentamente.");
+      updateScene("—Jake e Klaus... fracassaram antes. E vão falhar de novo  (cospe ela, caminhando como se já fosse dona de cada centímetro daquele lugar.)");
       stage++;
       break;
     case 20:
-      updateScene("— Cala a boca! (Jake ruge, indo pra frente, mas Lucien segura seu braço.) — Isso não é só uma ilusão... É ela.");
+      updateScene("— Cala a boca! (Jake grita, dando um passo à frente, mas Lucien segura seu braço.) — Isso não é só uma ilusão... É ela mesma.");
       stage++;
       break;
     case 21:
-      updateScene("— Saia daqui!  (Klaus grita, formando selos no ar.) — Ela não é mais sua!");
+      updateScene("— Saia daqui!  (Klaus fala, mãos desenhando selos no ar.) —Ela não é sua, e dessa vez você será morta definitivamente!");
       stage++;
       break;
     case 22:
-      updateScene("(As sombras se contorcem. A sala se transforma num campo de guerra. Magia. Sangue. Desespero.)");
+      updateScene("(As sombras se contorcem pelas paredes. A sala se transforma num campo de guerra feito de sangue, magia e desespero.)");
       stage++;
       break;
 
@@ -210,11 +215,11 @@ function nextScene() {
 
 function showFirstChoice() {
   inChoice = true;
-  storyText.textContent = "A energia oscila. Você precisa decidir rápido.";
+  storyText.textContent = "A energia no salão oscila como se alguém estivesse puxando os fios do próprio mundo. Preciso decidir rapidamente o que fazer, ou serei engolida junto. ";
   choices.innerHTML = `
     <button class="choice-button" onclick="chooseFirst(1)">Ajudar Klaus a fortalecer o círculo</button>
     <button class="choice-button" onclick="chooseFirst(2)">Seguir Jake até a floresta</button>
-    <button class="choice-button" onclick="chooseFirst(3)">Se esconder e observar</button>
+    <button class="choice-button" onclick="chooseFirst(3)">Se esconder e observar, tentando sobreviver</button>
   `;
 }
 
@@ -224,14 +229,14 @@ function chooseFirst(option) {
 
   if (option === 1) {
     klausAffinity += 2;
-    updateScene("(Você corre até Klaus, desenhando runas no chão.) — Boa escolha — (ele diz, concentrado.)");
+    updateScene("(Crre até Klaus, ajoelhando ao lado dele. Minhas mãos tremem, mas sigo os traços que ele indica no chão.) —Boa escolha (ele diz, concentrado.) —Pelo menos alguém ainda quer viver.");
     localStorage.setItem('klausAffinity', klausAffinity);
   } else if (option === 2) {
     jakeAffinity += 2;
-    updateScene("(Você corre ao lado de Jake.) — Finalmente alguém sensata — (ele sorri, nervoso.)");
-    localStorage.setItem('jakeaffinity', jakeAffinity);
+    updateScene("(Sem pensar corro até Jake.) —Você sabe o que está fazendo? (pergunto ofegante) ——Não (ele responde, com meio sorriso.) ——Mas eu sei que não vou te deixar sozinha nisso.");
+    localStorage.setItem('jakeAffinity', jakeAffinity);
   } else {
-    updateScene("(Você se esconde atrás de uma estante. O ar parece mais pesado. Algo... percebe sua presença.)");
+    updateScene("(Eu me enfio atrás de uma estante quebrada, o coração martelando no peito. Talvez seja covardia, talvez seja instinto de sobrevivência. Mas algo nas sombras vira o rosto... e me sente.)");
   }
 
   stage++; // vai para 16
@@ -240,11 +245,11 @@ function chooseFirst(option) {
 
 function showFinalChoice() {
   inChoice = true;
-  storyText.textContent = "A Rainha ergue as mãos. As sombras rugem. Qual será sua escolha?";
+  storyText.textContent = "A Rainha ergue as mãos e as sombras obedecem como se fossem parte do corpo dela. A mansão inteira parece prender o fôlego, esperando minha sua decisão";
   choices.innerHTML = `
-    <button class="choice-button" onclick="choosePath(1)">Ficar e enfrentar com Klaus</button>
-    <button class="choice-button" onclick="choosePath(2)">Fugir com Jake</button>
-    <button class="choice-button" onclick="choosePath(3)">Se ajoelhar diante da Rainha</button>
+    <button class="choice-button" onclick="choosePath(1)">Ficar e enfrentar com Klaus até o fim</button>
+    <button class="choice-button" onclick="choosePath(2)">Fugir com Jake pela passagem secreta</button>
+    <button class="choice-button" onclick="choosePath(3)">Se ajoelhar diante da Rainha e arriscar tudo</button>
   `;
 }
 
@@ -257,9 +262,9 @@ function choosePath(option) {
   if (option === 1) {
     klausAffinity += 3;
     afterChoiceQueue.push(
-      { text: "(Você segura a mão de Klaus. Ele começa um ritual. Símbolos brilham, mas as sombras avançam...)" },
-      { text: "(Em um piscar de olhos lanças negras atravessam o peito de Klaus. Ele cai nos seus braços, com sangue escorrendo.)" },
-      { text: "— Proteja... você... mesma... — diz ele, com o último suspiro.",
+      { text: "(Eu segura a mão de Klaus com forças. O círculo de proteção brilha ao nosso redor, mas as sombras avançam como ondas contra o vidro trincado)" },
+      { text: "(Em um piscar de olhos, lanças negras atravessam o peito de Klaus. O mundo inteiro diminui até caber no som do ar saindo dos pulmões dele.)" },
+      { text: "— Proteja... você... mesma... (ele sussurra, com o último fio de voz, antes de desabar nos meus braços, pesado e silencioso.)",
         callback: () => {
           localStorage.setItem('deadCharacter', 'klaus');
           endTragic();
@@ -269,10 +274,10 @@ function choosePath(option) {
   } else if (option === 2) {
     jakeAffinity += 3;
     afterChoiceQueue.push(
-      { text: "(Jake segura sua mão.) — Confia em mim?  (pergunta ele.) — Sempre.  (você responde.)" },
-      { text: "(Vocês correm pela passagem. Portas explodem. Lucien e Elias seguram as criaturas.)" },
-      { text: "(Mas num instante, uma lança das sombras atravessa Jake. Ele te empurra para frente, sorrindo fraco.)" },
-      { text: "— Corre... vive... por nós... (ele sussurra, caindo no chão.)",
+      { text: "(Jake agarra minha mão.) —Confia em mim?  (ele pergunta, os olhos mais sérios do que nunca.) —Sempre.  (respondo, sem pensar.)" },
+      { text: "(Corremos pela passagem lateral enquanto portas explodem atrás de nós. Lucien e Elias seguram as criaturas que eu nem consigo nomear.)" },
+      { text: "(Num único instante, uma lança das sombras atravessa Jake pelas costas. Ele me empurra para frente,  mantendo o corpo entre mim e a escuridão.)" },
+      { text: "— Corre... vive... por nós... (ele sussurra, com um sorriso fraco, antes de cair no chão e desaparecer sob as sombras.)",
         callback: () => {
           localStorage.setItem('deadCharacter', 'jake');
           endTragic();
@@ -281,9 +286,9 @@ function choosePath(option) {
     );
   } else if (option === 3) {
     afterChoiceQueue.push(
-      { text: "(Você se ajoelha. A Rainha sorri, acariciando seu rosto.) — Eu sabia que faria a escolha certa..." },
-      { text: "(De repente, Lucien saca sua adaga e, em um único movimento, te empurra para o lado, perfurando a Rainha sem hesitar)" },
-      { text: "(Uma explosão de luz negra consome tudo. A Rainha, ferida, lança um feitiço que atravessa o peito de Lucien, perfurando seu coração. Ele te encara pela última vez... olhos cheios de dor e algo que parece amor... até seu corpo cair, sem vida.)",
+      { text: "(Meus joelhos cedem sozinhos. Eu me ajoelho diante da Rainha, ela sorri satisfeita, os dedos gelados acariciando meu rosto.) ——Eu sabia que você não seria como sua mãe, fez a escolha certa..." },
+      { text: "(De repente, um puxão brusco me arranca da frente dela. Lucien me empurra para o lado e, em um único movimento, crava a adaga no peito da Rainha.)" },
+      { text: "(Uma explosão de luz negra consome tudo. A rainha, ferida, lança um feitiço final que atravessa o peito de Lucien, perfurando seu coração. Ele me encara pela última vez, olhos cheios de dor e de algo que poderia ter sido amor, antes de seu corpo cair, completamente sem vida. )",
         callback: () => {
           localStorage.setItem('deadCharacter', 'lucien');
           endTragic();
@@ -335,7 +340,7 @@ function endTragic() {
   isLocked = true; // 🔒 BLOQUEIA clique no texto
   afterChoiceQueue = [];
 
-  storyText.textContent = "(Silêncio absoluto. O cheiro de sangue e magia preenche tudo. Lágrimas caem. O mundo nunca mais será o mesmo...)";
+  storyText.textContent = "(Silêncio absoluto... A mansão se desintegra aos poucos, cheiro de sangue e magia preenche tudo. As paredes parecem mais estreitas, o teto mais baixo. Nada volta a ser como era depois que alguém morre por você...)";
 
   setTimeout(() => {
     showContinueButton();

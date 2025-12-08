@@ -239,8 +239,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // História
-  function nextScene() {
-    if (waitingForChoice) return;
+ function nextScene() {
+    if (waitingForChoice) return; 
 
     // 💰 TENTAR GASTAR 1 PA ANTES DE AVANÇAR
   if (typeof tentarGastarPA === "function") {
@@ -256,37 +256,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     switch (stage) {
       case 0:
-        storyText.textContent = `(Uma inquieta noite... você decidiu caminhar, mas se viu cercada por árvores desconhecidas.)`;
+        storyText.textContent = `(Uma inquieta noite, eu só queria respirar um pouco por conta dos últimos meses pesados que tive...  Mas quando percebi, já estava
+        longe demais de casa.)`;
         break;
       case 1:
-        storyText.textContent = `(O som de corvos ecoa. Você está tremendo, perdida.)`;
+        storyText.textContent = `(As árvores parecem se fechar ao meu redor. Cada galho, cada sombra... Tudo parece me observar.
+         Um arrepio percorre minha nuca. Não tem mais volta, tem?)`;
         break;
       case 2:
-        storyText.textContent = `(De repente, duas silhuetas surgem entre as árvores.)`;
+        storyText.textContent = `(Duas figuras surgem entre as árvores. Um tem olhos de fogo e sorriso arrogante. O outro parece calmo, quase angelical.)`;
         showSilhouette();
         break;
       case 3:
-        storyText.textContent = `(Um tem olhos de fogo e sorriso arrogante. O outro parece calmo, quase angelical.)`;
+        storyText.textContent = `"— Hum... Humana perdida?" (A voz dele corta o silêncio, carregada de sarcasmo.)`;
         break;
       case 4:
-        storyText.textContent = `"Hum... humana perdida?" — diz o rebelde.`;
+        storyText.textContent = `"— Ela está assustada, devemos ajudá-la" (Diz o de olhos claros, num tom sereno que quase me acalma.)`;
         break;
       case 5:
-        storyText.textContent = `"Ela está assustada. Devemos ajudá-la", diz o de olhos claros.`;
+        storyText.textContent = `(Meu coração dispara, eles não parecem extamente humanos... E mesmo assim não consigo desviar o olhar.)`;
         break;
       case 6:
-        storyText.textContent = `(Você sente o coração acelerar. Eles são perigosamente lindos.)`;
+        storyText.textContent = `(Instinto puro toma conta do meu corpo)`;
         break;
       case 7:
-        storyText.textContent = `(O pânico te paralisa por um instante… você corre, movida apenas pelo desespero.)`;
+        storyText.textContent = `(Se eu ficar aqui parada, vou morrer... ou pior.)`;
         break;
       case 8:
-        storyText.textContent = `*PUM!* Você tropeça, cai... e tudo escurece.`;
+        storyText.textContent = `*PUM!* (Eu tropeço em alguma raiz escondida, o chão some e tudo escurece.`;
         screenShake();
         fadeToBlackAndBack();
         break;
       case 9:
-        storyText.textContent = "(Você acorda em uma cama luxuosa, com dor de cabeça.)";
+        storyText.textContent = "(Um cheiro de vela, madeira antiga e alguma coisa doce... Eu acordo com uma dor de cabeça em um lugar completamente diferente.)";
         document.body.classList.add('fade-out');
         setTimeout(() => {
           document.body.classList.remove('fade-out');
@@ -295,17 +297,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
         break;
       case 10:
-        storyText.textContent = "(O quarto é escuro, iluminado por velas.)";
+        storyText.textContent = "(O quarto é amplo, escuro e detalhado demais para ser um hospital. Cortinas pesadas. Candelabros. Uma cama que não é minha.)";
         break;
       case 11:
-        storyText.textContent = "(Você tenta se levantar, mas está fraca. Então ouve passos.)";
+        storyText.textContent = "(Minha cabeça lateja quando tento me levantar. Antes que eu consiga, ouço passos se aproximando..)";
         break;
       case 12:
-        storyText.textContent = "(O vampiro angelical entra.) __Você desmaiou, mas está segura.";
+        storyText.textContent = "(A porta se abre devagar. O vampiro de expressão serena entra, luz suave dos cílios até o sorriso.) __Você desmaiou, mas está segura por enquanto.";
         showCharacter('eliasimg');
         break;
       case 13:
-        storyText.textContent = "(O rebelde aparece, cruzando os braços.) __Eu disse que ela não aguentaria.";
+        storyText.textContent = "(Logo atrás, surge o outro — o olhar afiado, sorriso de canto que não sei se me tranquiliza ou ameaça.) __Eu disse que ela não ia aguentar (ele comenta, cruzando os braços.)";
         hideCharacter('eliasimg');
         break;
       case 14:
@@ -333,24 +335,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showFirstChoices() {
     waitingForChoice = true;
-    storyText.textContent = "(Eles te olham, esperando sua reação.)";
+    storyText.textContent = "(Eles me observam em silêncio. Um com curiosidade divertida, o outro com algo que parece... preocupação.)";
     setTimeout(() => {
       choices.innerHTML = `
-        <button class="choice-button" onclick="chooseFirst(1)">‘O que vocês fizeram comigo? Fiquem longe!’</button>
-        <button class="choice-button" onclick="chooseFirst(2)">‘Obrigada por me ajudarem... eu acho.’</button>
+        <button class="choice-button" onclick="chooseFirst(1)">‘O que vocês fizeram comigo? Fiquem longe de mim!’</button>
+        <button class="choice-button" onclick="chooseFirst(2)">‘Obrigado por terem me ajudado... eu acho.’</button>
       `;
-    }, 2000);
+    }, 3000);
   }
 
   window.chooseFirst = function(option) {
     waitingForChoice = false;
     choices.innerHTML = '';
     if (option === 1) {
-      storyText.textContent = "(Lucien sorri com sarcasmo.) 'Nada... ainda.'";
+      storyText.textContent = "(Eu recuo instintivamente.) — O que vocês fizeram comigo? Fiquem longe de mim! (Lucien sorri com deboche, claramente se divertindo com o drama.)'";
       affinity.Lucien += 1;
       showAffinityMessage("+1 Afinidade com Lucien ❤️");
     } else {
-      storyText.textContent = "(Elias sorri levemente.) — Você está segura.";
+      storyText.textContent = "(Minha voz sai trêmula, mas sincera.) — Obrigado por... terem me tirado da floresta. (Elias sorri de leve, como se aquilo fosse mais do que ele esperava ouvir)";
       affinity.Elias += 1;
       showAffinityMessage("+1 Afinidade com Elias 💙");
     }
@@ -364,11 +366,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showFinalChoices() {
     waitingForChoice = true;
-    storyText.textContent = "Você sente tensão no ar... e algo irresistível.";
+    storyText.textContent = "(O ar entre nós parece ficar mais denso. Não é só medo. É algo entre perigo, curiosidade... e um certo tipo de atração.)";
     choices.innerHTML = `
-      <button class="choice-button" onclick="chooseFinal(1)">Olhar para Lucien com curiosidade</button>
-      <button class="choice-button" onclick="chooseFinal(2)">Confiar mais em Elias</button>
-      <button class="choice-button" onclick="chooseFinal(3)">Dar um passo atrás e observar</button>
+      <button class="choice-button" onclick="chooseFinal(1)">Olhar para Lucien com um desafio curioso</button>
+      <button class="choice-button" onclick="chooseFinal(2)">Se aproximar mais de Elias em busca de calma</button>
+      <button class="choice-button" onclick="chooseFinal(3)">Manter distância dos dois, por enquanto</button>
     `;
     textBox.removeEventListener('click', nextScene);
   }
@@ -378,15 +380,15 @@ document.addEventListener('DOMContentLoaded', () => {
     choices.innerHTML = '';
 
     if (option === 1) {
-      storyText.textContent = "(Lucien levanta uma sobrancelha.) — Gosto do seu olhar.";
+      storyText.textContent = "(Eu encaro Lucien sem recuar. Ele ergue uma sobrancelha, claramente surpreso.) — Gosto do seu olhar... não parece o de alguém que desmaia fácil.";
       affinity.Lucien += 2;
       showAffinityMessage("+2 Romance com Lucien ❤️");
     } else if (option === 2) {
-      storyText.textContent = "(Elias se aproxima calmamente.) 'Você tem um coração gentil.'";
+      storyText.textContent = "(Instintivamente, me aproximo de Elias. A presença dele acalma meu peito acelerado.) — Você está segura aqui  (ele diz, numa voz baixa que quase faz o quarto desaparecer. Elias se aproxima calmamente.)'";
       affinity.Elias += 2;
       showAffinityMessage("+2 Romance com Elias 💙");
     } else {
-      storyText.textContent = "Você respira fundo e recua. Precisa entender antes de confiar.";
+      storyText.textContent = "(Dou um passo para trás. Preciso respirar, entender, observar antes de entregar meu pescoço — ou meu coração — a qualquer um deles.)";
     }
 
     updateAffinityPanel();
@@ -419,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('rotaFinal', rotaEscolhida);
 
       setTimeout(() => {
-        storyText.textContent += "Há algo se aproximando, algo com a capacidade de transformar tudo.";
+        storyText.textContent += "há algo se aproximando, algo com a capacidade de transformar tudo...";
       }, 1000);
 
       setTimeout(() => {

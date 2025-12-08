@@ -9,6 +9,64 @@
 /* HUD de PA – estilo pergaminho gótico */
 /* Botão de anúncio – pergaminho */
 
+
+/* HUD gótico */
+.hud-gothic {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 6px 10px;
+  border-radius: 12px;
+
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 13px;
+  color: #f5f0e5;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+}
+
+/* Texto PA */
+.pa-text {
+  font-size: 15px;
+  color: #f7d9df;
+  font-weight: 600;
+  text-shadow: 0 0 4px #c01835;
+}
+
+/* Botões */
+.hud-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+/* Estilo gótico */
+.gothic-btn {
+  background: linear-gradient(135deg, #2a0c18, #470d1f);
+  color: #f5dce4;
+  border: 1px solid rgba(255, 90, 120, 0.4);
+  text-shadow: 0 0 4px #b6253e;
+}
+
+.gothic-btn:hover {
+  background: linear-gradient(135deg, #3a0f21, #6e1533);
+  transform: translateY(-2px);
+  box-shadow: 0 0 14px rgba(220, 50, 80, 0.45);
+}
+
+
 #btn-anuncio {
   padding: 4px 12px;
   border-radius: 999px;
@@ -302,7 +360,7 @@ body {
 
 /* Transições suaves */
   opacity: 0;
-  transition: opacity 0.8s ease-in-out;
+  transition: opacity 0.4s ease;
   pointer-events: none;
 }
 

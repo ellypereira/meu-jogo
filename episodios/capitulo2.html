@@ -21,11 +21,17 @@
 
     <div id="game-container">
 
-    <div id="hud-pa">
-    <span>PA: <span id="pa-valor">0</span></span>
-    <button id="btn-bonus-diario">Bônus diário</button>
-    <button id="btn-anuncio">Blog</button>
-  </div>
+  <div id="hud-pa" class="hud-gothic">
+  <span class="pa-text">Energia: <span id="pa-valor">0</span> PA</span>
+
+  <button id="btn-bonus-diario" class="hud-btn gothic-btn">
+    ✦ Bênção diária (+10 PA)
+  </button>
+
+  <button id="btn-anuncio" class="hud-btn gothic-btn">
+    ✦  Universo
+  </button>
+</div>
     
         
         <!-- Container de Imagens -->
@@ -34,8 +40,8 @@
             <img id="collar-image" class="hidden" src="../assets/colar.png" alt="Colar antigo" />
 
             <!-- Imagens dos personagens (aparecem conforme o diálogo) -->
-            <img id="jake-image" class="character-image hidden" src="../assets/jake.jpg" alt="Jake" />
-            <img id="klaus-image" class="character-image hidden" src="../assets/klaus.jpg" alt="Klaus" />
+            <img id="jake-image" class="character-image hidden" src="jakeImage.png" alt="Jake" />
+            <img id="klaus-image" class="character-image hidden" src="klausImage.png" alt="Klaus" />
         </div>
 
         <!-- Caixa de Texto -->

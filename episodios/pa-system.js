@@ -95,7 +95,7 @@ function tentarGastarPA(qtd) {
     updatePAHUD();
     return true;
   } else {
-      showAlert("Você ficou sem PA por hoje! Volte amanhã ou apoie o projeto para continuar acompanhando a história.");
+      showAlert("Você ficou sem PA por hoje! Volte amanhã para continuar acompanhando a história.");
     return false;
   }
 }
