@@ -141,7 +141,7 @@ window.addEventListener("load", () => {
     btnAnuncio.addEventListener("click", () => {
       // Abre a página de blog em nova aba
       // Importante: n tem ligação com recompensa de PA, pra não dar problema com AdSense
-      window.open("blog.html", "_blank");
+      window.open("/pagina/universo.html", "_blank");
     });
   }
 });

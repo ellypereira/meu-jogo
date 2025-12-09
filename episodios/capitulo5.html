@@ -1,47 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capitulo 5 - Consequências</title>
-    <link rel="stylesheet" href="style5.css">
-    <link rel="shortcut icon" href="/assets/favicongame.png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capítulo 5 - Final</title>
+  <link rel="stylesheet" href="style5.css">
+  <link rel="shortcut icon" href="/assets/favicongame.png" type="image/x-icon">
 </head>
 <body>
 
+  <!-- ALERTA PERSONALIZADO (mesmo padrão dos outros caps) -->
   <div id="custom-alert" class="alert-hidden">
-  <div id="alert-box">
-    <p id="alert-message"></p>
-    <button id="alert-ok">OK</button>
+    <div id="alert-box">
+      <p id="alert-message"></p>
+      <button id="alert-ok">OK</button>
+    </div>
   </div>
-</div>
-  
-    <div id="hud-pa">
-  <span>PA: <span id="pa-valor">0</span></span>
-    <button id="btn-bonus-diario">Bônus diário</button>
-  <button id="btn-anuncio">Blog</button>
-</div>
 
-    <div id="game-container">
-        <!--PAINEL DE AFINIDADE-->
-        <div id="affinity-panel">
+  <!-- HUD DE PA / BÔNUS / UNIVERSO -->
+  <div id="hud-pa" class="hud-gothic">
+    <span class="pa-text">Energia: <span id="pa-valor">0</span> PA</span>
+
+    <button id="btn-bonus-diario" class="hud-btn gothic-btn">
+      ✦ Bênção diária (+10 PA)
+    </button>
+
+    <button id="btn-anuncio" class="hud-btn gothic-btn">
+      ✦ Universo
+    </button>
+  </div>
+
+  <div id="game-container">
+    <!-- PAINEL DE AFINIDADE -->
+    <div id="affinity-panel">
       ❤️ Lucien: <span id="lucien-score">0</span> |
       💙 Elias: <span id="elias-score">0</span> |
       🖤 Klaus: <span id="klaus-score">0</span> |
       💚 Jake: <span id="jake-score">0</span>
-        </div>
-        
-    <div id="text-box">
-        <div id="story-text">(Carregando...)</div>
     </div>
 
+    <!-- CAIXA DE TEXTO -->
+    <div id="text-box">
+      <div id="story-text">(Carregando...)</div>
+    </div>
+
+      <!-- IMAGEM DE CENA (RAINHA FERIDA / CENÁRIO) -->
+    <div id="scene-container">
+      <img id="scene-image" class="character-image hidden" src="rainhaferida.png">
+    </div>
+
+
+    <!-- ÁREA DE ESCOLHAS -->
     <div id="choices"></div>
 
-<div id="romance-image">
-    <img id="romance-img" src="" alt="Cena Romântica">
-</div>
-</div>
+    <!-- IMAGEM ROMÂNTICA DO PERSONAGEM DA ROTA FINAL -->
+    <div id="romance-image">
+      <img id="romance-img" src="" alt="Cena romântica final">
+    </div>
+  </div>
 
+  
 <div id="credits-screen">
   <div class="credits-content">
     <h1>Fim da Jornada</h1>
@@ -52,13 +70,11 @@
     <button onclick="restartGame()">Reiniciar Jogo</button>
   </div>
 
+  <!-- TRILHA SONORA DO FINAL -->
+  <audio id="bg-music" src="/audios/sad-sorrowful-piano-music-330768.mp3" loop></audio>
 
-
-</div>
-
-<audio id="bg-music" src="/audios/sad-sorrowful-piano-music-330768.mp3" loop></audio>
-
-<script src="pa-system.js"></script>
-<script src="script5.js" defer></script>
+  <!-- SCRIPTS GERAIS -->
+  <script src="pa-system.js"></script>
+  <script src="script5.js" defer></script>
 </body>
 </html>

@@ -52,15 +52,15 @@ updateAffinityHUD();
 function previewCurrentScene() {
   try {
     const previewMap = {
-      0: "(A mansão respira como uma besta ferida.)",
-      1: "(Você desperta entre escombros, com o som de respirações ofegantes e gemidos distantes. Está viva... por pouco.)",
-      2: "(Vozes e rostos surgem entre a fumaça...)",
-      3: "(As paredes choram sangue. Criaturas das sombras se arrastam.)",
-      4: "(Você ouve algo. Um sussurro... vindo de dentro do colar.)",
-      5: "— Você pertence a mim agora... — murmura a voz.",
-      6: "(Elias surge atrás de você...)",
-      7: "— As escolhas de agora não definem só sua sobrevivência...",
-      8: "Escolha: enfrentar / fugir / aceitar vínculo"
+      0: "(A mansão respira como uma besta ferida, rangendo em cada sombra.)",
+      1: "(Você desperta entre escombros, ouvindo respirações ofegantes e gemidos distantes. Está viva... por pouco.)",
+      2: "(Silhuetas se movem entre a fumaça. Alguém sobreviveu...)",
+      3: "(As paredes choram sangue. Criaturas das sombras se arrastam pelos vitrais, observando em silêncio.)",
+      4: "(Um sussurro nasce no fundo da sua mente. Não vem da mansão...Vem de dentro do colar.)",
+      5: "— Você pertence a mim agora... (a voz desliza como veneno, tão suave quanto cruel)",
+      6: "(Elias surge atrás de você tenso demais)",
+      7: "— As escolhas de agora não definem só a sua sobrevivência... mas a dela também",
+      8: "Você sente que precisa decidir: enfrentar, fugir...  ou aceitar o vínculo."
     };
     const preview = previewMap[Math.max(0, Math.min(stage, 8))] || "(Carregando...)";
     storyText.textContent = preview;
@@ -97,35 +97,35 @@ function nextScene() {
 
   switch (stage) {
     case 0:
-      storyText.textContent = "(A mansão respira como uma besta ferida.)";
+      storyText.textContent = "(As paredes da mansão parece gemer como se lembrasse de tudo que foi perdido.)";
       stage++;
       break;
     case 1:
-      storyText.textContent = "(Você desperta entre escombros, com o som de respirações ofegantes e gemidos distantes. Está viva... por pouco.)";
+      storyText.textContent = "(Você desperta entre escombros. Poeira, cheiro de sangue seco e magia. Cada músculo dói, mas você ainda consegue se mover)";
       stage++;
       break;
     case 2:
       // Mostra fala dependendo de quem morreu
       if (deadCharacter === 'jake') {
         // Jake morreu → mostrar fala do Klaus
-        storyText.textContent = "(Klaus segura o grimório queimado.) — A barreira caiu. A mansão está vulnerável. Ela vai voltar, e vai ser pior.";
+        storyText.textContent = "(Klaus segura o grimório queimado, os dedos manchados de cinza e sangue.) — A barreira caiu. A mansão está vulnerável. Ela vai voltar...";
       } else if (deadCharacter === 'klaus') {
         // Klaus morreu → mostrar fala do Lucien
-        storyText.textContent = "(Lucien esfrega o sangue no próprio rosto como guerra.) — Eu vi o olhar dela. Ela quer que a gente sufoque lentamente.";
+        storyText.textContent = "(Lucien passa a mão no próprio rosto tentando limpar resquícios de sangue e poeira) — Eu vi o olhar dela. Ela não só quer vencer. Ela quer ver a gente sufocar lentamente um por um.";
       } else if (deadCharacter === 'lucien') {
         // Lucien morreu → mostrar fala do Jake
         storyText.textContent = "(Jake surge entre a fumaça, mancando.) — Aquilo... não foi uma luta. Foi um aviso. Ela está jogando com a gente.";
       } else {
-        storyText.textContent = "(Ninguém aparece. Só o eco da sua própria respiração. Você está sozinha. Ou... não?)";
+        storyText.textContent = "(Ninguém aparece. Só o eco da sua própria respiração. Por um segundo, você tem a sensação de que é a única viva naquele lugar.)";
       }
       stage++;
       break;
     case 3:
-      storyText.textContent = "(As paredes choram sangue. Criaturas das sombras se arrastam entre os vitrais, mas não atacam. Observam.)";
+      storyText.textContent = "(As paredes todas destruídas apagando toda a cena que um dia já foi bela. Criaturas das sombras se arrastam entre os vitrais, mas não atacam. Observam.)";
       stage++;
       break;
     case 4:
-      storyText.textContent = "(Você ouve algo. Um sussurro... vindo de dentro do colar. Uma voz familiar... ou ancestral?)";
+      storyText.textContent = "( Então, você ouve um sussurro vindo de dentro do colar, encostado na sua pele. Uma voz familiar... ou ancestral.)";
       stage++;
       break;
     case 5:
@@ -187,17 +187,17 @@ function chooseAction(option) {
       localStorage.setItem('lucienAffinity', lucienAffinity);
     }
 
-    storyText.textContent = "(Você se levanta com os olhos ardendo.) — Eu não corro. Não mais. (diz, empunhando a arma.)";
+    storyText.textContent = "(Você se levanta com os músculos tremendo, mas o olhar firme.) — Eu não corro. Não mais. (diz, empunhando a adaga que Klaus lhe deu.)";
   } else if (option === 2) {
     // fugir
     eliasAffinity += 1;
     localStorage.setItem('eliasAffinity', eliasAffinity);
-    storyText.textContent = "(Você escapa pela lateral da mansão, o colar pulsando em seu pescoço. Cada passo ecoa como um aviso.)";
+    storyText.textContent = "(Você encontra uma passagem lateral da mansão ainda intacta, o colar pulsando em seu pescoço a cada passo, como se marcasse o ritmo da sua covardia... Ou da sua sobrevivência.)";
   } else {
     // aceitar vínculo -> consequência (ex.: reduzir afinidade com Lucien)
     lucienAffinity = Math.max(0, lucienAffinity - 1);
     localStorage.setItem('lucienAffinity', lucienAffinity);
-    storyText.textContent = "(Você ergue o colar.) — Vem... me encara de frente.  (As sombras se agitam. Ela ouviu.)";
+    storyText.textContent = "(Você ergue o colar, sentindo a energia escura vibrar entre os dedos.) —Então vem... me encara de frente.  (As sombras ao redor se agitam. Ela ouviu.)";
   }
 
   // avança stage (vai para 9 por exemplo) e salva
@@ -209,7 +209,7 @@ function chooseAction(option) {
 
   // Mostra transição final e botão para capítulo 5
   setTimeout(() => {
-    storyText.textContent += "\n(Algo se mexe nas trevas. Ela não terminou com você. Prepare-se... o capítulo 5 começa onde a sanidade termina.)";
+    storyText.textContent += "\n(Algo se mexe nas trevas. A sensação é clara: ela ainda não terminou com você. O próximo passo não é só sobrevivência... É sanidade.)";
     choices.innerHTML = `<button class="choice-button" onclick="goToNext()">Ir para o capítulo 5</button>`;
   }, 1200);
 }
