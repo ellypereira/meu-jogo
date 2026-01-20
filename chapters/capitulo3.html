@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capitulo 3 - Otome Game</title>
+    <link rel="stylesheet" href="style3.css">
+    <link rel="shortcut icon" href="/assets/favicongame.png" type="image/x-icon">
+</head>
+<body>
+    <div id="game-container">
+
+      <div id="custom-alert" class="alert-hidden">
+  <div id="alert-box">
+    <p id="alert-message"></p>
+    <button id="alert-ok">OK</button>
+  </div>
+</div>
+
+<div id="hud-pa" class="hud-gothic">
+  <button id="btn-anuncio" class="hud-btn gothic-btn">
+    ✦  Universo
+  </button>
+</div>
+
+        <!--CAIXA DE TEXTO-->
+        <div id="text-box">
+            <div id="story-text">(A noite cai mais cedo. A mansão parece... Diferente!)</div>
+        </div>
+
+        <!--ÁREA DE ESCOLHAS-->
+        <div id="choices"></div>
+
+        <!--IMAGENS DOS PERSONAGENS-->
+       <div id="image-container">
+        <img id="scene-image" src="" alt="Cena">
+       </div>
+
+
+        <!--PAINEL DE AFINIDADE-->
+    <div id="affinity-panel">
+      ❤️ Lucien: <span id="lucien-score">0</span> |
+      💙 Elias: <span id="elias-score">0</span> |
+      🖤 Klaus: <span id="klaus-score">0</span> |
+      💚 Jake: <span id="jake-score">0</span>
+    </div>
+  </div>
+
+  <!-- Áudio de fundo -->
+  <audio id="bg-music" src="/audios/dramatic.mp3" preload="auto" loop></audio>
+
+  <script src="script3.js"></script>
+  <script src="universo.js"></script>
+
+
+    </div>
+</body>
+</html>
