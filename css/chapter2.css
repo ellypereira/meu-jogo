@@ -1,0 +1,429 @@
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* SISTEMA DE PA'S */
+/* HUD de PA – estilo pergaminho gótico */
+/* Botão de anúncio – pergaminho */
+
+
+/* HUD gótico */
+.hud-gothic {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 6px 10px;
+  border-radius: 12px;
+
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 13px;
+  color: #f5f0e5;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+}
+
+/* Texto PA */
+.pa-text {
+  font-size: 15px;
+  color: #f7d9df;
+  font-weight: 600;
+  text-shadow: 0 0 4px #c01835;
+}
+
+/* Botões */
+.hud-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+/* Estilo gótico */
+.gothic-btn {
+  background: linear-gradient(135deg, #2a0c18, #470d1f);
+  color: #f5dce4;
+  border: 1px solid rgba(255, 90, 120, 0.4);
+  text-shadow: 0 0 4px #b6253e;
+}
+
+.gothic-btn:hover {
+  background: linear-gradient(135deg, #3a0f21, #6e1533);
+  transform: translateY(-2px);
+  box-shadow: 0 0 14px rgba(220, 50, 80, 0.45);
+}
+
+
+#btn-anuncio {
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid #b08a4a;
+
+  background: linear-gradient(180deg, #f7e6c2 0%, #e2c896 45%, #d7b879 100%);
+  color: #3b2612;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Cinzel Decorative', serif;
+  letter-spacing: 0.03em;
+
+  cursor: pointer;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 4px 10px rgba(0, 0, 0, 0.7);
+  transition: transform 0.1s ease, box-shadow 0.15s ease,
+              background 0.2s ease, filter 0.2s ease;
+  white-space: nowrap;
+}
+
+#btn-anuncio:hover {
+  background: linear-gradient(180deg, #f9eed0 0%, #e6ce9e 45%, #dbbf82 100%);
+  filter: brightness(1.02);
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.5),
+    0 6px 14px rgba(0, 0, 0, 0.85);
+}
+
+#btn-anuncio:active {
+  transform: translateY(0);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+#hud-pa {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 6px 10px;
+  border-radius: 12px;
+
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 13px;
+  color: #f5f0e5;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+}
+
+#hud-pa span {
+  color: #f5f0e5;
+}
+
+
+#btn-anuncio {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer
+    font-size 12px;
+}
+
+/* Fundo escuro translúcido */
+#custom-alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Quando mostrar */
+#custom-alert.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Caixa do alerta */
+#alert-box {
+  background: linear-gradient(180deg, #1a0f1f, #320018);
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 0, 80, 0.5);
+  max-width: 320px;
+  text-align: center;
+  border: 2px solid #ff0040;
+}
+
+#alert-message {
+  margin-bottom: 20px;
+  font-size: 15px;
+  color: #eeeeee;
+  line-height: 1.4rem;
+}
+
+#alert-ok {
+  padding: 8px 25px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  background: #ff0040;
+  color: white;
+  box-shadow: 0 0 10px rgba(255, 0, 80, 0.6);
+  transition: 0.2s;
+}
+
+#alert-ok:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 15px rgba(255, 0, 120, 0.8);
+}
+
+
+/* ===== BODY (Fundo fixo e responsivo) ===== */
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background: url(../assets/quarto.png) no-repeat center center fixed;
+    background-size: cover;
+    color: #fbfbfb;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* ===== TELA DO JOGO (Background dinâmico) ===== */
+#game-screen {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1s ease;
+}
+
+/* Fundos alternativos */
+.bg-quarto {
+    background-image: url('/assets/quarto.png');
+}
+
+.bg-salao {
+    background-image: url('/assets/salão.png');
+}
+
+/* ===== CONTAINER PRINCIPAL ===== */
+#game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 500px;
+    height: 80vh;
+    padding: 20px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 9px 30px #550000, inset 0 0 10px rgba(255, 0, 0, 0.2);
+}
+
+/* ===== CAIXA DE TEXTO ===== */
+#text-box {
+    bottom: 20px;
+    left: 50%;
+    max-width: 700px;
+    width: 100%;
+    padding: 15px;
+    background: rgba(30, 0, 0, 0.85);
+    border: 2px solid #800000;
+    border-radius: 10px;
+    color: #e9dede;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    text-shadow: 0 0 5px #2a0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    cursor: pointer;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#text-box:hover {
+    background: rgba(45, 0, 0, 0.9);
+}
+
+#story-text {
+    overflow-wrap: break-word;
+    flex: 1;
+    padding-right: 10px;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    color: #f5e6e6;
+    word-break: break-word;
+}
+
+#story-text {
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
+#story-text.fade-out {
+  opacity: 0;
+}
+
+
+/* ===== BOTÕES DE ESCOLHA ===== */
+#choices {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.choice-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: linear-gradient(to right, #8b0000, #4b0000);
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.6);
+}
+
+.choice-button:hover {
+    background: linear-gradient(to right, #a30000, #660000);
+    transform: scale(1.03);
+}
+
+/* ===== CONTAINER DE IMAGENS ===== */
+#image-container {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#image-container img {
+    max-width: 90%;
+    max-height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+}
+
+/* ===== CLASSES DE VISIBILIDADE ===== */
+.hidden {
+    display: none !important;
+}
+
+.show {
+    opacity: 1;
+}
+
+.hide {
+    opacity: 0;
+}
+
+/* ===== PERSONAGENS ===== */
+.character-image, #collar-image {
+    max-height: 100%;
+    max-width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+
+/* Transições suaves */
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.character-image {
+    border: 2px solid red; /* só para testar */
+}
+
+.character-image.show,
+#collar-image.show {
+  opacity: 1;
+}
+
+/* Estilos individuais dos personagens */
+#jake-image {
+    z-index: 3;
+}
+
+#klaus-image {
+    z-index: 3;
+    filter: grayscale(40%) brightness(0.95);
+    box-shadow: 0 0 20px rgba(100, 0, 0, 0.6);
+}
+
+/* ===== ANIMAÇÃO: PULSE ===== */
+@keyframes pulse-glow {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.05);
+        box-shadow: 0 0 35px rgba(255, 0, 0, 0.8);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    }
+}
+
+
+.hidden {
+  display: none;
+}
+
+#collar-image.pulsing {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+
+/* ===== RESPONSIVIDADE (telas maiores) ===== */
+
+
+@media (max-width: 600px) {
+  #text-box {
+    font-size: 16px;
+    padding: 15px;
+    width: 95%;
+  }
+}
+

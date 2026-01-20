@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #name-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(to bottom, rgba(10, 0, 0, 0.9), rgba(30, 0, 0, 0.85)), url(/meu-jogo/assets/floresta-anime.png) no-repeat center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#name-box {
+    background-color: rgba(0, 0, 0, 0.85);
+    border: 2px solid crimson;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(200, 0, 0, 0.7);
+}
+
+.gothic-title {
+    font-family: 'Georgia', serif;
+    font-size: 2.5rem;
+    color: crimson;
+    text-shadow: 0 0 10px black;
+    margin-bottom: 10px;
+}
+
+.gothic-subtitle {
+    font-size: 1.2rem;
+    color: #ccc;
+    margin-bottom: 30px;
+    font-style: italic;
+    text-shadow: 0 0 5px #400000;
+}
+
+#name-input {
+    width: 80%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid crimson;
+    border-radius: 5px;
+    background-color: #1a0000;
+    color: #fff;
+    margin-bottom: 20px;
+    box-shadow: inset 0 0 10px #550000;
+    text-align: center;
+}
+
+#name-input::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+#startBtn {
+    padding: 12px 25px;
+    font-size: 1rem;
+    background-color: crimson;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 0 10px crimson;
+}
+
+#startBtn:hover {
+    background-color: darkred;
+    box-shadow: 0 0 20px crimson;
+}
+
+  </style>
+</head>
+<body>
+  <div id="name-screen">
+  <div id="name-box">
+    <h1 class="gothic-title">Blood and Silence</h1>
+    <p class="gothic-subtitle">Desperte das sombras...</p>
+    <input id="name-input" type="text" placeholder="Digite seu nome..." />
+    <button id="startBtn">Entrar na Escuridão</button>
+  </div>
+</div>
+
+</body>
+</html>
