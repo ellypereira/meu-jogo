@@ -1,0 +1,402 @@
+/* =========================
+   RESET & BASE
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  font-family: 'Cinzel Decorative', Georgia, serif;
+  overflow: hidden;
+  color: #fff;
+}
+
+/* =========================
+   GAME CONTAINER
+========================= */
+#game-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+#background {
+  position: absolute;
+  inset: 0;
+  background: url("/assets/bg-floresta.png") center/cover no-repeat;
+  z-index: 1;
+}
+
+/* =========================
+   TELA DE NOME / INTRO
+========================= */
+
+#chapter-end {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+#chapter-end h2 {
+  font-family: 'Cinzel Decorative', serif;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+
+
+#name-screen {
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(
+      rgba(0,0,0,0.85),
+      rgba(0,0,0,0.95)
+    ),
+    url("/assets/bg-floresta.png") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+/* Caixa central */
+#name-box {
+  background: rgba(0,0,0,0.75);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 0 40px rgba(0,0,0,0.9);
+  padding: 40px 35px;
+  border-radius: 22px;
+  text-align: center;
+  width: 90%;
+  max-width: 420px;
+  animation: fadeIn 1.2s ease;
+}
+
+/* Título */
+.gothic-title {
+  font-size: 34px;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+  color: #f2e6e6;
+  text-shadow: 0 0 12px rgba(120,0,0,0.6);
+}
+
+/* Subtítulo */
+.gothic-subtitle {
+  font-size: 14px;
+  margin-bottom: 26px;
+  color: #cfcfcf;
+  letter-spacing: 1px;
+  font-style: italic;
+}
+
+/* Input do nome */
+#name-input {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: none;
+  outline: none;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  font-size: 15px;
+  font-family: 'Cinzel Decorative', serif;
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+#name-input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+/* Botão iniciar */
+#startBtn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-family: 'Cinzel Decorative', serif;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #7b1d1d, #b02a2a);
+  color: white;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  transition: 0.3s;
+}
+
+#startBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.8);
+}
+
+
+/* =========================
+   PERSONAGENS
+========================= */
+.character,
+#silhouette {
+  position: absolute;
+  bottom: -80px;
+  height: 85vh;
+  opacity: 0;
+  display: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 5;
+  pointer-events: none;
+}
+
+#lucien {
+  left: 70%;
+  transform: translateX(-40%);
+}
+
+#elias {
+  left: 30%;
+  transform: translateX(-60%);
+}
+
+#silhouette {
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.8;
+}
+
+/* =========================
+   BALÃO DE FALA
+========================= */
+#speech-bubble {
+  position: absolute;
+  top: 18%;
+  max-width: 320px;
+  background: rgba(255,255,255,0.35);
+  color: #1e1e1e;
+  padding: 16px 20px;
+  border-radius: 18px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+  z-index: 20;
+  animation: fadeIn 0.3s ease;
+}
+
+#speech-text {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.hidden {
+  display: none;
+}
+
+.bubble-right {
+  left: 46%;
+}
+
+.bubble-left {
+  left: 20%;
+}
+
+.bubble-right::after {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 20px;
+  border-width: 8px 14px 8px 0;
+  border-style: solid;
+  border-color: transparent rgba(255,255,255,0.35) transparent transparent;
+}
+
+.bubble-left::after {
+  content: "";
+  position: absolute;
+  right: -14px;
+  top: 26px;
+  border-width: 8px 0 8px 14px;
+  border-style: solid;
+  border-color: transparent transparent transparent rgba(255,255,255,0.35);
+}
+
+/* =========================
+   CAIXA DE TEXTO / NARRADOR
+========================= */
+#text-box {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 86%;
+  background: rgba(0,0,0,0.7);
+  border-radius: 16px;
+  padding: 20px;
+  font-size: 16px;
+  line-height: 1.6;
+  z-index: 15;
+  cursor: pointer;
+}
+
+#story-text {
+  text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+}
+
+/* =========================
+   ESCOLHAS
+========================= */
+#choices {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gothic-btn {
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+
+.gothic-btn:hover {
+  background: rgba(120,0,0,0.8);
+  transform: scale(1.03);
+}
+
+/* =========================
+   BOTÃO PRÓXIMO EPISÓDIO
+========================= */
+#next-episode-btn {
+  position: absolute;
+  bottom: 12%;
+  right: 5%;
+  padding: 14px 22px;
+  border-radius: 30px;
+  border: none;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 15px;
+  background: linear-gradient(135deg, #7b1d1d, #b02a2a);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+  z-index: 30;
+}
+
+
+#choices {
+  margin-top: 20px;
+}
+
+
+#next-episode-btn:hover {
+  transform: scale(1.05);
+}
+
+#chapter-end h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
+  text-shadow: 0 0 15px rgba(120,0,0,0.7);
+}
+
+
+/* =========================
+   HUD / AFINIDADE
+========================= */
+#affinity-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-size: 13px;
+  z-index: 20;
+}
+
+#affinity-panel h4 {
+  margin-bottom: 6px;
+}
+
+#affinity-message {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #ffb3b3;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* =========================
+   FADE / SHAKE
+========================= */
+#fade-screen {
+  position: absolute;
+  inset: 0;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+  z-index: 50;
+}
+
+.shake {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(-6px,4px); }
+  50% { transform: translate(6px,-4px); }
+  75% { transform: translate(-4px,6px); }
+  100% { transform: translate(0,0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================
+   VOLUME BUTTON
+========================= */
+#volume-toggle {
+  position: absolute;
+  top: 4%;
+  left: 3%;
+  background: rgba(0,0,0,0.6);
+  border: none;
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 40;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 768px) {
+  .character { height: 60vh; }
+  #speech-bubble { max-width: 240px; font-size: 13px; }
+  #text-box { font-size: 14px; }
+}
+
+@media (max-width: 480px) {
+  .character { height: 38vh; }
+  #speech-bubble { top: 55%; }
+}

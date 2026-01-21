@@ -1,9 +1,10 @@
 // ========================
 // 🎮 BLOOD AND SILENCE 🎮
 // ========================
+
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 🔗 Seleção de Elementos (IDs sincronizados com seu HTML)
+    // 🔗 Seleção de Elementos
     const storyText = document.getElementById('story-text');
     const textBox = document.getElementById('text-box');
     const choicesContainer = document.getElementById('choices');
@@ -20,12 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const lucienImg = document.getElementById("lucien");
     const eliasImg = document.getElementById("elias");
 
-    // 🔧 Variáveis de Controle
+    // Variáveis de Controle
     let isMuted = false;
-    let currentMusic = 'null';
+    let currentMusic = null;
     let waitingForChoice = false;
     const STAGE_KEY = 'bs_stage_v1';
-    
+    let canAdvance = true;
+
     // Carrega o estágio salvo ou começa do 0
     let stage = parseInt(localStorage.getItem(STAGE_KEY), 10) || 0;
 
@@ -34,12 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
         Lucien: 0, Elias: 0, Klaus: 0, Jake: 0
     };
 
-    // --- FUNÇÕES DE INTERFACE SEGURAS ---
+    // --- FUNÇÕES DE INTERFACE ---
 
     function showCharacter(char) {
         if (char) {
             char.style.display = "block";
-            // Pequeno delay para a transição de opacidade funcionar
             setTimeout(() => { char.style.opacity = "1"; }, 50);
         }
     }
@@ -55,10 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showSpeech(character, text) {
         if (!speechBubble || !textBox) return;
-        
+
         textBox.style.display = "none";
         speechBubble.classList.remove("hidden", "bubble-left", "bubble-right");
-        
+
         hideCharacters();
 
         if (character === "lucien") {
@@ -68,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showCharacter(eliasImg);
             speechBubble.classList.add("bubble-left");
         }
-        
+
         speechText.textContent = text;
     }
 
@@ -80,69 +81,86 @@ document.addEventListener('DOMContentLoaded', () => {
         storyText.textContent = text;
     }
 
-    // --- LÓGICA DA HISTÓRIA ---
+    // --- FUNÇÃO INICIAR JOGO ---
+    window.startGame = function () {
+        const nameInput = document.getElementById("name-input");
+        const name = nameInput.value.trim();
 
+        if (!name) {
+            alert("Digite seu nome...");
+            return;
+        }
+
+        localStorage.setItem("playerName", name);
+        document.getElementById("name-screen").style.display = "none";
+
+        // Reset stage para começar do começo
+        stage = 0;
+        nextScene();
+    };
+
+    // --- LÓGICA DA HISTÓRIA ---
     function nextScene() {
         if (waitingForChoice) return;
 
-        // Gasta 1 PA (Sistema externo pa-system.js)
-        if (typeof tentarGastarPA === "function") {
-            if (!tentarGastarPA(1)) return; 
-        }
+        const playerName = localStorage.getItem("playerName") || "???";
 
         switch (stage) {
             case 0:
-                narrator("Eu não deveria estar ali. Sabia disso desde o momento em que decidi sair sem rumo...");
+                narrator(`Meu nome é ${playerName}... e aquele foi o começo do fim.`);
                 break;
             case 1:
-                narrator("A floresta foi ficando mais densa, o ar mais frio, e percebi que não reconhecia mais o caminho.");
+                narrator("Eu não deveria estar ali. Sabia disso desde o momento em que decidi sair sem rumo...");
                 break;
             case 2:
+                narrator("A floresta foi ficando mais densa, o ar mais frio, e percebi que não reconhecia mais o caminho.");
+                break;
+            case 3:
                 narrator("Foi então que senti... Olhares.");
                 showCharacter(silhouette);
                 break;
-            case 3:
+            case 4:
                 showSpeech("lucien", "— Hum... Humana perdida?");
                 break;
-            case 4:
+            case 5:
                 showSpeech("elias", "— Ela está assustada. Devemos ajudá-la.");
                 break;
-            case 5:
+            case 6:
                 narrator("Meu coração dispara. Eles não pareciam pessoas comuns. Havia algo elegante e perigoso neles.");
                 break;
-            case 6:
+            case 7:
                 narrator("(Instinto puro toma conta. Antes que eu pudesse pensar, comecei a correr.)");
                 break;
-            case 7:
+            case 8:
                 screenShake();
                 narrator("*PUM!* (Tropeço em uma raiz. O chão some e tudo escurece.)");
                 fadeToBlackAndBack();
                 break;
-            case 8:
-                // Mudança para o quarto
+            case 9:
                 narrator("(Acordo em um lugar diferente. Cheiro de velas e madeira antiga.)");
                 if (currentMusic !== 'quarto') playMusic('quarto');
                 break;
-            case 9:
+            case 10:
                 showSpeech("lucien", "— Dorminhoca. Achei que acordaria gritando.");
                 break;
-            case 10:
+            case 11:
                 showSpeech("elias", "— Lucien... vá com calma. Ela acabou de despertar.");
                 break;
-            case 11:
+            case 12:
                 showFirstChoices();
                 return; // Pausa para escolha
-            case 12:
+            case 13:
                 narrator("O silêncio que se seguiu foi pesado. Algo antigo acabara de despertar.");
                 break;
-            case 13:
+            case 14:
                 showSpeech("elias", "— Você carrega o colar... A Guardiã.");
                 break;
-            case 14:
+            case 15:
                 showFinalChoices();
                 return;
             default:
                 narrator("Fim do Capítulo 1.");
+                document.getElementById('chapter-end').style.display = "flex";
                 document.getElementById('next-episode-btn').style.display = "block";
                 return;
         }
@@ -151,8 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem(STAGE_KEY, stage);
     }
 
-    // --- SISTEMA DE ESCOLHAS ---
-
+    // --- ESCOLHAS ---
     function showFirstChoices() {
         waitingForChoice = true;
         choicesContainer.innerHTML = `
@@ -164,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.makeChoice = function(char, points) {
         waitingForChoice = false;
         choicesContainer.innerHTML = '';
-        
+
         if (char === 'lucien') {
             affinity.Lucien += points;
             showAffinityMessage("+1 Afinidade com Lucien ❤️");
@@ -172,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
             affinity.Elias += points;
             showAffinityMessage("+1 Afinidade com Elias 💙");
         }
-        
+
         updateAffinityPanel();
         stage++;
         nextScene();
@@ -186,7 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- UTILITÁRIOS ---
-
     function playMusic(type) {
         musicFloresta.pause();
         musicQuarto.pause();
@@ -219,8 +235,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- INICIALIZAÇÃO ---
-
-    // Volume Toggle
     volumeBtn.addEventListener('click', () => {
         isMuted = !isMuted;
         musicFloresta.muted = isMuted;
@@ -228,12 +242,13 @@ document.addEventListener('DOMContentLoaded', () => {
         volumeBtn.textContent = isMuted ? '🔇' : '🔊';
     });
 
-    // Clique na tela para avançar
     textBox.addEventListener('click', nextScene);
     speechBubble.addEventListener('click', nextScene);
 
-    // Iniciar primeira cena
+    // Atualiza painel de afinidade
     updateAffinityPanel();
-    narrator("Clique na caixa de texto para começar...");
+
+    // Inicia música de fundo
     playMusic('floresta');
+
 });
